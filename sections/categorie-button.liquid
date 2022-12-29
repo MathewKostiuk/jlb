@@ -1,0 +1,347 @@
+{%- assign item = section.settings -%}
+
+{%- assign str_blocks_title = '|' -%}
+{%- assign str_blocks_title_drag = '|' -%}
+{%- for block in section.blocks -%}
+{%- assign str_blocks_title = str_blocks_title | append: block.settings.linklist | append: '_' | append: forloop.index0 -%}
+{%- unless forloop.last -%}{%- assign str_blocks_title = str_blocks_title | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+{%- for block in section.blocks -%}
+{%- assign str_blocks_title_drag = str_blocks_title_drag | append: block.settings.newnavigation_item | append: '_' | append: forloop.index0 -%}
+{%- unless forloop.last -%}{%- assign str_blocks_title_drag = str_blocks_title_drag | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+[PARTMOBILE]
+{%- include "main-menu-mobilecat" mm: item.main_menu_selected -%}
+[/PARTMOBILE]
+[PART]
+<div class="categories-btn">
+  <button>
+    {{ item.button_name }}<i class="icon-e-13"></i><i class="icon-e-16"></i>
+  </button>
+  <div class="tt-dropdown-menu">
+    {%- include "main-menu-cat" -%}
+  </div>
+</div>
+[/PART]
+
+{% schema %}
+  {
+    "name": "Header Categorie Button",
+    "settings": [
+      {
+        "type": "header",
+        "content": "After saving the page you will see the changes!!!"
+      },
+      {
+        "type": "text",
+        "id": "button_name",
+        "label": "Button name",
+        "default": "CATEGORIES"
+      },
+      {
+        "type": "header",
+        "content": "Categorie Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu_selected",
+        "label": "Categorie Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": "Separate your svg icons with menu item by number"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_1",
+        "label": "Menu item 1. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_2",
+        "label": "Menu item 2. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_3",
+        "label": "Menu item 3. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_4",
+        "label": "Menu item 4. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_5",
+        "label": "Menu item 5. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_6",
+        "label": "Menu item 6. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_7",
+        "label": "Menu item 7. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_8",
+        "label": "Menu item 8. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_9",
+        "label": "Menu item 9. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_10",
+        "label": "Menu item 10. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_11",
+        "label": "Menu item 11. Paste svg code"
+      },
+      {
+        "type": "textarea",
+        "id": "svg_item_12",
+        "label": "Menu item 12. Paste svg code"
+      }
+	],
+	"blocks": [
+      {
+        "type": "menu_two_columns",
+        "name": "Simple submenu 2 columns",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select menu item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=1"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main menu item full name",
+			"info": "Work with new admin panel drag menu. Copy and paste full item name from main menu. Drop-down limit=1"
+          }
+        ]
+      },
+      {
+        "type": "ms_simplewithtitle",
+        "name": "Simple submenu with title",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select menu item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=1"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main menu item full name",
+			"info": "Work with new admin panel drag menu. Copy and paste full item name from main menu. Drop-down limit=1"
+          }
+        ]
+      },
+      {
+        "type": "megamenu",
+        "name": "Megamenu",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "megamenu_size",
+            "label": "Big width size",
+            "default": true,
+			"info": "Uncheck = smaller megamenu width size"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select Menu Item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=4"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main Menu Item Full Name",
+			"info": "Work with new admil panel drag menu. Copy and paste full item name from main menu. Drop-down limit=2"
+          },
+          {
+            "type": "select",
+            "id": "grid",
+            "label": "Items In Row",
+            "options": [
+              {
+                "value": "2",
+                "label": "6"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "3"
+              }
+            ],
+            "default": "4"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Categorie Images"
+          },
+          {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Image Item 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "Image Item 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image3",
+            "label": "Image Item 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image4",
+            "label": "Image Item 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "image5",
+            "label": "Image Item 5"
+          },
+          {
+            "type": "image_picker",
+            "id": "image6",
+            "label": "Image Item 6"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Bottom Banners"
+          },
+          {
+            "type": "select",
+            "id": "banners_grid",
+            "label": "Show Banners",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "customhtml",
+                "label": "Custom Html"
+              },
+              {
+                "value": "12",
+                "label": "1"
+              },
+              {
+                "value": "6",
+                "label": "2"
+              }
+            ],
+            "default": "6"
+          },
+          {
+            "type": "textarea",
+            "id": "html",
+            "label": "Custom Html",
+            "info": "Paste your html code. Banners Off.",
+            "default": "Custom Html"
+          },
+          {
+            "type": "url",
+            "id": "banner1_url",
+            "label": "Banner 1 Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "bottombanners_img_1",
+            "label": "Image 1",
+            "info": "Image must be JPG, 542 x 160 Px"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit1",
+            "label": "Title 1",
+            "default": "SUMMER <span class=\"tt-base-color\">2019<\/span>"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit11",
+            "label": "Title 2",
+            "default": "NEW ARRIVALS"
+          },
+          {
+            "type": "color",
+            "id": "color_11",
+            "label": "Title 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "color_12",
+            "label": "Title 2 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "url",
+            "id": "banner2_url",
+            "label": "Banner 2 Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "bottombanners_img_2",
+            "label": "Image 2",
+            "info": "Image must be JPG, 542 x 160 Px"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit2",
+            "label": "Title 1",
+            "default": "CLEARANCE SALES"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit21",
+            "label": "Title 2",
+            "default": "GET UP TO 20% OFF"
+          },
+          {
+            "type": "color",
+            "id": "color_21",
+            "label": "Title 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "color_22",
+            "label": "Title 2 Color",
+            "default": "#ffffff"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

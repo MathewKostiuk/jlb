@@ -1,0 +1,30 @@
+<!-- tt-search -->
+<div class="tt-desctop-parent-search tt-parent-box">
+  <div class="tt-search tt-dropdown-obj">
+    <button class="tt-dropdown-toggle header-search-custom-icon header-custom-icon"
+            data-tooltip="{{ 'general.tooltip_texts.header_search' | t }}"
+            data-tposition="bottom"
+            >
+    </button>
+    <div class="tt-dropdown-menu">
+      <div class="container">
+        <form action="/search" method="get" role="search">
+          <div class="tt-col">
+            <input type="hidden" name="type" value="product" />
+            <input class="tt-search-input"
+                   type="search"
+                   name="q"
+                   placeholder="{{ 'general.search.place_holder' | t }}"
+                   aria-label="{{ 'general.search.place_holder' | t }}">
+            <button type="submit" class="tt-btn-search"></button>
+          </div>
+          <div class="tt-col">
+            <button class="tt-btn-close icon-f-84"></button>
+          </div>
+          <div class="tt-info-text">{{ 'general.search.header_message' | t }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /tt-search -->

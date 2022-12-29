@@ -1,0 +1,72 @@
+{%- unless settings.catalogue_mode -%}
+{%- if template != "cart" -%}
+
+<!-- tt-cart -->
+<div class="tt-desctop-parent-cart tt-parent-box">
+  <div class="tt-cart tt-dropdown-obj">
+    <button class="tt-dropdown-toggle header-bag-custom-icon header-custom-icon"
+            data-tooltip="{{ 'general.tooltip_texts.header_cart' | t }}"
+            data-tposition="bottom"
+            >
+      {% if item.ca_text != '' %}<span class="tt-text">
+      {{ item.ca_text }}
+      </span>{% endif %}
+      <span class="tt-badge-cart{% if cart.item_count == 0 %} hide{% endif %}">{{ cart.item_count }}</span>
+    </button>
+
+    <div class="tt-dropdown-menu">
+      <div class="tt-mobile-add">
+        <h6 class="tt-title">{{ 'cart.header.title' | t }}</h6>
+        <button class="tt-close">{{ 'cart.header.close' | t }}</button>
+      </div>
+      <div class="tt-dropdown-inner">
+        <div class="tt-cart-layout">
+          <div class="tt-cart-content">
+
+            <a href="/cart" class="tt-cart-empty{% if cart.item_count > 0 %} hide{% endif %}" title="{{ 'cart.header.view_cart' | t }}">
+              <i class="icon-f-39"></i>
+              <p>{{ 'cart.header.empty_cart' | t }}</p>
+            </a>
+            
+            <div class="tt-cart-box{% if cart.item_count == 0 %} hide{% endif %}">
+              <div class="tt-cart-list">
+                {%- for item in cart.items -%}{%- include "menu-cart-item" length: forloop.index -%}{%- endfor -%}
+              </div>
+              <div class="flex-align-center header-cart-more-message-js"{% if cart.items.size <= 3 %} style="display: none;"{% endif %}>
+                <a href="/cart" class="btn-link-02" title="{{ 'cart.header.view_cart' | t | capitalize }}">{{ 'cart.header.view_cart_all' | t }}</a>
+              </div>
+              <div class="tt-cart-total-row">
+                <div class="tt-cart-total-title">{{ 'cart.header.total' | t }}</div>
+                <div class="tt-cart-total-price">{{ cart.total_price | money }}</div>
+              </div>
+              {% if settings.terms_cond_checkbox_show %}
+              <div class="checkbox-group m-term-conditions-checkbox term-conditions-checkbox-js">
+                <input type="checkbox" id="cart-term-conditions-checkbox" value="1">
+                <label for="cart-term-conditions-checkbox">
+                  <span class="check"></span>
+                  <span class="box"></span>
+                  {{ settings.terms_cond_checkbox_text }}
+                </label>
+              </div>
+              {% endif %}
+              <div class="tt-cart-btn">
+                <div class="tt-item">
+                  <a href="/checkout" class="btn{% if settings.terms_cond_checkbox_show %} disabled{% endif %}">{{ 'cart.header.checkout' | t }}</a>
+                </div>
+                <div class="tt-item">
+                  <a href="/cart" class="btn-link-02">{{ 'cart.header.view_cart' | t }}</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {%- include "menu-cart-item-empty" -%}
+    </div>
+  </div>
+</div>
+<!-- /tt-cart -->
+
+{%- endif -%}
+{%- endunless -%}

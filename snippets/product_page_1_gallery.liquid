@@ -1,0 +1,125 @@
+{%- assign op_group = false -%}
+{%- assign product_meta_g = product.metafields.productgallery -%}
+{%- if product_meta_g.group != blank -%}
+{%- assign op_group = product_meta_g.group | split: ',' -%}
+{%- endif -%}
+
+{%- case type -%}
+{%- when 'four_images' -%}
+<div class="col-6 hidden-xs">
+  <div class="product-images-col four-images-js{% if item.stickygallery %} stickprcol-js{% endif %} no-zoom">
+
+	{%- for img in product.images -%}{% if img == product.selected_variant.image %}{% assign start_l = forloop.index0 %}{% break %}{% endif %}{%- endfor -%}
+
+    {%- for image in product.images offset: start_l limit: 4 -%}
+    <div class="item">
+      <img class="zoom-product" src='{{ image.src | product_img_url: '600x' }}' alt="{{ image.alt }}">
+    </div>
+    {%- endfor -%}
+    {%- unless product_meta.video == blank -%}
+    <div class="item">
+      <div data-value="{{ product_meta.video }}" class="video-link-product" data-toggle="modal" data-type="youtube" data-target="#modalVideoProduct">
+        <i class="icon-f-32"></i>
+      </div>
+    </div>
+    {%- endunless -%}
+  </div>
+</div>
+
+{%- when 'vertical' -%}
+<div class="col-6 hidden-xs">
+  <div class="tt-product-vertical-layout{% if item.stickygallery %} stickprcol-js{% endif %}">
+    <div class="tt-product-single-img no-zoom"{% if item.show_thumbnails == false or product.images.size == 1 %} style="width: 100%;"{% endif %}>
+      <div>
+        <img class="zoom-product"
+             src='{{ main_url_image.src | product_img_url: '1024x1024' }}'
+             data-zoom-image="{{ main_url_image | product_img_url: '2048x2048' }}"
+             alt="{{ main_url_image.alt | escape }}" />
+      </div>
+    </div>
+
+    {%- if item.show_thumbnails and product.images.size > 1 -%}
+    <div class="tt-product-single-carousel-vertical">
+      <ul id="smallGallery" class="tt-slick-button-vertical slick-animated-show-js{% if op_group != false %} withfiltres{% endif %}">
+        {%- assign vfilter = '' -%}
+        {%- for image in product.images -%}
+        {%- if op_group != false -%}{%- assign _v = 'filter' | append: op_group[forloop.index0] | replace: ' ', '_' -%}{%- endif -%}
+        <li class="{{ _v }}">
+          <a href="#"{% if forloop.first %} class="zoomGalleryActive"{% endif %} data-image="{{ image.src | product_img_url: '1024x1024' }}" data-zoom-image="{{ image.src | product_img_url: '2048x2048' }}" data-target="{{ image.id }}">
+            <img srcset="{{ image.src | product_img_url: '300x' }}" data-lazy="{{ image.src | product_img_url: 'medium' }}" alt="{{ image.alt }}">
+          </a>
+        </li>
+        {%- if op_group != false -%}{%- assign vfilter = vfilter | replace: _v, ' ' | append: _v | append: ' ' -%}{%- endif -%}
+        {%- endfor -%}
+        {%- assign vfilter = '<li class="' | append: vfilter | append: '">' -%}
+        {% include 'product_page_gallery_video' tagopen:vfilter tagclose:'</li>' %}
+      </ul>
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- when 'mobile' -%}
+<div class="tt-mobile-product-slider visible-xs arrow-location-center slick-animated-show-js{% if op_group != false %} withfiltres{% endif %}">
+  {%- assign vfilter = '' -%}
+  {%- for image in product.images %}
+  	{%- if op_group != false -%}{%- assign _v = 'filter' | append: op_group[forloop.index0] | replace: ' ', '_' -%}{%- endif -%}
+  	<div class="{{ _v }}">
+      <img class="zoom-product"
+      data-gallery-image
+      data-gallery-image-mobile
+      data-gallery-index="{{ forloop.index0 }}"
+      data-gallery-selected="{%- if selected_variant.featured_media.id == image.id -%}true{%- else -%}false{%- endif -%}"
+      data-media="{{ image.id }}"
+      data-zoom="{{ image | img_url: 'master' }}"
+      srcset="{{ image.src | product_img_url: '600x' }}"
+      data-lazy="{{ image.src | product_img_url: '1024x1024' }}"
+      alt="{{ image.alt }}"{% if item.gallery_type == 'four_images' %}
+      data-target="{{ image.id }}"{% endif %}
+      data-image-height="{{ image.height }}"
+      data-image-width="{{ image.width }}"
+    >
+    </div>
+  	{%- if op_group != false -%}{%- assign vfilter = vfilter | replace: _v, ' ' | append: _v | append: ' ' -%}{%- endif -%}
+  {%- endfor -%}
+
+</div>
+{%- else -%}
+<div class="col-6 hidden-xs">
+  {% if item.stickygallery %}<div class="stickprcol-js">{% endif %}
+    <div class="tt-product-single-img no-zoom">
+      <div>
+        <img class="zoom-product" src='{{ main_url_image.src | product_img_url: '1024x1024' }}' data-zoom-image="{{ main_url_image | product_img_url: '2048x2048' }}" alt="{{ main_url_image.alt | escape }}" />
+      </div>
+    </div>
+
+    {%- if item.show_thumbnails and product.images.size > 1 -%}
+    <div class="product-images-carousel">
+      <ul id="smallGallery" class="arrow-location-02 slick-animated-show-js{% if op_group != false %} withfiltres{% endif %}">
+        {%- assign vfilter = '' -%}
+        {%- for image in product.images -%}
+        {%- if op_group != false -%}{%- assign _v = 'filter' | append: op_group[forloop.index0] | replace: ' ', '_' -%}{%- endif -%}
+        <li class="{{ _v }}">
+          <a href="#"{% if forloop.first %} class="zoomGalleryActive"{% endif %} data-image="{{ image.src | product_img_url: '1024x1024' }}" data-zoom-image="{{ image.src | product_img_url: '2048x2048' }}" data-target="{{ image.id }}">
+            <img
+            class="product-gallery--media-thumbnail"
+            data-image-thumbnail
+            data-gallery-index="{{ forloop.index0 }}"
+            data-gallery-selected="{%- if selected_variant.featured_media.id == image.id -%}true{%- else -%}false{%- endif -%}"
+            data-media-type="{{ image.media_type }}"
+            srcset="{{ image.src | product_img_url: '75x' }}"
+            data-lazy="{{ image.src | product_img_url: 'medium' }}"
+            alt="{{ image.alt }}">
+          </a>
+        </li>
+        {%- if op_group != false -%}{%- assign vfilter = vfilter | replace: _v, ' ' | append: _v | append: ' ' -%}{%- endif -%}
+        {%- endfor -%}
+        {%- assign vfilter = '<li class="' | append: vfilter | append: '">' -%}
+        {% include 'product_page_gallery_video' tagopen:vfilter tagclose:'</li>' %}
+      </ul>
+    </div>
+    {%- endif -%}
+  {% if item.stickygallery %}</div>{% endif %}
+</div>
+{%- endcase -%}

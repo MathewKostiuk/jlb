@@ -1,0 +1,72 @@
+/* Weglot APP */
+.wg-default{
+  display: none !important;
+}
+.menu_language_holder.wg-default{
+  display: block !important;
+  position: relative;
+  right: auto;
+  padding: 16px 30px 16px 31px;
+}
+@media (min-width: 1025px){
+  .menu_language_holder.wg-default{
+    padding: 0;
+  }
+  .wg-drop.country-selector a{
+    height: 28px;
+  }
+}
+.wg-drop.country-selector a{
+  padding: 0;
+  color: {{ settings.color_header_icons_dp_text }};
+}
+@media (max-width: 1024px){
+  .wg-drop.country-selector a{
+    height: 40px;
+  }
+  .wg-drop.country-selector a{
+    padding: 0;
+    color: {{ settings.color_header_mobile_link }};
+  }
+}
+.menu_language_holder.wg-default, .menu_language_holder.wg-default .country-selector{
+  position: relative;
+  right: 0;
+  width: 100%;
+}
+.wg-drop.country-selector .wgcurrent:after {
+  right: 0;
+}
+.wg-drop.country-selector .wgcurrent{
+  border: none;
+}
+.menu_language_holder ul{
+  margin-top: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+.menu_language_holder ul a{
+  padding: 0 !important;
+}
+.wg-default .wg-drop.country-selector a{
+  font-size: 14px;
+}
+.wg-drop.country-selector.closed ul,
+.wg-drop.country-selector ul {
+  display: block;
+  background: none !important;
+}
+.wg-drop.country-selector .wgcurrent:after{
+  content: none !important;
+}
+.wg-drop.country-selector .wgcurrent a,
+.wg-drop.country-selector:not(.closed) a:hover,
+.wg-drop.country-selector a:hover{
+  color: {{ settings.color_base }};
+}
+.wg-drop.country-selector ul{
+  position: relative;
+}
+.wg-flags.flag-1 a:before{
+  content: none !important;
+}

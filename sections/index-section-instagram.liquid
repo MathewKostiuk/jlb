@@ -1,0 +1,134 @@
+{%- assign item = section.settings -%}
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent">
+  <div class="container{% if item.fullwidth %}-fluid{% endif %}" data-sectionname="index_instagram">
+    {%- if item.show_titles -%}
+    <div class="tt-block-title">
+      <h2 class="tt-title">{{ item.text1 }}</h2>
+      {%- unless item.text2 == '' -%}<div class="tt-description">{{ item.text2 }}</div>{%- endunless -%}
+    </div>
+    {%- endif -%}
+    <div class="row">
+      <div id="instafeed-{{ section.id }}" class="{% if item.in_line %}instafeed-fluid{% else %}instafeed-col{% if item.grid_6 %} instafeed-col-item-06{% endif %}{% endif %}" data-userid="{{ section.settings.userid }}" data-clientid="{{ section.settings.clientid }}" data-accesstoken="{{ section.settings.accesstoken }}" data-count="{{ section.settings.count }}"></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Instagram",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "top_offset",
+      "label": "Top Offset",
+      "default": "normal",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "in_line",
+      "label": "Design in line",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "grid_6",
+      "label": "Grid view. 6 in row",
+      "default": false,
+	  "info": "Default = 4 in row"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth size",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "userid",
+      "label": "User Id",
+      "default": "8185238493",
+	  "info": "[Get a Instagram Client_ID key](http:\/\/darkwhispering.com\/how-to\/get-a-instagram-client_id-key)"
+    },
+    {
+      "type": "text",
+      "id": "clientid",
+      "label": "Client Id",
+      "default": "e62e102e7ba5426daf3f1ee80cd91434",
+	  "info": "[Get Instagram User Id](http:\/\/www.ershad7.com\/InstagramUserID)"
+    },
+    {
+      "type": "text",
+      "id": "accesstoken",
+      "label": "Access Token",
+      "default": "8185238493.e62e102.9760a60f45754a33bef03fe25e148f2e",
+	  "info": "[Instagram access token generator](https:\/\/elfsight.com\/service\/generate-instagram-access-token)"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Instagram access token](https:\/\/elfsight.com\/blog\/2016\/05\/how-to-get-instagram-access-token/)"
+    },
+    {
+      "type": "text",
+      "id": "count",
+      "label": "Images Count",
+      "default": "6",
+	  "info": "Integer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_titles",
+      "label": "Show titles",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Title",
+      "default": "<a target=\"_blank\" href=\"https:\/\/www.instagram.com\/wokieeshopify\">@ FOLLOW<\/a> US ON"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Description",
+      "default": "INSTAGRAM"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram",
+      "category": "Instagram"
+    }
+  ]
+}
+{% endschema %}
+{% stylesheet %}
+@media (min-width: 790px){
+  .instafeed-col.instafeed-col-item-06 > *{
+    width: calc(16.6666% - 20px);
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+}
+@media (min-width: 576px) and (max-width: 789px){
+  .instafeed-col.instafeed-col-item-06 > *{
+    width: calc(25% - 20px);
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+}
+{% endstylesheet %}

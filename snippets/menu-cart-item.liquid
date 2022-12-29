@@ -1,0 +1,21 @@
+<div class="tt-item"{% if length > 3 %} style="display: none;"{% endif %}>
+  <a href="{{item.url}}" title="{{ 'cart.header.view_product' | t }}">
+    <div class="tt-item-img">
+      <img src="{{ item.image | product_img_url: 'small' }}" alt="{{ item.image.alt }}">
+    </div>
+    <div class="tt-item-descriptions">
+      <h2 class="tt-title">{{item.product.title}}</h2>
+      {%- if item.variant.title != 'Default Title' -%}
+      <ul class="tt-add-info">
+        <li class="details">{{ item.variant.title | replace: ' / ', ', ' }}</li>
+      </ul>
+      {%- endif -%}
+      <div class="tt-quantity">{{ item.quantity }} X</div> <div class="tt-price">{{item.price | money}}</div>
+    </div>
+  </a>
+  <div class="tt-item-close">
+    <a href="/cart/change?id={{ item.variant.id }}&quantity=0" class="tt-btn-close svg-icon-delete header_delete_cartitem_js" title="{{ 'cart.header.button_delete' | t }}">
+      {% include "svg-delete-icon" %}
+    </a>
+  </div>
+</div>

@@ -1,0 +1,245 @@
+{%- if settings.show_product_options and product.options.size < 4 -%}{%- unless product.options[0] contains 'Title' -%}
+<div class="tt-option-block">
+  {%- assign option1 = -1 -%}
+  {%- assign option2 = -1 -%}
+  {%- assign option3 = -1 -%}
+
+  {%- for option in product.options -%}
+	{%- if option1 == -1 -%}{%- assign option1 = forloop.index0 -%}
+	{%- elsif option2 == -1 -%}{%- assign option2 = forloop.index0 -%}
+	{%- elsif option3 == -1 -%}{%- assign option3 = forloop.index0 -%}
+	{%- endif -%}
+  {%- endfor -%}
+
+  {%- capture options_array -%}{%- for variant in product.variants -%}{{ variant.option1 }}|-|{{ variant.available }}_||{%- if variant.option2 != blank -%}%%{{ variant.option2 }}|--|{{ variant.available }}{%- endif -%}{%- unless forloop.last -%}___{%- endunless -%}{%- endfor -%}{%- endcapture -%}
+
+  {%- assign options_array = options_array | split: '___' -%}
+  {%- assign str_opts = '' -%}
+  {%- assign str_opts2 = '' -%}
+  {%- for opt_a in options_array -%}
+  {%- assign opt1_name = opt_a | split: '|-|' | first -%}  
+  {%- assign temp = '___' | append: opt1_name | append: '==' -%}
+  {%- assign temp2 = '___' | append: opt_a | split: '|-|' | last | split: '_||' | first -%}
+  {%- if opt_a contains '%%' -%}
+  {%- assign opt2_name = opt_a | split: '%%' | last | split: '|--|' | first -%}
+  {%- assign opt2_name = '___' | append:opt1_name | replace: ' ', '' | append: opt2_name | append: '==' -%}
+  {%- assign opt2_value = '___' | append: opt_a | split: '|--|' | last -%}
+  {%- if str_opts2 contains opt2_name and opt2_value == 'true' -%}
+  {%- assign oldstring = opt2_name | append: 'false' -%}
+  {%- assign newstring = opt2_name | append: 'true' -%}
+  {%- assign str_opts2 = str_opts2 | replace: oldstring, newstring -%}
+  {%- else -%}
+  {%- unless str_opts2 contains opt2_name -%}
+  {%- assign str_opts2 = str_opts2 | append: opt2_name | append: opt2_value -%}
+  {%- endunless -%}
+  {%- endif -%}
+  {%- endif -%}
+  {%- if str_opts contains temp and temp2 == 'true' -%}
+  {%- assign oldstring = temp | append: 'false' -%}
+  {%- assign newstring = temp | append: 'true' -%}
+  {%- assign str_opts = str_opts | replace: oldstring, newstring -%}
+  {%- else -%}
+  {%- unless str_opts contains temp -%}
+  {%- assign str_opts = str_opts | append: temp | append: temp2 -%}
+  {%- endunless -%}
+  {%- endif -%}
+  {%- endfor -%}
+  
+  {%- capture get_product_images_from_first_column -%}{%- include 'get_product_images_from_first_column' -%}{%- endcapture -%}
+  {%- assign colors = ',' | append: settings.product_colors | strip_newlines | downcase | append: ',' -%}
+  
+  {%- assign active_color_name = '' -%}
+  {%- assign active_option1_name = '' -%}
+  
+  {%- if option1 > -1 -%}
+	{%- assign checkstr = '|' -%}
+  
+  	{% if settings.thumbnails_options_design == 'first_combobox' %}
+    <div class="tt-select-box productitem-option1-combo-js">
+      <select class="tt-select">
+        {%- for variant in product.variants -%}
+        {%- if variant.available == false and settings.show_unavailable_variants == false -%}{%- continue -%}{%- endif -%}
+
+        {%- assign tag = variant.options[option1] | strip -%}
+        {%- assign tagforcheck = '|' | append: tag | append: '|' -%}
+        {%- unless checkstr contains tagforcheck -%}
+        {%- assign checkstr = checkstr | append: tag | append: '|' -%}
+
+        {%- assign _handle = tag | replace: ' ', '' -%}
+        {%- assign check_opt_ava = '___' | append: tag | append: '==' -%}
+        {%- assign check_opt_ava = str_opts | split: check_opt_ava | last | split: '___' | first -%}
+
+        <option value="{{ tag }}"
+                data-availability="{{ check_opt_ava }}"
+                data-variant_availability="{{ variant.available }}"
+                data-tag="{{ _handle }}"
+                data-img="{% if variant.image %}{{ variant.image.src | product_img_url: url_images_size }}{% else %}{% endif %}"
+                data-pr_id="{{ pr_variant.id }}"
+                data-var_id="{{ variant.id }}"
+                data-price="{{ variant.price }}"
+                data-compprice="{{ variant.compare_at_price }}">
+          {{ tag }}
+        </option>
+
+        {%- endunless -%}
+
+        {%- if active_color_name == '' -%}{%- assign active_color_name = _handle -%}{%- endif -%}
+
+        {%- endfor -%}
+      </select>
+    </div>
+  	{% else %}
+	<ul class="tt-options-swatch productitem-option1-js">
+	  {%- for variant in product.variants -%}
+      {%- if variant.available == false and settings.show_unavailable_variants == false -%}{%- continue -%}{%- endif -%}
+      
+	  {%- assign tag = variant.options[option1] | strip -%}
+	  {%- assign tagforcheck = '|' | append: tag | append: '|' -%}
+	  {%- unless checkstr contains tagforcheck -%}
+	  {%- assign checkstr = checkstr | append: tag | append: '|' -%}
+
+	  {%- assign _tag = tag | downcase -%}
+      
+	  {%- assign tag_h = product.handle | append: ' ' | append: tag -%}
+	  {%- capture texture -%}{%- include 'get_swatch_texture' with texture_name: tag_h -%}{%- endcapture -%}
+      {%- if texture == '' and settings.first_variant_column_is_image and settings.use_in_the_small_products -%}
+      	{%- capture texture -%}{%- if variant.image.id != empty? -%}{{ variant.image.src | product_img_url: '100x' }}{%- endif -%}{%- endcapture -%}
+      {%- endif -%}
+      {%- if texture == '' -%}
+        {%- capture texture -%}{%- include 'get_swatch_texture' with texture_name: tag -%}{%- endcapture -%}
+      {%- endif -%}
+	  {%- capture texture_style -%}{%- if texture contains '100x.' -%}{{ texture }}{%- elsif texture != '' -%}{{ texture | asset_url }}{%- endif -%}{%- endcapture -%}
+	  {%- capture tagborder -%}{% if tag == settings.shopby_color_filter_border %} border{% endif %}{%- endcapture -%}
+
+	  {%- assign _handle = tag | replace: ' ', '' -%}
+	  
+      {%- assign check_opt_ava = '___' | append: tag | append: '==' -%}
+      {%- assign check_opt_ava = str_opts | split: check_opt_ava | last | split: '___' | first -%}
+
+	  {%- assign _tag = ',' | append: _tag | append: ':' -%}
+	  {%- capture curcol -%}{%- if colors contains _tag -%}{{ colors | split: _tag | last | split: ',' | first | strip }}{%- else -%}{%- endif -%}{%- endcapture -%}
+      <li{% if variant.id == pr_variant.id %} class="active"{% endif %}
+          data-availability="{{ check_opt_ava }}"
+          data-variant_availability="{{ variant.available }}"
+          data-tag="{{ _handle }}"
+          data-img="{% if variant.image %}{{ variant.image.src | product_img_url: url_images_size }}{% else %}{% endif %}"
+          data-pr_id="{{ pr_variant.id }}"
+          data-var_id="{{ variant.id }}"
+          data-price="{{ variant.price }}"
+          data-compprice="{{ variant.compare_at_price }}">
+        {%- if texture_style != '' -%}<span class="options-color-image"></span><a href="#" class="options-color{{ tagborder }} options-color-image lazyload" data-src="{{ texture_style }}" data-tooltip="{{ tag }}"></a>
+        {%- elsif curcol == '' -%}<a href="#">{{ tag }}</a>
+        {%- else -%}<span></span><a href="#" class="options-color{{ tagborder }}" style="background:{{ curcol }}" data-tooltip="{{ tag }}"></a>
+        {%- endif -%}
+	  </li>
+	  {%- endunless -%}
+	  
+	  {%- if active_color_name == '' -%}{%- assign active_color_name = _handle -%}{%- endif -%}
+	  
+	  {%- endfor -%}
+	</ul>
+  	{% endif %}
+  {%- endif -%}
+  
+  {%- if option2 > -1 -%}
+	<ul class="tt-options-swatch productitem-option2-js">
+	  {%- assign checkstr = '' -%}
+	  {%- for variant in product.variants -%}
+      {%- if variant.available == false and settings.show_unavailable_variants == false -%}{%- continue -%}{%- endif -%}
+
+	  {%- if option1 > -1 -%}
+		{%- assign color = variant.options[option1] | replace: ' ', '' -%}
+	  {%- endif -%}
+
+	  {%- assign tag = variant.options[option2] | strip -%}
+	  {%- assign _tag = '%' | append: tag | append:color | append:'%' -%}
+	  {%- if checkstr contains _tag -%}{%- continue -%}{%- endif -%}
+	  {%- assign checkstr = checkstr | append: _tag | append: '|' -%}
+
+	  {%- assign _handle = color | append: tag | replace: ' ', '' -%}
+	  
+	  {%- assign _tag = tag | downcase -%}
+      
+	  {%- assign tag_h = product.handle | append: ' ' | append: tag -%}
+	  {%- capture texture -%}{%- include 'get_swatch_texture' with texture_name: tag_h -%}{%- endcapture -%}
+      {%- if texture == '' -%}
+        {%- capture texture -%}{%- include 'get_swatch_texture' with texture_name: tag -%}{%- endcapture -%}
+      {%- endif -%}
+	  {%- capture texture_style -%}{%- if texture != '' -%}{{ texture | asset_url }}{%- endif -%}{%- endcapture -%}
+	  {%- capture tagborder -%}{% if tag == settings.shopby_color_filter_border %} border{% endif %}{%- endcapture -%}
+	  
+      {%- assign check_opt_ava = '___' | append: color | append: tag | append: '==' -%}
+      {%- assign check_opt_ava = str_opts2 | split: check_opt_ava | last | split: '___' | first -%}
+
+	  {%- assign _tag = ',' | append: _tag | append: ':' -%}
+	  {%- capture curcol -%}{%- if colors contains _tag -%}{{ colors | split: _tag | last | split: ',' | first | strip }}{%- else -%}{%- endif -%}{%- endcapture -%}
+	  <li data-current-option="{{ color }}-js"
+          {% if variant.id == pr_variant.id %} class="active"{% endif %}
+          {% if option1 > -1 and color != active_color_name %} style="display: none;"{% endif %}
+          data-availability="{{ check_opt_ava }}"
+          data-variant_availability="{{ variant.available }}"
+          data-tag="{{ _handle }}"
+          data-pr_id="{{ pr_variant.id }}"
+          data-img="{% if variant.image %}{{ variant.image.src | product_img_url: url_images_size }}{% else %}{% endif %}"
+          data-var_id="{{ variant.id }}"
+          data-price="{{ variant.price }}"
+          data-compprice="{{ variant.compare_at_price }}">
+		{%- if texture_style != '' -%}<span class="options-color-image"></span><a href="#" class="options-color{{ tagborder }} options-color-image lazyload" data-src="{{ texture_style }}" data-tooltip="{{ tag }}">{{ tag }}</a>
+		{%- elsif curcol == '' -%}<a href="#">{{ tag }}</a>
+		{%- else -%}<span></span><a href="#" class="options-color{{ tagborder }}" style="background:{{ curcol }}" data-tooltip="{{ tag }}"></a>
+		{%- endif -%}
+	  </li>
+	  
+	  {%- if active_option1_name == '' -%}{%- assign active_option1_name = _handle -%}{%- endif -%}
+
+	  {%- endfor -%}
+	</ul>
+  {%- endif -%}
+  
+  {%- if option3 > -1 -%}
+	<ul class="tt-options-swatch productitem-option3-js">
+	  {%- for variant in product.variants -%}
+      {%- if variant.available == false and settings.show_unavailable_variants == false -%}{%- continue -%}{%- endif -%}
+      
+	  {%- if option1 > -1 -%}
+		{%- assign color = variant.options[option1] | replace: ' ', '' -%}
+	  {%- endif -%}
+	  {%- if option2 > -1 -%}
+		{%- assign _option2 = variant.options[option2] | replace: ' ', '' -%}
+	  {%- endif -%}
+
+	  {%- assign tag = variant.options[option3] | strip -%}
+	  {%- assign _handle = color | append: _option2 -%}
+      {%- assign _tag = tag | downcase -%}
+      
+	  {%- assign tag_h = product.handle | append: ' ' | append: tag -%}
+	  {%- capture texture -%}{%- include 'get_swatch_texture' with texture_name: tag_h -%}{%- endcapture -%}
+      {%- if texture == '' -%}
+        {%- capture texture -%}{%- include 'get_swatch_texture' with texture_name: tag -%}{%- endcapture -%}
+      {%- endif -%}
+	  {%- capture texture_style -%}{%- if texture != '' -%}{{ texture | asset_url }}{%- endif -%}{%- endcapture -%}
+	  {%- capture tagborder -%}{% if tag == settings.shopby_color_filter_border %} border{% endif %}{%- endcapture -%}
+	  
+	  {%- assign _tag = ',' | append: _tag | append: ':' -%}
+	  {%- capture curcol -%}{%- if colors contains _tag -%}{{ colors | split: _tag | last | split: ',' | first | strip }}{%- else -%}{%- endif -%}{%- endcapture -%}
+	  <li data-current-option="{{ _handle }}-js"
+          {% if variant.id == pr_variant.id %} class="active"{% endif %}
+          {% if active_option1_name != _handle %} style="display: none;"{% endif %}
+          data-availability="{{ variant.available }}"
+          data-variant_availability="{{ variant.available }}"
+          data-pr_id="{{ pr_variant.id }}"
+          data-img="{% if variant.image %}{{ variant.image.src | product_img_url: url_images_size }}{% else %}{% endif %}"
+          data-var_id="{{ variant.id }}"
+          data-price="{{ variant.price }}"
+          data-compprice="{{ variant.compare_at_price }}">
+		{%- if texture_style != '' -%}<span class="options-color-image"></span><a href="#" class="options-color{{ tagborder }} options-color-image lazyload" data-src="{{ texture_style }}" data-tooltip="{{ tag }}">{{ tag }}</a>
+		{%- elsif curcol == '' -%}<a href="#">{{ tag }}</a>
+		{%- else -%}<span></span><a href="#" class="options-color{{ tagborder }}" style="background:{{ curcol }}" data-tooltip="{{ tag }}"></a>
+		{%- endif -%}
+	  </li>
+	  {%- endfor -%}
+	</ul>
+  {%- endif -%}
+
+</div>
+{%- endunless -%}{%- endif -%}

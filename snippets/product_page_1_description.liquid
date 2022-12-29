@@ -1,0 +1,421 @@
+{%- assign image_max_width = item.image_max_width | append: 'x' -%}
+{%- assign image_max_width_retina = item.image_max_width | times: 2 | append: 'x' -%}
+{%- assign image_max_width_m = item.image_max_width_m | append: 'x' -%}
+{%- assign image_max_width_retina_m = item.image_max_width_m | times: 2 | append: 'x' -%}
+
+{%- capture badge_icons -%}
+{%- if product_meta.icon_new != 'disable' and item.show_badge_new -%}{%- if date_difference < date_limit or product_meta.icon_new == 'always' -%}<div class="tt-label-new">{{ 'products.general.new' | t }}</div>{%- endif -%}{%- endif -%}
+{%- unless product.available -%}<div class="tt-label-out-stock">{{ 'products.general.unavailable' | t }}</div>{%- endunless -%}
+{%- if product_meta.featured != blank and item.show_badge_featured -%}<div class="tt-label tt-label-our-fatured">{{ product_meta.featured }}</div>{%- endif -%}
+{%- endcapture -%}
+{%- assign badge_icons = badge_icons | strip -%}
+
+{%- assign pid = product.id | append:"" -%}
+{%- assign wl = customer.metafields.wishlist -%}
+{%- unless wl == blank -%}
+{%- if wl[pid] == blank -%}
+{%- assign wl_text = false -%}
+{%- else -%}
+{%- assign wl_text = true -%}
+{%- endif -%}
+{%- else -%}
+{%- assign wl_text = false -%}
+{%- endunless -%}
+
+{%- assign product_description = product.description | split: '<!-- more -->' -%}
+
+<div class="tt-product-single-info{% if item.stickygallery %} stickprcolheight-js{% endif %} {% if product.type == 'mws_apo_generated' %} mto-product{% endif %}">
+  {%- if badge_icons != '' -%}
+  <div class="tt-wrapper">
+    <div class="tt-label">
+      {{ badge_icons }}
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- if item.show_product_main_info -%}
+  <div class="tt-add-info">
+    <ul>
+      {%- if item.show_sku -%}
+      <li class="sku-js{% if product.selected_or_first_available_variant.sku == '' %} hide{% endif %}"><span>{{ 'products.product.sku' | t }}</span> <span>{{ product.selected_or_first_available_variant.sku }}</span></li>
+      {%- endif -%}
+      {%- if item.show_qiantity -%}
+      <li class="availability">
+        <span>{{ 'products.product.availability' | t }}</span>
+        {%- if product.available -%}
+        <span class="stock_quantity hide"></span> <span class="in_stock hide">{{ 'products.product.in_stock' | t }}</span> <span class="many_in_stock hide">{{ 'products.product.many_in_stock' | t }}</span> <span class="sold_out hide">{{ "products.product.sold_out" | t }}</span> <span class="continue_out hide">{{ "products.product.purchase_when_out_of_stock" | t }}</span>
+        {%- else -%}
+        <span class="sold_out">{{ "products.product.sold_out" | t }}</span>
+        {%- endif -%}
+      </li>
+      {%- endif -%}
+    </ul>
+  </div>
+  {%- endif -%}
+
+  <h1 class="tt-title" itemprop="name">{{ product.title }}</h1>
+
+  {%- unless settings.catalogue_mode -%}
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+    <div class="tt-price" itemprop="price" content="{{ product.selected_or_first_available_variant.price | divided_by: 100.00 }}">
+      {%- if sale_on -%}
+      <span class="sale-price">{{ product.first_available_variant.price | money }}</span>
+      <span class="old-price">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+      {%- else -%}
+      <span class="new-price">{{ product.first_available_variant.price | money }}</span>
+      <span class="old-price"></span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if item.show_review -%}
+  <div class="tt-review">
+    <div class="rating" data-tooltip="{{ 'general.tooltip_texts.view_review' | t }}">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+    </div>
+  </div>
+  {%- endif -%}
+  {%- endunless -%}
+
+  {%- unless product_meta.custom_html == blank -%}
+  <div class="tt-wrapper">
+    {{ product_meta.custom_html }}
+  </div>
+  {%- endunless -%}
+
+  {%- unless settings.catalogue_mode -%}
+  {%- unless product_meta.countdown == blank -%}
+  <div class="tt-wrapper">
+    <div class="tt-countdown_box_02 tt-type-02">
+      <div class="tt-countdown_inner">
+        <div class="tt-countdown" data-date="{{ product_meta.countdown }}">
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endunless -%}
+  {%- endunless -%}
+
+  <div class="tt-swatches-container tt-swatches-container-js"></div>
+
+  {%- assign m_sizechart = product_meta.sizechart -%}
+  {%- capture sizechart -%}{% if m_sizechart != blank %}{{ m_sizechart }}{% else %}{{ item.popupcontent }}{% endif %}{%- endcapture -%}
+  {%- assign m_shipping = product_meta.shipping -%}
+  {%- capture shipping -%}{% if m_shipping != blank %}{{ m_shipping }}{% else %}{{ item.popupcontentshipping }}{% endif %}{%- endcapture -%}
+  {%- if item.show_sizechart and sizechart != '' and sizechart != 'disable' and product.template_suffix != 'no-size-chart' -%}{% assign sch_a = true %}{%- else -%}{% assign sch_a = false %}{% endif -%}
+  {%- if item.show_shipping and shipping != '' and shipping != 'disable' -%}{% assign shch_a = true %}{%- else -%}{% assign shch_a = false %}{% endif -%}
+  {%- if item.show_message -%}{% assign schm_a = true %}{%- else -%}{% assign schm_a = false %}{% endif -%}
+  {% if sch_a or shch_a or schm_a %}
+  <div class="tt-wrapper product-information-buttons">
+    {%- if sch_a -%}
+      {% unless product.handle == 'mto-wabash-engineer-boots-horween-leather-cxl-brown' %}
+        <p class="product-page-email-us">Send us an e-mail if your size isn't currently available</p>
+        <a data-toggle="modal" data-target="#modalProductInfo" href="#">{{ item.btnname }}</a>
+      {% endunless %}
+    {%- endif -%}
+    {%- if shch_a -%}
+    <a data-toggle="modal" data-target="#modalProductInfo-02" href="#">{{ item.btnname2 }}</a>
+    {%- endif -%}
+    {%- if schm_a -%}
+    <a data-toggle="modal" data-target="#modalProductInfo-03" href="#" class="mespr">{{ item.btnname3 }}</a>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+  {% unless product.handle == 'mto-wabash-engineer-boots-horween-leather-cxl-brown' %}
+  {%
+    include 'product-in-stock-notification-form',
+    product: product,
+  %}
+  {% endunless %}
+  {%- unless settings.catalogue_mode -%}
+  {%- if product.available -%}
+  {%- capture product_select_options -%}{%- if product.selected_variant == blank and product.variants.size > 1 and item.use_select_button -%}true{%- else -%}false{%- endif -%}{%- endcapture -%}
+  <div class="tt-wrapper{% if product_select_options == 'true' %} select_options{% endif %} atc-form__container">
+    {%- form 'product', product -%}
+    <input type="hidden" class="input_variant" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    <div class="tt-row-custom-01">
+      <div class="col-item">
+        <div class="tt-input-counter style-01">
+          <span class="minus-btn"></span>
+          <input type="text" name="quantity" value="1" size="5">
+          <span class="plus-btn"></span>
+        </div>
+      </div>
+      <div class="col-item">
+        <button class="btn btn-lg btn-addtocart{% if settings.ajax_addtocart %} addtocart-js{% endif %}{% if product_select_options == 'false' and product.selected_variant.available == false %} disable{% endif %}"
+                {%- if settings.show_addtocart_popup_related -%}{%- unless product.metafields.description.related_collection == blank -%}data-relatedcollection="{{ product.metafields.description.related_collection }}"{%- endunless -%}{%- endif -%}
+                >{%- if product_select_options == 'true' -%}{{ 'products.general.select_options_html' | t }}{%- else -%}{%- if product.selected_variant.available == false -%}{{ "products.general.unavailable_html" | t }}{%- else -%}{{ "products.general.add_to_cart_html" | t }}{%- endif -%}{%- endif -%}</button>
+      </div>
+    </div>
+    {%- if settings.buy_in_one_click -%}
+    {% if settings.terms_cond_checkbox_show %}
+    <div class="checkbox-group prpage-term-conditions-checkbox term-conditions-checkbox-js">
+      <input type="checkbox" id="prpage-cart-term-conditions-checkbox" value="1">
+      <label for="prpage-cart-term-conditions-checkbox">
+        <span class="check"></span>
+        <span class="box"></span>
+        {{ settings.terms_cond_checkbox_text }}
+      </label>
+    </div>
+    {% endif %}
+    <div class="buyinoneclick{% if product_select_options == 'true' %} hide{% endif %}"
+         data-buttonname="{{ 'products.general.buy_now_button' | t }}"
+         data-loading="{{ 'products.general.loading' | t }}">
+      {{ form | payment_button }}
+    </div>
+    {%- endif -%}
+    {%- endform -%}
+
+    {%- if item.product_item_show_wishlist and settings.show_wishlist or item.product_item_show_compare and settings.show_compare -%}
+    <div class="tt-wrapper">
+      <ul class="tt-list-btn">
+        {%- if item.product_item_show_wishlist and settings.show_wishlist -%}
+        <li><a href="{{ product.url | within: collection }}"
+               data-productid="{{ product.id }}"
+               data-producth="{{ product.handle }}"
+               data-add="{{ "wishlist.buttons_text.tooltip_add" | t }}"
+               data-remove="{{ "wishlist.buttons_text.tooltip_remove" | t }}"
+               data-tooltip="{% if customer.id == blank %}{{ "wishlist.buttons_text.tooltip_login" | t }}{% else %}{% if wl_text %}{{ "wishlist.buttons_text.tooltip_remove" | t }}{% else %}{{ "wishlist.buttons_text.tooltip_add" | t }}{% endif %}{% endif %}"
+               data-type="wishlist"
+               data-prpage-add="{{ "wishlist.buttons_text.page_text_add" | t }}"
+               data-prpage-rem="{{ "wishlist.buttons_text.page_text_remove" | t }}"
+               data-action="{% if wl_text %}wk-remove{% else %}wk-add{% endif %}"
+               class="inline-wk-link wlbutton-js prpagebtn-js">{% include "svg-heart" %}<span>{% if wl_text %}{{ "wishlist.buttons_text.page_text_remove" | t }}{% else %}{{ "wishlist.buttons_text.page_text_add" | t }}{% endif %}</span></a>
+        </li>
+        {%- endif -%}
+        {%- if item.product_item_show_compare and settings.show_compare -%}
+        <li><a href="{{ product.url | within: collection }}"
+               data-action="wk-add"
+               data-add="{{ "compare.buttons_text.tooltip_add" | t }}"
+               data-remove="{{ "compare.buttons_text.tooltip_remove" | t }}"
+               data-tooltip="{{ "compare.buttons_text.tooltip_add" | t }}"
+               data-compareid="{{ pr_variant.id }}"
+               data-prpage-add="{{ "compare.buttons_text.page_text_add" | t }}"
+               data-prpage-rem="{{ "compare.buttons_text.page_text_remove" | t }}"
+               class="inline-wk-link compare-js prpagebtn-js"
+               >{% include "svg-compare" %}<span>{{ "compare.buttons_text.page_text_add" | t }}</span></a>
+        </li>
+        {%- endif -%}
+      </ul>
+    </div>
+    {%- endif -%}
+
+  </div>
+  {%- endif -%}
+  {%- endunless -%}
+
+  {%- if item.show_trust_badge and item.page_design != "product_page_3_design" -%}{%- if item.image_l != blank -%}
+  <div class="tt-wrapper">
+    <div class="tt-promo-brand">
+      <img src="{{ item.image_l | img_url: image_max_width }}" srcset="{{ item.image_l | img_url: image_max_width }} 1x, {{ item.image_l | img_url: image_max_width_retina }} 2x" alt="{{ item.image_l.alt }}" class="tt-hidden-mobile">
+      <img src="{{ item.image_lm | img_url: image_max_width_m }}" srcset="{{ item.image_lm | img_url: image_max_width_m }} 1x, {{ item.image_lm | img_url: image_max_width_retina_m }} 2x" alt="{{ item.image_lm.alt }}" class="tt-hidden-desctope">
+    </div>
+  </div>
+  {%- endif -%}{%- endif -%}
+
+  {%- if item.show_product_info -%}
+  <div class="tt-wrapper">
+    <div class="tt-add-info">
+      <ul>
+        {%- if item.show_product_vendor -%}<li><span itemprop="brand">{{ "products.product.vendor" | t }}</span> <a href="/collections/{{ collection.handle }}/{{ product.vendor }}">{{ product.vendor | handle }}</a></li>{%- endif -%}
+        {%- if item.show_product_type and product.type != '' -%}<li><span>{{ "products.product.type" | t }}</span> <a href="/collections/{{ collection.handle }}/{{ product.type }}">{{ product.type | handle }}</a></li>{%- endif -%}
+        {%- if item.show_product_barcode -%}<li{% if product.selected_or_first_available_variant.barcode == '' or product.selected_or_first_available_variant.barcode == empty? %} class="hide"{% endif %}><span>{{ "products.product.barcode" | t }}</span> <span class="barcode">{{ product.selected_or_first_available_variant.barcode }}</span></li>{%- endif -%}
+        {%- if item.show_product_tags -%}
+        {%- assign collection = collections.all -%}
+        {%- assign custom_url = '/collections/all/' -%}
+        {%- capture ppt -%}{%- include 'product_page_tags' -%}{%- endcapture -%}{%- if ppt != '' and ppt != '!' -%}
+        <li><span>{{ "products.product.tags" | t }}</span>&nbsp;{{ ppt | replace: ',&nbsp;!' }}</li>
+        {%- endif -%}{%- endif -%}
+      </ul>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {% if item.full_width_description == "default" %}{% include "product_page_tabs" %}{% endif %}
+
+</div>
+
+{%- if item.show_sizechart and sizechart != '' and sizechart != 'disable' -%}
+{%- include "modal-sizechart" value: sizechart -%}
+{%- endif -%}
+{%- if item.show_shipping and shipping != '' and shipping != 'disable' -%}
+{%- include "modal-shipping" value: shipping -%}
+{%- endif -%}
+{%- if item.show_message -%}
+{%- include "modal-message" -%}
+{%- endif -%}
+
+{%- if settings.first_variant_column_is_image -%}{%- capture piffc_src -%}{%- include 'get_product_images_from_first_column' -%}{%- endcapture -%}{%- endif -%}
+
+<script>
+  $(function () {
+    /* For buy now button */
+    function changeBuyNowName() {
+      var $buyinoneclick = $('.buyinoneclick');
+      var buttonname = $buyinoneclick.data("buttonname");
+      var loadname = $buyinoneclick.data("loading");
+      if ($buyinoneclick.length == 0) return false;
+      $buyinoneclick.first().bind('DOMNodeInserted', function () {
+        $(this).unbind('DOMNodeInserted');
+        var $shopifypaymentbutton = $(this).find(".shopify-payment-button__button");
+        if ($shopifypaymentbutton.length) {
+          $buyinoneclick.hide();
+          setTimeout(
+            function () {
+              if ($(".shopify-payment-button__button").hasClass("shopify-payment-button__button--branded")) {
+                $(".shopify-payment-button__button")
+                  .on("click", function () {
+                    $(this).parent().replaceWith('<p class="tt-loading-text">' + loadname + '</p>')
+                  })
+                  .find('span[aria-hidden=true]').first().text(buttonname + ' ');
+              }
+              else {
+                $(".shopify-payment-button__button")
+                  .on("click", function () {
+                    $(this).parent().replaceWith('<p class="tt-loading-text">' + loadname + '</p>')
+                  })
+                  .text(buttonname);
+              }
+              $buyinoneclick.fadeIn()
+            }, 300);
+        }
+      });
+    }
+    changeBuyNowName();
+
+    /* Swatches */
+    function productPageJsonLoaded(json_data) {
+      var str = '{{ piffc_src | replace: "'", "\\'" }}';
+      var sw_history = Boolean({{ item.history }});
+  var show_unavailable_options = $('.show_unavailable_variants').length > 0;
+  var cur_opt = str != '' ? JSON.parse(str) : '';
+  var full_opt = cur_opt != '' ? $.extend(texture_obj, cur_opt) : texture_obj;
+  _selectedByDefault = {% if item.use_select_button %}!(location.search == ''){% else %} true{% endif %};
+  var group1 = new SwatchesConstructor(json_data, { contentParent: '.tt-swatches-container-js', enableHistoryState: sw_history, callback: productPageVariant, externalImagesObject: full_opt, externalColors: colors_value, colorWithBorder: color_with_border, productHandle: '{{ product.handle }}', designOption1: '{{ item.designoption1 }}', designOption2: '{{ item.designoption2 }}', designOption3: '{{ item.designoption3 }}', selectedByDefault: _selectedByDefault, show_unavailable_options: show_unavailable_options });
+  json_data = null;
+  group1 = null;
+  selectFirstAvailableVariant();
+    };
+
+  function selectFirstAvailableVariant() {
+    var swatchNodes = document.querySelectorAll('.tt-options-swatch');
+    swatchNodes.forEach(function (node) {
+      var liArray = Array.from(node.querySelectorAll('li'));
+      var filteredByAvailability = liArray.filter(function (li) {
+        return li.dataset.availability !== "false";
+      });
+      if (filteredByAvailability.length === 0) {
+        return; 
+      }
+      if (!filteredByAvailability[0].classList.contains('active')) {
+        filteredByAvailability[0].querySelector('a').click();
+      }
+    });
+  }
+
+  function productPageVariant(variant, product) {
+    var _parent = $('.tt-product-single-info');
+    var _swatch = _parent.find('.tt-swatches-container-js');
+    reOrderSizes();
+
+    swatchVariantHandler(_parent, variant);
+
+    if (location.search == '' && $('.select_options').length && _swatch.children().length) {
+      return false;
+    }
+    _parent.find('.select_options').length && _parent.find('.select_options').removeClass('select_options');
+    swatchVariantButtonHandler(_parent, variant);
+
+    var g = $('#smallGallery');
+    var filter = '.filter' + variant.options[0].split(' ').join('_');
+    if ($('.four-images-js').length == 0 && $('.product-images-static').length == 0 && g.hasClass('withfiltres') && g.attr('data-cur') != filter) {
+      g.attr('data-cur', filter);
+      g.slick('slickUnfilter').slick('slickFilter', filter);
+    }
+
+    var img_id = variant.featured_image ? variant.featured_image.id : 'none';
+    var target = img_id == 'none' ? $("[data-slick-index=0]").children() : $("[data-target=" + img_id + "]");
+    var num = target.last().parent().attr('data-slick-index');
+
+    var $container = $("#smallGallery");
+    $('.four-images-js').length == 0 && $('.product-images-static').length == 0 && setDefaultSlider(variant, num, $container, target);
+    $container = $('.slider-scroll-product');
+    setScrollSlider(num, $container);
+
+    g = $('.tt-mobile-product-slider');
+    if (num && g.length && g.hasClass('slick-initialized')) {
+      var filter = '.filter' + variant.options[0].split(' ').join('_');
+      if (g.hasClass('withfiltres') && g.attr('data-cur') != filter) {
+        g.attr('data-cur', filter);
+        g.slick('slickUnfilter').slick('slickFilter', filter);
+      }
+      g.slick('slickGoTo', num, true);
+    }
+
+    addToCartHandler.initFormAddToCartButton(variant.id, _parent, _swatch);
+
+    $('.four-images-js').length && setFourSlider($('.four-images-js'), product, variant);
+
+    var buyinoneclick = _parent.find(".buyinoneclick");
+    buyinoneclick.length && buyinoneclick.removeClass("hide");
+
+    if (_parent.find('.compare-js').length) {
+      _parent.find('.compare-js').attr('data-compareid', variant.id);
+      $(window).trigger("compareevent");
+    }
+  }
+  function setDefaultSlider(variant, num, $container, target) {
+    if (num && $container.length) {
+      $container.slick('slickGoTo', num, true);
+      $container.find('.zoomGalleryActive').removeClass('zoomGalleryActive');
+      target.addClass('zoomGalleryActive');
+      $(".zoom-product").attr('src', target.attr('data-image')).attr('data-zoom-image', target.attr('data-zoom-image'));
+    }
+    else {
+      variant.featured_image && $(".zoom-product").attr('src', variant.featured_image.src).attr('data-zoom-image', variant.featured_image.src);
+    }
+
+    !elevateZoomWidget.checkNoZoom() && elevateZoomWidget.configureZoomImage();
+  }
+  function setFourSlider($container, product, variant) {
+    if (product.images.length < 4 || variant.featured_image == null) return false;
+
+    var c_img = variant.featured_image.src.replace(/https:/g, '');
+    var img_a = String(c_img + product.images.join(',').split(c_img).pop()).split(',');
+
+    $container.find(".zoom-product").each(function (index) {
+      var src = Shopify.resizeImage(img_a[index], '600x');
+      $(this).attr('src', src);
+    })
+
+    !elevateZoomWidget.checkNoZoom() && elevateZoomWidget.configureZoomImage();
+  }
+  function setScrollSlider(num, $container) {
+    if (!(num && $container.length)) return false;
+    $container.slick('slickGoTo', num, true);
+  }
+  Shopify.getProduct('{{ product.handle }}', productPageJsonLoaded);
+});
+
+function reOrderSizes() {
+  var parent = document.querySelector('[data-group-title="Size"]');
+  if (!parent) {
+    return;
+  }
+  var list = parent.nextSibling;
+  var nodes = list.childNodes;
+  var array = Array.prototype.slice.call(nodes, 0);
+  var regex = /[0-9]/;
+  if (!regex.test(array[0].innerText)) {
+    return;
+  }
+  var sorted = array.sort(function(a, b) {
+    return Number(a.innerText) > Number(b.innerText) ? 1 : -1;
+  });
+  for (var i = 0; i < sorted.length; i++) {
+    list.appendChild(sorted[i]);
+  }
+}
+</script>

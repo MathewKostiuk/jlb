@@ -1,0 +1,46 @@
+<!-- tt-mobile-header -->
+<div class="tt-mobile-header">
+  <div class="container-fluid">
+    <div class="tt-header-row">
+      <div class="tt-mobile-parent-menu">
+        <div class="tt-menu-toggle mainmenumob-js">
+          {% include "svg-mobile-menu" %}
+        </div>
+      </div>
+      <!-- search -->
+      <div class="tt-mobile-parent-search tt-parent-box"></div>
+      <!-- /search -->
+      {%- unless settings.catalogue_mode -%}
+      {%- if template != "cart" -%}
+      <!-- cart -->
+      <div class="tt-mobile-parent-cart tt-parent-box"></div>
+      <!-- /cart -->
+      {%- endif -%}
+      {%- endunless -%}
+      {%- if item.show_customer_links -%}
+      <!-- account -->
+      <div class="tt-mobile-parent-account tt-parent-box"></div>
+      <!-- /account -->
+      {%- endif -%}
+      {%- if item.show_options_links -%}
+      <!-- currency -->
+      <div class="tt-mobile-parent-multi tt-parent-box"></div>
+      <!-- /currency -->
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="container-fluid tt-top-line">
+    <div class="row">
+      <div class="tt-logo-container">
+        <a class="tt-logo tt-logo-alignment" href="/">
+          {%- if headerlogomobile contains "title_" -%}<h2>{{ headerlogomobile | split:"title_" | last }}</h2>
+          {%- else -%}<img src="{{ headerlogomobile }}"
+                           srcset="{{ headerlogomobile }} 1x, {{ headerlogomobileretina }} 2x"
+                           alt="{{ headerlogomobilealt }}"
+                           class="tt-retina">
+          {%- endif -%}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

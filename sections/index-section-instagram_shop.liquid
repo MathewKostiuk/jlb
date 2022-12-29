@@ -1,0 +1,138 @@
+<div class="container-indent{% unless section.settings.topoffset %} nomargin{% endunless %}">
+  <div class="container{% if section.settings.fullwidth %}-fluid{% endif %}">
+    {%- if section.blocks.size > 0 -%}
+    {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+    {%- if block.type == 'simpletitle' -%}
+    <div class="tt-block-title">
+      <h2 class="tt-title">{{ b_i.text1 }}</h2>
+      {% if b_i.text2 != '' %}<div class="tt-description">{{ b_i.text2 }}</div>{% endif %}
+    </div>
+    {%- endif -%}
+    {%- endfor -%}
+    {%- endif -%}
+    <div class="row">
+      {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      {%- if block.type == 'item' -%}
+      <div class="tt-promo-fullwidth-02">
+        {%- if b_i.image == blank -%}{% include "get_svg" type:'image' size:'2048x455' %}
+        {%- else -%}<img src="{{ b_i.image | img_url: '2048x' }}" alt="{{ b_i.image.alt }}">
+        {%- endif -%}
+        <div class="tt-description">
+          <div class="tt-description-wrapper">
+            <div class="tt-title-large" style="color: {{ b_i.text1color }}">{{ b_i.text1 }}</div>
+            {% unless b_i.text2 == '' %}<p style="color: {{ b_i.text2color }}">{{ b_i.text2 }}</p>{% endunless %}
+          </div>
+        </div>
+      </div>
+      {%- endif -%}
+      {%- endfor -%}
+      {%- endif -%}
+      {{ section.settings.instjs }}
+    </div>
+  </div>
+</div>
+
+{{ 'instagram_shop.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+  {
+    "name": "Instagram Shop",
+    "settings": [
+        {
+          "type": "checkbox",
+          "id": "topoffset",
+          "label": "Top Offset",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "fullwidth",
+          "label": "Fullwidth size",
+          "default": true
+        },
+        {
+          "type": "textarea",
+          "id": "instjs",
+          "label": "Instagram js",
+		  "info": "[Snapppt](http:\/\/www.getsnapppt.com\/)"
+        }
+	],
+    "blocks": [
+      {
+        "type": "item",
+		"limit": 1,
+        "name": "Top Image Banner",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Custom Image"
+          },
+          {
+            "type": "textarea",
+            "id": "text1",
+            "label": "Big Text",
+			"default": "HOME<br>INSTAGRAM SHOP"
+          },
+          {
+            "type": "textarea",
+            "id": "text2",
+            "label": "Big Text",
+			"default": "Instagram Shop"
+          },
+          {
+            "type": "color",
+            "id": "text1color",
+            "label": "Text 1 Color",
+            "default": "#333333"
+          },
+          {
+            "type": "color",
+            "id": "text2color",
+            "label": "Text 2 Color",
+            "default": "#2879fe"
+          }
+		]
+	  },
+      {
+        "type": "simpletitle",
+		"limit": 1,
+        "name": "Simple title",
+        "settings": [
+          {
+            "type": "textarea",
+            "id": "text1",
+            "label": "Title",
+			"default": "SHOP @WOKIEE INSTAGRAM"
+          },
+          {
+            "type": "textarea",
+            "id": "text2",
+            "label": "Slogan",
+			"default": "CLICK PHOTOS BELOW TO SHOP THE LOOK."
+          }
+		]
+	  }
+	],
+    "presets": [
+      {
+        "name": "Instagram Shop",
+      	"category": "Instagram",
+        "blocks": [
+          {
+            "type": "item"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% stylesheet %}
+.snptwdgt-container{
+margin-top: 20px;
+}
+.snptwdgt-container .snptwdgt__ftr{
+display: none;
+}
+{% endstylesheet %}

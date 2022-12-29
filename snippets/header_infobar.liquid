@@ -1,0 +1,19 @@
+{%- if infobar != '' and infobar.settings.show_content -%}
+{%- assign show_content = true -%}
+{%- if infobar.settings.show_content_index -%}{%- unless template contains 'index' -%}
+{%- assign show_content = false -%}
+{%- endunless -%}{%- endif -%}
+{%- if show_content == true -%}
+<!-- tt-top-panel -->
+<div class="tt-top-panel"{% if infobar.settings.background_image %} style="background: url({{ infobar.settings.image | img_url: 'x150' }}) {{ settings.color_inf_bar_bg }} no-repeat center;"{% endif %}>
+  <div class="container">
+    <div class="tt-row">
+      <div class="tt-description">
+        {{ infobar.settings.text }}
+      </div>
+      <button class="tt-btn-close"></button>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+{%- endif -%}

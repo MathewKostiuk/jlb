@@ -1,0 +1,31 @@
+<div class="container-indent">
+  {% include "product_page_1_gallery" type: "mobile" %}
+  <div class="container container-mobile-airSticky">
+    <div class="row airSticky_stop-block">
+      <div class="col-6 hidden-xs">
+        <div class="product-images-static hidden-xs">
+          <ul>
+            {% for image in product.images %}
+            <li>
+              <img class="zoom-product" src='{{ image.src | product_img_url: '1024x1024' }}' alt="{{ image.alt }}" data-target="{{ image.id }}">
+            </li>
+            {% endfor %}
+
+            {% unless product_meta.video == blank %}
+            <li>
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{ product_meta.video }}" allowfullscreen></iframe>
+              </div>
+            </li>
+            {% endunless %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="airSticky">
+          {% include "product_page_1_description" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,495 @@
+{%- for block in section.blocks -%}{%- assign b_i = block.settings -%}{%- case block.type -%}
+
+{%- when 'image' -%}
+<div class="container-indent{% unless b_i.top %} nomargin{% endunless %}">
+  <div class="tt-contact-box"{% if b_i.image != blank %} style="background-image: url({{ b_i.image | img_url: '2048x' }});"{% endif %}>
+    {%- if b_i.image != blank -%}<img class="img-mobile" src="{{ b_i.image | img_url: '2048x' }}"
+                                    srcset="{{ b_i.image | img_url: '2048x' }} 1x,
+      										{{ b_i.image | img_url: '4048x' }} 2x"
+                                    alt="{{ b_i.image.alt }}">{%- endif -%}
+    <div class="container container-fluid-custom-mobile-padding">
+      <h1 class="tt-title" style="color: {{ b_i.t1_color }}">{{ b_i.title1 }}</h1>
+      <address style="color: {{ b_i.t2_color }}">{{ b_i.title2 }}</address>
+    </div>
+  </div>
+</div>
+
+{%- when 'icons' -%}
+<div class="container-indent">
+  <div class="container container-fluid-custom-mobile-padding">
+    <div class="tt-contact02-col-list">
+      <div class="row">
+        {%- if b_i.show_block_1 -%}
+        <div class="col-sm col-md ml-sm-auto mr-sm-auto">
+          <div class="tt-contact-info">
+            <i class="tt-icon icon-{{ b_i.code1 }}"></i>
+            <h6 class="tt-title">{{ b_i.title1 }}</h6>
+            <address>{{ b_i.cont1 }}</address>
+          </div>
+        </div>
+        {%- endif -%}
+        {%- if b_i.show_block_2 -%}
+        <div class="col-sm col-md">
+          <div class="tt-contact-info">
+            <i class="tt-icon icon-{{ b_i.code2 }}"></i>
+            <h6 class="tt-title">{{ b_i.title2 }}</h6>
+            <address>{{ b_i.cont2 }}</address>
+          </div>
+        </div>
+        {%- endif -%}
+        {%- if b_i.show_block_3 -%}
+        <div class="col-sm col-md">
+          <div class="tt-contact-info">
+            <i class="tt-icon icon-{{ b_i.code3 }}"></i>
+            <h6 class="tt-title">{{ b_i.title3 }}</h6>
+            <address>{{ b_i.cont3 }}</address>
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- when 'texts' -%}
+<div class="container-indent">
+  <div class="container container-fluid-custom-mobile-padding">
+    <div class="tt-contact-col-list">
+      <div class="row">
+        {%- if b_i.show_block_1 -%}
+        <div class="col-md">
+          <h5 class="tt-title">{{ b_i.title1 }}</h5>
+          <div class="width-90">{{ b_i.cont1 }}</div>
+        </div>
+        {%- endif -%}
+        {%- if b_i.show_block_2 -%}
+        <div class="col-md">
+          <h5 class="tt-title">{{ b_i.title2 }}</h5>
+          <address class="width-90">{{ b_i.cont2 }}</address>
+        </div>
+        {%- endif -%}
+        {%- if b_i.show_block_3 -%}
+        <div class="col-md">
+          <h5 class="tt-title">{{ b_i.title3 }}</h5>
+          <address>{{ b_i.cont3 }}</address>
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- when 'contactform' -%}
+<div class="container-indent">
+  <div class="container container-fluid-custom-mobile-padding {% if b_i.image != blank %}contact-form-cover-image{% endif %}" {% if b_i.image != blank %} style="background-image: url({{ b_i.image | img_url: '2048x' }});"{% endif %}>
+    {%- if b_i.image != blank -%}<img class="img-mobile" src="{{ b_i.image | img_url: '2048x' }}"
+                                    srcset="{{ b_i.image | img_url: '2048x' }} 1x,
+      										{{ b_i.image | img_url: '4048x' }} 2x"
+                                    alt="{{ b_i.image.alt }}">{%- endif -%}
+    <div class="contact-form form-default">
+      {%- form 'contact' -%}
+
+      {%- if form.posted_successfully? -%}
+      <p>{{ 'contact.form.post_success' | t }}</p>
+      {%- endif -%}
+
+      {{ form.errors | default_errors }}
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" class="form-control" id="inputName" placeholder="{{ 'contact.form.name' | t }}">
+          </div>
+          <div class="form-group">
+            <input type="email" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="form-control" id="inputEmail" placeholder="{{ 'contact.form.email' | t }}">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <textarea name="contact[body]" class="form-control" rows="8" placeholder="{{ 'contact.form.message' | t }}" id="textareaMessage">{%- if form.body -%}{{ form.body }}{%- endif -%}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn">{{ 'contact.form.send' | t }}</button>
+      </div>
+      {%- endform -%}
+    </div>  
+  </div>
+</div>
+
+{%- when 'map' -%}
+
+<div class="container-indent{% unless b_i.top %} nomargin{% endunless %}">
+  <div class="container{% if b_i.fullwidth %}-fluid{% endif %}">
+    {%- if b_i.fullwidth -%}<div class="row">{%- endif -%}
+    <div class="contact-map">
+      <div id="map"></div>
+    </div>
+    {%- if b_i.fullwidth -%}</div>{%- endif -%}
+  </div>
+</div>
+{%- comment -%}
+
+API
+
+https://developers.google.com/maps/documentation/geocoding/get-api-key
+https://developers.google.com/maps/documentation/javascript/get-api-key
+
+{%- endcomment -%}
+{%- capture api -%}{%- if map.api != '' -%}&key={{ b_i.api }}{%- endif -%}{%- endcapture -%}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false{{ api }}"></script>
+
+<script>
+  // When the window has finished loading create our google map below
+  google.maps.event.addDomListener(window, 'load', init);
+
+  var x = ('{{ b_i.textx }}');
+  var y = ('{{ b_i.texty }}');
+
+  function init() {
+    // Basic options for a simple Google Map
+    // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+    var mapOptions = {
+      // How zoomed in you want the map to start at (always required)
+      zoom: {{ b_i.zoom }},
+
+      // The latitude and longitude to center the map (always required)
+      center: new google.maps.LatLng(x, y), // New York
+
+      scrollwheel:  false,
+
+      // How you would like to style the map. 
+      // This is where you would paste any style found on Snazzy Maps.
+      styles: [{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#abd0fa"}]},{"featureType":"transit","stylers":[{"color":"#808080"},{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"on"},{"color":"#e1d9c6"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#eee9da"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"000"},{"weight":1.8}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"color":"#d7d7d7"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#ebebeb"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#eee9da"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#fffbf8"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#fffbf8"}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#fbf7ee"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#d6d6d6"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"visibility":"on"},{"color":"#3c3424"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#d6d6d6"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"color":"#aee9c6"}]}]
+    };
+
+    // Get the HTML DOM element that will contain your map 
+    // We are using a div with id="map" seen below in the <body>
+    var mapElement = document.getElementById('map');
+
+    // Create the Google Map using our element and options defined above
+    var map = new google.maps.Map(mapElement, mapOptions);
+
+    var image = "{{ 'beachflag.png' | asset_url }}";
+
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(x, y),
+      map: map,           
+      icon : image,
+      title: '{{ b_i.text2 }}'
+    });
+  }
+</script>
+
+{%- else -%}
+
+{%- if page.content.size > 0 -%}
+<div class="container-indent">
+  <div class="container">
+    {{ page.content }}
+  </div>
+</div>
+{%- endif -%}
+
+{%- endcase -%}{%- endfor -%}
+
+{% schema %}
+  {
+    "name": "Contact page",
+    "settings": [
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image Block",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "top",
+            "label": "Top indent",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "textarea",
+            "id": "title1",
+            "label": "Title",
+            "default": "WE ARE LOOKING FORWARD <br>TO HEARING FROM YOU"
+          },
+          {
+            "type": "textarea",
+            "id": "title2",
+            "label": "Content",
+            "default": "Address: 2548 Broaddus Maple Court Avenue, Madisonville KY 4783,<br>United States of America<br>Phone: +777 2345 7885: &nbsp;+777 2345 7886"
+          },
+          {
+            "type": "header",
+            "content": "Texts on image"
+          },
+          {
+            "type": "color",
+            "id": "t1_color",
+            "label": "Text 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "t2_color",
+            "label": "Text 2 Color",
+            "default": "#ffffff"
+          }
+        ]
+      },
+      {
+        "type": "icons",
+        "name": "Icons Block",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Block 1"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_block_1",
+            "label": "Show block",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "code1",
+            "label": "Icon code",
+            "default": "f-93"
+          },
+          {
+            "type": "textarea",
+            "id": "title1",
+            "label": "Title",
+            "default": "LET’S HAVE A CHAT!"
+          },
+          {
+            "type": "textarea",
+            "id": "cont1",
+            "label": "Content",
+            "default": "+777 2345 7885:<br>+777 2345 7886"
+          },
+
+          {
+            "type": "header",
+            "content": "Block 2"
+          },
+          {
+            "type": "text",
+            "id": "code2",
+            "label": "Icon code",
+            "default": "f-24"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_block_2",
+            "label": "Show block",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "title2",
+            "label": "Title",
+            "default": "VISIT OUR LOCATION"
+          },
+          {
+            "type": "textarea",
+            "id": "cont2",
+            "label": "Content",
+            "default": "2548 Broaddus Maple Court Avenue,<br>Madisonville KY 4783,<br>United States of America"
+          },
+
+          {
+            "type": "header",
+            "content": "Block 3"
+          },
+          {
+            "type": "text",
+            "id": "code3",
+            "label": "Icon code",
+            "default": "f-92"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_block_3",
+            "label": "Show block",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "title3",
+            "label": "Title",
+            "default": "WORK TIME"
+          },
+          {
+            "type": "textarea",
+            "id": "cont3",
+            "label": "Content",
+            "default": "7 Days a week<br>from 10 AM to 6 PM"
+          }
+
+
+        ]
+      },
+      {
+        "type": "texts",
+        "name": "Text Block",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Block 1"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_block_1",
+            "label": "Show block",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "title1",
+            "label": "Title",
+            "default": "RETAIL PARTNERSHIPS"
+          },
+          {
+            "type": "textarea",
+            "id": "cont1",
+            "label": "Content",
+            "default": "Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor.<br><a class=\"link\" href=\"mailto:info@mydomain.com\">info@mydomain.com<\/a>"
+          },
+
+          {
+            "type": "header",
+            "content": "Block 2"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_block_2",
+            "label": "Show block",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "title2",
+            "label": "Title",
+            "default": "PRESS &AMP; MARKETING"
+          },
+          {
+            "type": "textarea",
+            "id": "cont2",
+            "label": "Content",
+            "default": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br><a class=\"link\" href=\"mailto:info@mydomain.com\">info@mydomain.com<\/a>"
+          },
+
+          {
+            "type": "header",
+            "content": "Block 3"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_block_3",
+            "label": "Show block",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "title3",
+            "label": "Title",
+            "default": "CAREERS"
+          },
+          {
+            "type": "textarea",
+            "id": "cont3",
+            "label": "Content",
+            "default": "Ctetur adipisicing elit, sed do eiusmod tempor.<br><a class=\"link\" href=\"mailto:info@mydomain.com\">info@mydomain.com<\/a>"
+          }
+
+
+        ]
+      },
+      {
+        "type": "pagecontent",
+		"limit": 1,
+        "name": "Page content",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Work with content from page editor"
+          }
+        ]
+      },
+      {
+        "type": "contactform",
+		"limit": 1,
+        "name": "Contact form",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      },
+      {
+        "type": "map",
+        "name": "Google Map",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "top",
+            "label": "Top indent",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "fullwidth",
+            "label": "Fullwidth size",
+            "default": false
+          },
+          {
+            "type": "textarea",
+            "id": "api",
+            "label": "API",
+			"info": "[Get Api Key](https://developers.google.com/maps/documentation/javascript/get-api-key)"
+          },
+          {
+            "type": "text",
+            "id": "textx",
+            "label": "Coordinate X",
+			"default": "40.6700",
+			"info": "Integer"
+          },
+          {
+            "type": "text",
+            "id": "texty",
+            "label": "Coordinate Y",
+			"default": "-73.9400",
+			"info": "Integer"
+          },
+          {
+            "type": "text",
+            "id": "zoom",
+            "label": "Zoom",
+			"default": "11",
+			"info": "Integer"
+          },
+          {
+            "type": "textarea",
+            "id": "text2",
+            "label": "Map Text",
+			"default": "New York"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

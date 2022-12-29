@@ -1,0 +1,56 @@
+{% layout none %}
+
+{%- for product in collection.products limit:collection_limit -%}
+{%- assign product_meta = product.metafields.description -%}
+{%- comment -%} Price to show. {%- endcomment -%}
+{%- assign sale_on = false -%}
+{%- assign shownewicon = false -%}
+{%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+{%- assign sale_on = true -%}
+{%- endif -%}
+{%- comment -%} Main Image URL. {%- endcomment -%}
+{%- assign main_url_image = product.featured_image -%}
+{%- assign hover_url_image = "" -%}
+{%- if product.images[1] -%}{%- if product.images[1].src contains "hover" or product_meta.hover == 'true' -%}
+{%- assign hover_url_image = product.images[1].src -%}
+{%- assign hover_url_image_alt = product.images[1].alt -%}
+{%- endif -%}{%- endif -%}
+<div class="col-item {{ product.handle }}">
+  <a href="{{ product.url | within: collection }}" class="tt-product">
+    <div class="tt-image-box">
+      <span class="tt-img">
+        <img src="{{ main_url_image | product_img_url: "grande" }}"
+             alt="{{ product.featured_image.alt | escape }}"/>
+      </span>
+      {%- if hover_url_image != '' -%}<span class="tt-img-roll-over"><img src="{{ hover_url_image | product_img_url: "grande" }}" alt="{{ hover_url_image_alt }}"></span>{%- endif -%}
+
+      <span class="tt-label-location">
+        {%- if product_meta.icon_new != 'disable' -%}{%- if date_difference < date_limit or product_meta.icon_new == 'always' -%}<span class="tt-label-new">{{ 'products.general.new' | t }}</span>{%- assign shownewicon = true -%}{%- endif -%}{%- endif -%}
+
+        {%- if sale_on and product_meta.icon_sale != 'disable' -%}
+        {%- assign mc = product.selected_or_first_available_variant.compare_at_price | money_without_currency | replace: ',', '' -%}
+        {%- assign mo = product.selected_or_first_available_variant.price | money_without_currency | replace: ',', '' -%}        
+        {%- assign percent = mc | minus: mo | times: 100.0 | divided_by: mc | round | append: '%' -%}
+        <span class="tt-label-sale">{{ 'products.general.sale_html' | t: percent:percent }}</span>
+        {%- endif -%}
+
+
+        {%- unless product.available -%}<span class="tt-label-our-stock">{{ 'products.general.unavailable_html' | t }}</span>{%- endunless -%}
+
+        {%- unless product_meta.featured == blank -%}<span class="tt-label-our-fatured">{{ 'products.general.featured' | t }}</span>{%- endunless -%}
+
+      </span>
+    </div>
+    <div class="tt-description">
+      <h2 class="tt-title">{{ product.title }}</h2>
+      <div class="tt-price">
+        {%- if sale_on -%}
+        <div class="tt-price"><span class="new-price">{{ product.selected_or_first_available_variant.price | money }}</span><span class="old-price">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span></div>
+        {%- else -%}
+        <div class="tt-price">{{ product.selected_or_first_available_variant.price | money }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </a>
+</div>
+{%- endfor -%}

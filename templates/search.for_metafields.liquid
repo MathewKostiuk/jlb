@@ -1,0 +1,175 @@
+{%- layout none -%}
+{%- assign btn_save = 'Save' -%}
+{%- assign btn_cancel = 'Cancel' -%}
+{%- assign clear_button = '<i class="icon icon-g-80 clear_option" title="Delete"></i>' -%}
+{%- assign allkeys = ',related_collection,countdown,video,featured,icon_new,icon_sale,hover,custom_html,small_description,sizechart,shipping,group,' -%}
+
+{%- for product in search.results -%}
+{%- assign product_meta = product.metafields.description -%}
+<div class="col-12 col-sm-4 col-md-3">
+  <div class="pr-edit" data-id="{{ product.id }}">
+    <a href="{{ product.url }}" class="pr-edit-link" target="_blank" data-desc="View in store">
+      <img src="{{ product.featured_image | product_img_url: '100x' }}" alt="">
+      <h2>{{ product.title }}</h2>
+    </a>
+
+    <form class="form-default">
+
+      <div>
+        <select name="related_collection" data-desc="Related Products.<br> Separate custom collection with product for best promotion"
+                class="form-control{% if product_meta.related_collection != blank %} optwithvalue{% endif %}">
+          <option value="default"{% if product_meta.related_collection == blank %} selected{% endif %}>Related collection - None</option>
+          {% for collection in collections %}
+          <option value="{{ collection.handle }}"{% if product_meta.related_collection == collection.handle %} selected{% endif %}>{{ collection.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+
+      <div>
+        {% if product_meta.countdown != blank %}{{ clear_button }}{% endif %}
+        <input name="countdown"
+               data-desc="Countdown.<br> Work on product item and product page"
+               {% if product_meta.countdown != blank %}
+               value="{{ product_meta.countdown }}"
+               {% endif %}
+               placeholder="Select countdown date"
+               class="form-control datepicker{% if product_meta.countdown != blank %} optwithvalue{% endif %}">
+      </div>
+
+
+      <div>
+        {% if product_meta.video != blank %}{{ clear_button }}{% endif %}
+        <input name="video"
+               data-desc="Video.<br> Video link from some video channel"
+               {% if product_meta.video != blank %}
+               value="{{ product_meta.video }}"
+               {% endif %}
+               placeholder="Video embed link"
+               class="form-control{% if product_meta.video != blank %} optwithvalue{% endif %}">
+      </div>
+
+      <div class="hidden_fields hide">
+
+
+        <div>
+          {% if product_meta.featured != blank %}{{ clear_button }}{% endif %}
+          <input name="featured"
+                 data-desc="Icon Featured.<br> Custom text in icon"
+                 {% if product_meta.featured != blank %}
+                 value="{{ product_meta.featured }}"
+                 {% endif %}
+                 placeholder="Featured icon text"
+                 class="form-control{% if product_meta.featured != blank %} optwithvalue{% endif %}">
+        </div>
+
+
+        <div>
+          <select name="icon_new" data-desc="Product item icon New. You can disable icon or show icon always"
+                  class="form-control{% if product_meta.icon_new != blank %} optwithvalue{% endif %}">
+            <option value="default"{% if product_meta.icon_new == blank %} selected{% endif %}>Icon new - Default</option>
+            <option value="disable"{% if product_meta.icon_new == 'disable' %} selected{% endif %}>Disable icon new</option>
+            <option value="always"{% if product_meta.icon_new == 'always' %} selected{% endif %}>Icon new always</option>
+          </select>
+        </div>
+
+
+        <div>
+          <select name="icon_sale" data-desc="Product item icon Sale. You can disable icon"
+                  class="form-control{% if product_meta.icon_sale != blank %} optwithvalue{% endif %}">
+            <option value="default"{% if product_meta.icon_sale == 'default' %} selected{% endif %}>Icon sale - Default</option>
+            <option value="disable"{% if product_meta.icon_sale == 'disable' %} selected{% endif %}>Disable icon sale</option>
+          </select>
+        </div>
+
+
+        <div>
+          <select name="hover" data-desc="Hover.<br> Work with product item. In hover you can see second product image."
+                  class="form-control{% if product_meta.hover != blank %} optwithvalue{% endif %}">
+            <option value="default"{% if product_meta.hover == 'default' %} selected{% endif %}>Hover - None</option>
+            <option value="true"{% if product_meta.hover == 'true' %} selected{% endif %}>Enable product item hover</option>
+          </select>
+        </div>
+
+
+        <div>
+          {% if product_meta.custom_html != blank %}{{ clear_button }}{% endif %}
+          <textarea name="custom_html"
+                    data-desc="Custom Html.<br> Work on the product page after price"
+                    placeholder="Text on product page after price"
+                    class="form-control{% if product_meta.custom_html != blank %} optwithvalue{% endif %}">{% if product_meta.custom_html != blank %}{{ product_meta.custom_html }}{% endif %}</textarea>
+        </div>
+
+
+        <div>
+          {% if product_meta.small_description != blank %}{{ clear_button }}{% endif %}
+          <textarea name="small_description"
+                    data-desc="Small Description.<br> Work on the Quick View. Default - main description"
+                    placeholder="Quick View text"
+                    class="form-control{% if product_meta.small_description != blank %} optwithvalue{% endif %}">{% if product_meta.small_description != blank %}{{ product_meta.small_description }}{% endif %}</textarea>
+        </div>
+
+
+        <div>
+          {% if product_meta.sizechart != blank %}{{ clear_button }}{% endif %}
+          <textarea name="sizechart"
+                    data-desc="Size Chart.<br> You can use custom text or disable popup for selected product"
+                    placeholder="Size Chart. Disable or html code"
+                    class="form-control{% if product_meta.sizechart != blank %} optwithvalue{% endif %}">{% if product_meta.sizechart != blank %}{{ product_meta.sizechart }}{% endif %}</textarea>
+        </div>
+
+
+        <div>
+          {% if product_meta.shipping != blank %}{{ clear_button }}{% endif %}
+          <textarea name="shipping"
+                    data-desc="Shipping.<br> You can use custom text or disable popup for selected product"
+                    placeholder="Shipping. Disable or html code"
+                    class="form-control{% if product_meta.shipping != blank %} optwithvalue{% endif %}">{% if product_meta.shipping != blank %}{{ product_meta.shipping }}{% endif %}</textarea>
+        </div>
+
+
+        <div>
+          {% if product.metafields.productgallery.group != blank %}{{ clear_button }}{% endif %}
+          <textarea name="group"
+                    data-desc="Use with documentation"
+                    placeholder="Show images only by selected variant"
+                    class="form-control{% if product.metafields.productgallery.group != blank %} optwithvalue{% endif %}">{% if product.metafields.productgallery.group != blank %}{{ product.metafields.productgallery.group }}{% endif %}</textarea>
+        </div>
+
+
+        <div class="custom_tabs">
+          {% for field in product_meta %}
+          {% assign f = field | first %}
+          {% assign f = ',' | append: f | append: ',' %}
+          {% unless allkeys contains f %}
+
+          <div class="tabs_item">
+            {{ clear_button }}
+            <p>For unique tab:</p>
+            <input name="custom_tab"
+                   class="form-control"
+                   data-desc="Key you can get from product page section. Item unique tab"
+                   placeholder="Key from product page"
+                   value="{{ field | first }}">
+            <textarea class="form-control"
+                      data-desc="Your html code. Field can not be empty"
+                      >{{ field | last }}</textarea>
+          </div>
+
+          {% endunless %}
+          {% endfor %}
+          <div class="tab_button_add">+ Add unique tab for product page</div>
+        </div>
+
+
+      </div>
+      <div class="show_all-marg">
+        <span class="show_all show_all-link show_all-js" data-m="+ Show All" data-h="- Hide"></span>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+{%- endfor -%}

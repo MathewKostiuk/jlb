@@ -1,0 +1,115 @@
+{%- comment -%}
+  Comments will not appear right after they are submitted, either to be checked for spam
+  or to await moderation. When a comment is submitted, the browser is redirected to a page
+  that includes the new comment id in its URL.
+    Example: http://shopname.myshopify.com/blogs/news/2022072-my-post?comment=3721372
+{%- endcomment -%}
+
+{%- assign new_comment = false -%}
+{%- if comment and comment.created_at -%}
+  {%- assign new_comment = true -%}
+  {%- assign new_comment_id = comment.id -%}
+{%- endif -%}
+
+{%- if new_comment -%}
+  {%- assign duplicate_comment = false -%}
+  {%- for comment in article.comments -%}
+    {%- if comment.id == new_comment_id -%}
+      {%- assign duplicate_comment = true -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if duplicate_comment -%}
+    {%- assign number_of_comments = article.comments_count -%}
+  {%- else -%}
+    {%- assign number_of_comments = article.comments_count | plus: 1 -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign number_of_comments = article.comments_count -%}
+{%- endif -%}
+
+{%- section 'article-template' -%}
+
+{%- if blog.comments_enabled? -%}
+{%- if number_of_comments > 0 -%}
+<div class="container-indent">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-md-10 col-lg-8 col-md-auto">
+        <h6 class="tt-title-border" id="comments">{{ 'blogs.comments.comments_with_count' | t: count: number_of_comments }}</h6>
+        
+        {%- paginate article.comments by 100 -%}
+
+        {%- comment -%}
+        #comments is required, it is used as an anchor link by Shopify.
+        {%- endcomment -%}
+        {%- if new_comment -%}
+        <p class="tt-base-color">
+          {%- if blog.moderated? -%}
+          {{ 'blogs.comments.success_moderated' | t }}
+          {%- else -%}
+          {{ 'blogs.comments.success' | t }}
+          {%- endif -%}
+        </p>
+        {%- endif -%}
+
+        <div class="tt-comments-layout">
+          {%- comment -%}
+          If a comment was just submitted with no blank field, show it.
+          {%- endcomment -%}
+          {%- if new_comment -%}
+            {%- include 'blog-comment' -%}
+          {%- endif -%}
+
+          {%- for comment in article.comments -%}
+          {%- unless comment.id == new_comment_id -%}
+            {%- include 'blog-comment' -%}
+          {%- endunless -%}
+          {%- endfor -%}
+        </div>
+
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+<div class="container-indent">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-md-10 col-lg-8 col-md-auto">
+        <div class="form-single-post contact-form form-default">
+          <h6 class="tt-title-border" id="addcomment">{{ 'blogs.comments.title' | t }}</h6>
+          {%- form 'new_comment', article -%}
+          	{{ form.errors | default_errors }}
+          
+            <div class="form-group">
+              <label for="inputName" class="control-label">{{ 'blogs.comments.name' | t }}</label>
+              <input type="text" name="comment[author]" class="form-control" id="inputName" placeholder="{{ 'blogs.fields.name' | t }}">
+            </div>
+            <div class="form-group">
+              <label for="inputEmail" class="control-label">{{ 'blogs.comments.email' | t }}</label>
+              <input type="email" name="comment[email]" class="form-control" id="inputEmail" placeholder="{{ 'blogs.fields.email' | t }}">
+            </div>
+            <div class="form-group">
+              <label for="textarea" class="control-label">{{ 'blogs.comments.message' | t }}</label>
+              <textarea class="form-control" name="comment[body]" id="textarea" placeholder="{{ 'blogs.fields.message' | t }}" rows="8"></textarea>
+            </div>
+          
+            {%- if blog.moderated? -%}
+              <p class="fine-print">{{ 'blogs.comments.moderated' | t }}</p><br>
+            {%- endif -%}
+          
+            <div class="form-group">
+              <button type="submit" class="btn">{{ 'blogs.comments.post' | t }}</button>
+            </div>
+          {%- endform -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- endif -%}

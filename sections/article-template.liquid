@@ -1,0 +1,79 @@
+{%- assign item = section.settings -%}
+<div class="container-indent" itemscope itemtype="http://schema.org/Article">
+  <div class="container container-fluid-custom-mobile-padding">
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-md-10 col-lg-8 col-md-auto">
+        <div class="tt-post-single" itemprop="articleBody">
+          <h1 class="tt-title">{{ article.title }}</h1>
+          {%- if item.blog_show_author or item.blog_show_date -%}
+          <div class="tt-autor">
+            {% if item.blog_show_author %}{{ 'blogs.article.by_author' | t }} <span>{{ article.author }}</span> {% endif %}{% if item.blog_show_date %}{{ 'blogs.article.posted_in' | t }} {{ article.published_at | date: '%B' }} {{ article.published_at | date: '%d, %Y' }}{% endif %}
+          </div>
+          {%- endif -%}
+          <div class="tt-post-content">
+            
+            {{ article.content }}
+ 
+          </div>
+          
+          {%- if article.tags.size > 0 and item.blog_show_tags -%}
+          <div class="post-meta">
+            <span class="item">Tag:</span>
+            <span{% if item.blog_tags_uppercase %} class="text-uppercase"{% endif %}>{%- for tag in article.tags -%}
+              {{ tag | link_to_tag: tag }}{% unless forloop.last %}, {% endunless %}
+            {%- endfor -%}</span>
+          </div>
+          {%- endif -%}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%- if item.show_share_buttons -%}
+<div class="container-indent wrapper-social-icon">
+  <div class="container text-center">
+    {%- include 'addthis' -%}
+  </div>
+</div>
+{%- unless blog.comments_enabled? -%}<div class="clear-gap"></div>{%- endunless -%}
+{%- endif -%}
+
+
+{% schema %}
+  {
+    "name": "Posts",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_tags",
+        "label": "Show tags",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_tags_uppercase",
+        "label": "Tags uppercase",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

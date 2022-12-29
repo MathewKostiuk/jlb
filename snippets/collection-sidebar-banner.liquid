@@ -1,0 +1,11 @@
+<div class="tt-content-aside">
+  <a href="{{ settings.collectionsbannerurl }}" class="tt-promo-03">
+    <img src="{{ 'listing-banner.jpg' | asset_url }}" alt="Collection page banner">
+    <div class="tt-description tt-point-v-t">
+      <div class="tt-description-wrapper">
+        {% if settings.collectionsbannertitle != '' %}<div class="tt-title-large">{{ settings.collectionsbannertitle }}</div>{% endif %}
+        {% if settings.collectionsbannerdesc != '' %}<p>{{ settings.collectionsbannerdesc }}</p>{% endif %}
+      </div>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,100 @@
+{%- assign slider_mode = true -%}
+{%- for block in section.blocks -%}
+{%- if block.type == 'related_products' -%}
+
+{%- comment -%}
+  Number of related items per row,
+  and number of rows.
+{%- endcomment -%}
+
+{%- assign number_of_related_products_per_row = block.settings.product_upsell_collection_count | plus: 0 -%}
+
+{%- comment -%}
+  Heading.
+  Leave blank if you don't need one.
+{%- endcomment -%}
+
+{%- assign heading = 'Other fine products' -%}
+
+{%- comment -%}
+  Set either or both to true, if you want
+  to limit yourself to items with same vendor, and/or type.
+{%- endcomment -%}
+
+{%- assign same_vendor = false -%}
+{%- assign same_type = false -%}
+
+{%- comment -%}
+  Collections to ignore.
+  Never pick related items from those.
+{%- endcomment -%}
+
+{%- assign exclusions = 'frontpage,all' | split: ',' -%}
+
+{%- comment -%}
+  Looking for a relevant collection.
+{%- endcomment -%}
+
+{%- if product.metafields.related_products_bottom -%}
+  {%- assign collection = collections[product.metafields.related_products_bottom] -%}
+{%- endif -%}
+
+{%- assign found_a_collection = false -%}
+{%- if collection and collection.all_products_count > 1 -%}
+  {%- unless exclusions contains collection.handle -%}
+    {%- assign found_a_collection = true -%}
+  {%- endunless -%}
+{%- endif -%}
+{%- unless found_a_collection -%}
+  {%- for c in product.collections -%}
+    {%- unless exclusions contains c.handle or c.all_products_count < 2 -%}
+      {%- assign found_a_collection = true -%}
+      {%- assign collection = c -%}
+      {%- break -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endunless -%}
+
+{%- comment -%}
+  If we have a relevant collection.
+{%- endcomment -%}
+
+{%- if found_a_collection -%}
+
+  {%- assign counter = 0 -%}
+  {%- assign break_at = number_of_related_products_per_row -%}
+  {%- assign current_product = product -%}
+
+  {%- capture related_items -%}
+    {%- for product in collection.products -%}
+      {%- unless product.handle == current_product.handle -%}
+         {%- unless same_vendor and current_product.vendor != product.vendor -%}
+           {%- unless same_type and current_product.type != product.type -%}
+			 <div class="col-2 col-md-4 col-lg-3">{%- include 'product-grid-item' -%}</div>
+             {%- assign counter = counter | plus: 1 -%}
+             {%- if counter == break_at -%}
+               {%- break -%}
+             {%- endif -%}
+           {%- endunless -%}
+        {%- endunless -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- assign related_items = related_items | trim -%}
+
+  {%- unless related_items == blank -%}
+
+<div class="container-indent">
+  <div class="container container-fluid-custom-mobile-padding">
+    <div class="tt-block-title text-left">
+      {%- if b_i.title != '' -%}<h2 class="tt-title-small">{{ block.settings.title }}</h2>{%- endif -%}
+    </div>
+    <div class="tt-carousel-products row arrow-location-right-top tt-alignment-img tt-layout-product-item">{{ related_items }}</div>
+  </div>
+</div>
+
+  {%- endunless -%}
+
+{%- endif -%}
+{%- endif -%}{%- endfor -%}

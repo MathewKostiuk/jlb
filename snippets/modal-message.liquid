@@ -1,0 +1,44 @@
+<div class="modal show" id="modalProductInfo-03" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+      </div>
+      <div class="modal-body">
+        <div class="tt-layout-product-info-02">
+          <h6 class="tt-title">{{ 'general.general.send_message_title' | t }}</h6>
+          <div class="contact-form form-default">
+            {%- form 'contact' -%}
+
+            {%- if form.posted_successfully? -%}
+            <p>{{ 'contact.form.post_success' | t }}</p>
+            {%- endif -%}
+
+            {{ form.errors | default_errors }}
+
+            <input type="hidden" name="contact[product name]" value="{{ product.title }}" class="form-control">
+            <input type="hidden" name="contact[product link]" value="{{ shop.url }}{{ product.url }}" class="form-control">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea name="contact[body]" class="form-control" rows="8" placeholder="{{ 'contact.form.message' | t }}" id="textareaMessage" required>{%- if form.body -%}{{ form.body }}{%- endif -%}</textarea>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}" class="form-control" id="inputName" placeholder="{{ 'contact.form.name' | t }}" required>
+                </div>
+                <div class="form-group">
+                  <input type="email" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="form-control" id="inputEmail" placeholder="{{ 'contact.form.email' | t }}" required>
+                </div>
+                <div class="form-group">
+                  <input type="tel" name="contact[phone]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" class="form-control" id="inputSubject" placeholder="{{ 'contact.form.phone' | t }}" required>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn">{{ 'contact.form.send' | t }}</button>
+            {%- endform -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

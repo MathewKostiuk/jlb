@@ -1,0 +1,288 @@
+{%- assign item = section.settings -%}
+
+{%- assign grid = section.settings.items -%}
+{%- capture info_image_size -%}
+{%- case grid -%}
+{%- when '6' -%}{%- if item.fullwidth -%}1024x400px{%- else -%}600x300px{%- endif -%}
+{%- when '4' -%}{%- if item.fullwidth -%}800x800px{%- else -%}400x400px{%- endif -%}
+{%- else -%}{%- if item.fullwidth -%}600x600px{%- else -%}300x300px{%- endif -%}
+{%- endcase -%}
+{%- endcapture -%}
+
+{%- assign img_size = info_image_size | split: 'x' | first | append: 'x' -%}
+
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent">
+  <div class="container{% if item.fullwidth %}-fluid-custom{% endif %}">
+    {%- if item.show_title -%}
+    <div class="tt-block-title">
+      <h2 class="tt-title">{{ item.text1 }}</h2>
+      {%- unless item.text2 == '' -%}<div class="tt-description">{{ item.text2 }}</div>{%- endunless -%}
+    </div>
+    {%- endif -%}
+    <div class="row tt-layout-promo02">
+      {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      <div class="col-sm-6 col-md-{{ item.items }} col-12-440width" {{ block.shopify_attributes }}>
+        <div class="tt-promo02" data-hovercolors>
+          <a href="{{ b_i.link }}" class="image-box">
+            {%- if b_i.image == blank -%}{%- include "get_svg" type:'image' size:info_image_size -%}
+            {%- else -%}
+            {%- assign scale_numbers = '_' | append: img_size -%}
+            <img class="lazyload"
+                 src="{{ b_i.image | img_url: img_size }}"
+                 data-src="{{ b_i.image | img_url: img_size }}"
+                 data-srcset="{% include 'lazyload_string' value: b_i.image %}"
+                 alt="{{ b_i.image.alt }}">
+            {%- endif -%}
+          </a>
+          <div class="tt-description{% if b_i.center_texts %} text-center{% endif %}">
+            {% if b_i.text1 != '' or b_i.text2 != '' %}
+            <a href="{{ b_i.link }}" class="tt-title">
+              {% if b_i.text1 != '' %}<div class="tt-title-small"
+                                           style="color:{{ b_i.text1c }};"
+                                           data-c="{{ b_i.text1c }}"
+                                           data-ac="{{ b_i.text1ca }}"
+                                           >{{ b_i.text1 }}</div>{% endif %}
+              {% if b_i.text2 != '' %}<div class="tt-title-large"
+                                           style="color:{{ b_i.text2c }};"
+                                           data-c="{{ b_i.text2c }}"
+                                           data-ac="{{ b_i.text2ca }}"
+                                           >{{ b_i.text2 }}</div>{% endif %}
+            </a>
+            {% endif %}
+            {% if b_i.text3 != '' %}<p style="color:{{ b_i.text3c }};">{{ b_i.text3 }}</p>{% endif %}
+            {% if b_i.show_button %}<a href="{{ b_i.link }}"
+                                       class="btn"
+                                       style="background:{{ b_i.btn_bgc }}; color: {{ b_i.btn_textc }}"
+                                       data-bgc="{{ b_i.btn_bgc }}"
+                                       data-abgc="{{ b_i.btn_bgca }}"
+                                       data-c="{{ b_i.btn_textc }}"
+                                       data-ac="{{ b_i.btn_textca }}"
+                                       data-hovercolors>{{ b_i.button_name }}</a>{% endif %}
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+      {%- else -%}
+      <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Simple Banners with Texts",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "top_offset",
+      "label": "Top Offset",
+      "default": "normal",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth size",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "items",
+      "label": "Items In Line",
+      "default": "4",
+      "options": [
+        {
+          "value": "6",
+          "label": "2"
+        },
+        {
+          "value": "4",
+          "label": "3"
+        },
+        {
+          "value": "3",
+          "label": "4"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show title",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "text1",
+      "label": "Title",
+      "default": "POPULAR"
+    },
+    {
+      "type": "textarea",
+      "id": "text2",
+      "label": "Description",
+      "default": "CLOTHING BRANDS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "center_texts",
+          "label": "Center description",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        },
+        {
+          "type": "header",
+          "content": "Texts"
+        },
+        {
+          "type": "textarea",
+          "id": "text1",
+          "label": "Small Text",
+          "default": "FALL-WINTER CLEARANCE SALES",
+		  "info": "New line = <br>"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Big Text",
+          "default": "GET UP TO <span style=\"color: #2879fe\">50% OFF<\/span>",
+		  "info": "New line = <br>"
+        },
+        {
+          "type": "textarea",
+          "id": "text3",
+          "label": "Description Text",
+          "default": "Lorem ipsum dolor sit amet conse ctetur adipisicing elit",
+		  "info": "New line = <br>"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_button",
+          "label": "Show button",
+          "default": true
+        },
+        {
+          "type": "textarea",
+          "id": "button_name",
+          "label": "Button name",
+          "default": "SHOP NOW!"
+        },
+        {
+          "type": "header",
+          "content": "Texts Base Color"
+        },
+        {
+          "type": "color",
+          "id": "text1c",
+          "label": "Text 1 color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "text2c",
+          "label": "Text 2 color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "text3c",
+          "label": "Text 3 color",
+          "default": "#777777"
+        },
+        {
+          "type": "header",
+          "content": "Texts Active Color"
+        },
+        {
+          "type": "color",
+          "id": "text1ca",
+          "label": "Text 1 active color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "text2ca",
+          "label": "Text 2 active color",
+          "default": "#2879fe"
+        },
+        {
+          "type": "header",
+          "content": "Button Color"
+        },
+        {
+          "type": "color",
+          "id": "btn_bgc",
+          "label": "Background color",
+          "default": "#2879fe"
+        },
+        {
+          "type": "color",
+          "id": "btn_textc",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "btn_bgca",
+          "label": "Background active color",
+          "default": "#2267d8"
+        },
+        {
+          "type": "color",
+          "id": "btn_textca",
+          "label": "Text active color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Simple Banners 2",
+      "category": "Banner",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

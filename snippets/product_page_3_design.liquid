@@ -1,0 +1,28 @@
+<div class="container-indent">
+  {% include "product_page_1_gallery" type: "mobile" %}
+  <div class="container container-fluid-mobile">
+    <div class="row">
+      <div class="col-12 col-lg-9">
+        <div class="row custom-single-page">
+          {% include "product_page_1_gallery" type: item.gallery_type %}
+          <div class="col-6">
+            {% include "product_page_1_description" %}
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3">
+        <div class="tt-product-single-aside">
+          <div>
+            {{ item.prpage_tree_col_html }}
+          </div>
+          {%- if item.show_trust_badge -%}{%- if item.image_l != blank -%}
+          <div class="tt-promo-brand">
+            <img src="{{ item.image_l | img_url: image_max_width }}" srcset="{{ item.image_l | img_url: image_max_width }} 1x, {{ item.image_l | img_url: image_max_width_retina }} 2x" alt="{{ item.image_l.alt }}" class="tt-hidden-mobile">
+            <img src="{{ item.image_lm | img_url: image_max_width_m }}" srcset="{{ item.image_lm | img_url: image_max_width_m }} 1x, {{ item.image_lm | img_url: image_max_width_retina_m }} 2x" alt="{{ item.image_lm.alt }}" class="tt-hidden-desctope">
+          </div>
+          {%- endif -%}{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+{%- assign product_description = product.description | split: '<!-- more -->' -%}
+<div class="container-indent">
+  {% include "product_page_1_gallery" type: "mobile" %}
+  <div class="container container-fluid-mobile {% if product.title contains 'MTO' %} mto-product{% endif %}">
+    <div class="row">
+      {% include "product_page_arrow_gallery" type: item.gallery_type %}
+      <div class="col-6">
+      	{% include "product_page_1_description" %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+      {{ product_description[1] }}     
+      </div>
+    </div>
+  </div>
+</div>

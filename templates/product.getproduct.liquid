@@ -1,0 +1,31 @@
+{%- layout none -%}
+{%- assign emptyvalue = '-' -%}
+{%- assign curvariant = product.selected_variant -%}
+{%- assign product_meta = product.metafields.description -%}
+{%- assign product_meta_v = curvariant.metafields.description -%}
+
+{%- capture optionsjson -%}
+{%- for product_option in product.options_with_values -%}
+	{%- assign value = 'option' | append: forloop.index -%}
+	{%- assign value = curvariant[value] -%}
+	{%- capture value -%}{%- if value == 'Default Title' -%}{{ emptyvalue }}{%- else -%}{{ value }}{%- endif -%}{%- endcapture -%}
+	{%- if product_option.name != 'Title' -%}
+	{{ product_option.name | downcase | json }}: {{  value | json }}{% unless forloop.last %},{% endunless %}
+	{%- endif -%}
+{%- endfor -%}
+{%- endcapture -%}
+{
+"url": {{ curvariant.url | within: product.collections.last | json }},
+"image": {%- if curvariant.image == blank -%}{{ product.featured_image | product_img_url: '400x' | json }}{%- else -%}{{ curvariant.image | product_img_url: '400x' | json }}{%- endif -%},
+"title": {{ product.title | json }},
+"price": {{ curvariant.price | money | json }},
+"compare price": {{ curvariant.compare_at_price | money | json }},
+"available": {{ curvariant.available | json }},
+"data":{
+"description": {%- if product_meta_v.compare != blank -%}{{ product_meta_v.compare | json }}{%- else -%}{%- if product_meta.small_description != blank -%}{{ product_meta.small_description | json }}{%- else -%}{{ emptyvalue | json }}{%- endif -%}{%- endif -%},
+"vendor": {{ product.vendor | json }}
+},
+"options": {
+{{ optionsjson }}
+}
+}

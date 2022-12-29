@@ -1,0 +1,15 @@
+<div class="tt-pagination{{ align }}">
+  <ul>
+    {%- for part in paginate.parts -%}
+    {%- if part.title != paginate.current_page -%}
+    {%- if part.is_link -%}<li>{{ part.title | link_to: part.url}}</li>
+    {%- else -%}<li><span>{{ part.title }}</span></li>
+    {%- endif -%}
+    {%- else -%}<li class="active"><a href="#">{{ part.title }}</a></li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ul>
+  {%- if paginate.next.is_link and paginate.pages > 3 -%}
+  <a class="btn-pagination btn-next" href="{{ paginate.next.url }}"></a>
+  {%- endif -%}
+</div>

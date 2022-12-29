@@ -1,0 +1,12 @@
+{%- assign string = '' -%}
+{%- if settings[key_access] -%}
+{%- for i in current_tags -%}
+{%- assign values = ',' | append:settings[key_data] | downcase | replace: ', ', ',' | append: ',' | strip_newlines -%}
+{%- assign _i = ',' | append:i | downcase | replace: 'amp;', '' | append: ',' -%}
+{%- assign _i2 = ',' | append:i | downcase | replace: 'amp;', '' | append: '__' -%}
+{%- if values contains _i or values contains _i2 -%}
+{%- assign string = string | append: i -%}{%- unless forloop.last -%}{%- assign string = string | append: ',' -%}{%- endunless -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
+{{ string }}

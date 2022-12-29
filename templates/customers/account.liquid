@@ -1,0 +1,90 @@
+<div class="container-indent">
+  <div class="container">
+    <h1 class="tt-title-subpages noborder">{{ 'customer.account.title_main' | t }}</h1>
+    <div class="tt-shopping-layout">
+      <h2 class="tt-title-border">{{ 'customer.account.title' | t }}</h2>
+
+      <div class="tt-wrapper">
+        <h3 class="tt-title">{{ 'customer.account.order_history' | t }}</h3>
+        {% paginate customer.orders by 20 %}{% if customer.orders.size > 0 %}
+        <div class="tt-table-responsive">
+          <table class="tt-table-shop-01">
+            <thead>
+              <tr>
+                <th>{{ 'customer.orders.order_number' | t }}</th>
+                <th>{{ 'customer.orders.date' | t }}</th>
+                <th>{{ 'customer.orders.payment_status' | t }}</th>
+                <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                <th>{{ 'customer.orders.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+              <tr>
+                <td>{{ order.name | link_to: order.customer_url }}</td>
+                <td>{{ order.created_at | date: format: 'short' }}</td>
+                {% if order.cancelled %}
+                <td>{{ 'customer.order.cancelled' | t }}</td>
+                {% else %}
+                <td>{{ order.financial_status_label }}</td>
+                {% endif %}
+                <td>{{ order.fulfillment_status_label }}</td>
+                <td>{{ order.total_price | money }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p>{{ 'customer.orders.none' | t }}</p>
+        {% endif %}
+        {% if paginate.pages > 1 %}{% include 'pagination' align:' tt-pagination-left' %}{% endif %}
+        {% endpaginate %}
+      </div>
+
+      <div class="tt-wrapper">
+        <h3 class="tt-title">{{ 'customer.account.account_details' | t }}</h3>
+        <div class="tt-table-responsive">
+          <table class="tt-table-shop-02">
+            <tbody>
+              <tr>
+                <td>{{ 'customer.account.name' | t }}</td>
+                <td>{{ customer.name }}</td>
+              </tr>
+              <tr>
+                <td>{{ 'customer.account.email' | t }}</td>
+                <td>{{ customer.email }}</td>
+              </tr>
+              
+              {% if customer.default_address != nil %}
+              <tr>
+                <td>{{ 'customer.account.address' | t }}</td>
+                <td>{{ customer.default_address.address1 }}</td>
+              </tr>
+              {% if customer.default_address.address2 != "" %}
+              <tr>
+                <td>{{ 'customer.account.address_2' | t }}</td>
+                <td>{{ customer.default_address.address2 }}</td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td>{{ 'customer.account.country' | t }}</td>
+                <td>{{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}</td>
+              </tr>
+              <tr>
+                <td>{{ 'customer.account.zip' | t }}</td>
+                <td>{{ customer.default_address.zip }}</td>
+              </tr>
+              <tr>
+                <td>{{ 'customer.account.phone' | t }}</td>
+                <td>{{ customer.default_address.phone }}</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+        <a href="/account/addresses" class="btn btn-border">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a> 
+      </div>
+    </div>
+  </div>
+</div>

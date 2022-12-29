@@ -1,0 +1,273 @@
+{% layout "theme.wokiee_meta" %}
+
+<style>.pr-edit,form{position:relative}.pr-edit:hover h2,.show_all-link{color:{{ settings.color_base }}}.pr-edit-link:hover h2,.show_all-link:hover{text-decoration:underline}.clear_option,.show_all,.tab_button_add{cursor:pointer}html{padding:0!important}#admin-bar-iframe,#preview-bar-iframe{display:none!important}.tt-block-title .tt-title,.tt-post-single .tt-title,.tt-title-subpages{text-transform:unset}.pr-edit{margin-top:60px}.pr-edit img{width:100px}.pr-edit.set_all_values{margin-top:40px}.set_all_values.text-right>*{position:relative;top:-10px;margin-top:10px}.set_all_values.text-right>:not(:last-child){margin-right:7px}.pr-edit h2:not(.small):not([class^=tt-title]):not([class^=tt-collapse]):not([class^=tt-aside]){margin-top:10px;font-size:16px;line-height:20px;padding-bottom:0;transition:all .2s linear;-ms-transition:all .2s linear;-webkit-transition:all .2s linear;-o-transition:all .2s linear}form{margin-top:20px}form .hidden_fields>*,form>:not(.hidden_fields){margin-top:5px}form .hidden_fields button,form button,form>.show_all-marg,form>:last-child{margin-top:10px}form input{width:100%}.save_button button{margin-top:10px!important;margin-bottom:20px}.nomargin{margin-top:0!important}.show_all:before{content:attr(data-m)}.show_all.active:before{content:attr(data-h)}.cancel-operation,.info-modal{color:#fff;background:#191919}.info-modal{position:absolute;top:0;padding:10px 12px 8px;width:200px;z-index:10;pointer-events:none}.info-modal:before{content:'';position:absolute;left:-5px;top:calc(50% - 10px);width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:10px solid #191919}.pr-edit .form-default select.form-control{padding:7px 12px 10px 11px;height:40px!important}.pr-edit .form-default textarea.form-control{min-height:60px}.btn-fixed{position:fixed;bottom:20px;left:10px;z-index:10}.btn-fixed-pos-2{bottom:70px}.btn-fixed-pos-3{bottom:130px}.tt-block-title,.tt-title-subpages.noborder{padding:0}.bot-padd{padding:25px}.no-pag_mar .tt-pagination{margin-top:20px}.form-default.search input{margin-top:0;width:300px;display:inline-block}@media (max-width:1200px){.form-default.search input{width:250px}}.form-default.search button{margin-top:0;display:inline-block;position:relative;left:-20px;border-top-left-radius:0;border-bottom-left-radius:0}@media (max-width:1024px){.form-default.search input{width:100%}.form-default.search button{margin-top:20px;left:0;border-top-left-radius:6px;border-bottom-left-radius:6px}}.tt-block-title .tt-title{display:inline-block}.hide_search_results{position:absolute;font-size:14px;top:2px;left:calc(100% + 10px);color:{{ settings.color_base }};cursor:pointer}.form-default>.hidden_fields>div,.form-default>div,.video-btn i{position:relative}.video-btn{background:#f8353e;padding:6px 18px 4px}.video-btn:hover{background:#d82931}.video-btn i{top:-2px}.form-default .optwithvalue{color:#2879fe;background:#fff;border:1px solid #eaeaea}.clear_option{position:absolute;top:0;right:0;color:#bcbcbc;background:0 0;padding:5px}.clear_option:before{z-index:1;position:relative}.clear_option:active,.clear_option:hover{color:#f8353e;background:0 0}.all_products_data select:not(.optwithvalue):not(:hover):not(:focus){color:#bcbcbc}.all_products_data .form-default [name]:not(:hover)::-webkit-input-placeholder{color:#bcbcbc}.all_products_data .form-default [name]:not(:hover)::-moz-placeholder{color:#bcbcbc}.all_products_data .form-default [name]:not(:hover)::-ms-input-placeholder{color:#bcbcbc}.datasaved{color:#fff!important;background:green!important}.all_products_data .form-default [name].datasaved::-webkit-input-placeholder{color:#fff}.all_products_data .form-default [name].datasaved::-moz-placeholder{color:#fff}.all_products_data .form-default [name].datasaved::-ms-input-placeholder{color:#fff}.tabs_item>*{margin-top:5px}.tabs_item>p{margin-top:10px}.tabs_item>i{margin-top:0}.tab_button_add{margin-top:10px}.stickbuttons .pr-edit.set_all_values,.stickbuttons form{margin-top:5px}.tab_button_add:hover{color:#2879fe}@media (min-width:1430px){.container{max-width:1400px}}@media (min-width:790px){.tt-back-to-top{right:10px}.tt-back-to-top.tt-show{right:10px;bottom:20px}}.col,.col-1,.col-10,.col-11,.col-12,.col-2,.col-3,.col-4,.col-5,.col-6,.col-7,.col-8,.col-9,.col-auto,.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-auto,.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-auto,.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-auto,.col-xl,.col-xl-1,.col-xl-10,.col-xl-11,.col-xl-12,.col-xl-2,.col-xl-3,.col-xl-4,.col-xl-5,.col-xl-6,.col-xl-7,.col-xl-8,.col-xl-9,.col-xl-auto{padding-right:20px;padding-left:20px}.stickbuttons{display:none;position:fixed;top:0;width:100%;z-index:100;background:#fff;box-shadow:0 0 8px rgba(0,0,0,.3)}@media (min-width:1025px){.stickbuttons.stickbuttons-active{display:block}}.stickbuttons .set_all_values.text-right>*{top:-5px;margin-top:5px}</style>
+
+{% assign btn_save = 'Save' %}
+{% assign btn_cancel = 'Cancel' %}
+{% assign clear_button = '<i class="icon icon-g-80 clear_option" title="Delete"></i>' %}
+{% assign allkeys = ',related_collection,countdown,video,featured,icon_new,icon_sale,hover,custom_html,small_description,sizechart,shipping,group,' %}
+
+{%- paginate collections['all'].products by 50 -%}
+
+<div class="stickbuttons">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-5">
+        <div class="pr-edit set_all_values">
+          <form class="form-default search">
+            <input name="search" placeholder="Write product name" class="form-control">
+            <button type="submit" class="btn">Search</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-sm-7">
+        <div class="pr-edit set_all_values text-right">
+          <span class="show_all_fields show_all btn" data-m="Show all fields" data-h="Hide"></span>
+          <a href="http://portotheme.com/shopify/wokiee/doc/iv-03-products.html#keys_table" class="btn" target="_blank">Documentation</a>
+          <a href="https://www.youtube.com/watch?v=VFy5eyZIULo&amp;index=31&amp;list=PLjvK4DAxOmmVqXYUbOFUTqdl0b7pg7gN1" class="btn video-btn" target="_blank"><i class="icon-notes icon-g-76"></i>How to embed video</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-indent">
+  <div class="container">
+    <h1 class="tt-title-subpages noborder">EDIT ADDITIONAL INFORMATION IN PRODUCTS</h1>
+
+    {%- if paginate.pages > 1 -%}
+    <div class="no-pag_mar">
+    {%- include 'pagination' -%}
+    </div>
+    {%- endif -%}
+    
+    <div class="row stickposition-start">
+      <div class="col-12 col-sm-5">
+        <div class="pr-edit set_all_values">
+          <form class="form-default search">
+            <input name="search" placeholder="Write product name" class="form-control">
+            <button type="submit" class="btn">Search</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-sm-7">
+        <div class="pr-edit set_all_values text-right">
+          <span class="show_all_fields show_all btn" data-m="Show all fields" data-h="Hide"></span>
+          <a href="http://portotheme.com/shopify/wokiee/doc/iv-03-products.html#keys_table" class="btn" target="_blank">Documentation</a>
+          <a href="https://www.youtube.com/watch?v=VFy5eyZIULo&amp;index=31&amp;list=PLjvK4DAxOmmVqXYUbOFUTqdl0b7pg7gN1" class="btn video-btn" target="_blank"><i class="icon-notes icon-g-76"></i>How to embed video</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="shopify-section search-data-results hide">
+      <div class="tt-block-title container-indent">
+        <h2 class="tt-title">SEARCH RESULTS<span class="hide_search_results">Close</span></h2>
+      </div>
+      <div class="row">
+      </div>
+    </div>
+    
+	<div class="row all_products_data">
+      {% for product in collections['all'].products%}
+      {%- assign product_meta = product.metafields.description -%}
+      <div class="col-12 col-sm-4 col-md-3">
+        <div class="pr-edit" data-id="{{ product.id }}">
+          <a href="{{ product.url }}" class="pr-edit-link" target="_blank" data-desc="View in store">
+            <img src="{{ product.featured_image | product_img_url: '100x' }}" alt="">
+          	<h2>{{ product.title }}</h2>
+          </a>
+
+          <form class="form-default">
+
+            <div>
+              <select name="related_collection" data-desc="Related Products.<br> Separate custom collection with product for best promotion"
+                      class="form-control{% if product_meta.related_collection != blank %} optwithvalue{% endif %}">
+                <option value="default"{% if product_meta.related_collection == blank %} selected{% endif %}>Related collection - None</option>
+                {% for collection in collections %}
+                <option value="{{ collection.handle }}"{% if product_meta.related_collection == collection.handle %} selected{% endif %}>{{ collection.title }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            
+            <div>
+              {% if product_meta.countdown != blank %}{{ clear_button }}{% endif %}
+              <input name="countdown"
+                     data-desc="Countdown.<br> Work on product item and product page"
+                     {% if product_meta.countdown != blank %}
+                     value="{{ product_meta.countdown }}"
+                     {% endif %}
+                     placeholder="Select countdown date"
+                     class="form-control datepicker{% if product_meta.countdown != blank %} optwithvalue{% endif %}">
+            </div>
+
+
+            <div>
+              {% if product_meta.video != blank %}{{ clear_button }}{% endif %}
+              <input name="video"
+                     data-desc="Video.<br> Video link from some video channel"
+                     {% if product_meta.video != blank %}
+                     value="{{ product_meta.video }}"
+                     {% endif %}
+                     placeholder="Video embed link"
+                     class="form-control{% if product_meta.video != blank %} optwithvalue{% endif %}">
+            </div>
+
+            <div class="hidden_fields hide">
+
+
+              <div>
+                {% if product_meta.featured != blank %}{{ clear_button }}{% endif %}
+                <input name="featured"
+                       data-desc="Icon Featured.<br> Custom text in icon"
+                       {% if product_meta.featured != blank %}
+                       value="{{ product_meta.featured }}"
+                       {% endif %}
+                       placeholder="Featured icon text"
+                       class="form-control{% if product_meta.featured != blank %} optwithvalue{% endif %}">
+              </div>
+
+
+              <div>
+                <select name="icon_new" data-desc="Product item icon New. You can disable icon or show icon always"
+                        class="form-control{% if product_meta.icon_new != blank %} optwithvalue{% endif %}">
+                  <option value="default"{% if product_meta.icon_new == blank %} selected{% endif %}>Icon new - Default</option>
+                  <option value="disable"{% if product_meta.icon_new == 'disable' %} selected{% endif %}>Disable icon new</option>
+                  <option value="always"{% if product_meta.icon_new == 'always' %} selected{% endif %}>Icon new always</option>
+                </select>
+              </div>
+
+
+              <div>
+                <select name="icon_sale" data-desc="Product item icon Sale. You can disable icon"
+                        class="form-control{% if product_meta.icon_sale != blank %} optwithvalue{% endif %}">
+                  <option value="default"{% if product_meta.icon_sale == 'default' %} selected{% endif %}>Icon sale - Default</option>
+                  <option value="disable"{% if product_meta.icon_sale == 'disable' %} selected{% endif %}>Disable icon sale</option>
+                </select>
+              </div>
+
+
+              <div>
+                <select name="hover" data-desc="Hover.<br> Work with product item. In hover you can see second product image."
+                        class="form-control{% if product_meta.hover != blank %} optwithvalue{% endif %}">
+                  <option value="default"{% if product_meta.hover == 'default' %} selected{% endif %}>Hover - None</option>
+                  <option value="true"{% if product_meta.hover == 'true' %} selected{% endif %}>Enable product item hover</option>
+                </select>
+              </div>
+
+
+              <div>
+                {% if product_meta.custom_html != blank %}{{ clear_button }}{% endif %}
+                <textarea name="custom_html"
+                          data-desc="Custom Html.<br> Work on the product page after price"
+                          placeholder="Text on product page after price"
+                          class="form-control{% if product_meta.custom_html != blank %} optwithvalue{% endif %}">{% if product_meta.custom_html != blank %}{{ product_meta.custom_html }}{% endif %}</textarea>
+              </div>
+
+
+              <div>
+                {% if product_meta.small_description != blank %}{{ clear_button }}{% endif %}
+                <textarea name="small_description"
+                          data-desc="Small Description.<br> Work on the Quick View. Default - main description"
+                          placeholder="Quick View text"
+                          class="form-control{% if product_meta.small_description != blank %} optwithvalue{% endif %}">{% if product_meta.small_description != blank %}{{ product_meta.small_description }}{% endif %}</textarea>
+              </div>
+
+
+              <div>
+                {% if product_meta.sizechart != blank %}{{ clear_button }}{% endif %}
+                <textarea name="sizechart"
+                          data-desc="Size Chart.<br> You can use custom text or disable popup for selected product"
+                          placeholder="Size Chart. Disable or html code"
+                          class="form-control{% if product_meta.sizechart != blank %} optwithvalue{% endif %}">{% if product_meta.sizechart != blank %}{{ product_meta.sizechart }}{% endif %}</textarea>
+              </div>
+
+
+              <div>
+                {% if product_meta.shipping != blank %}{{ clear_button }}{% endif %}
+                <textarea name="shipping"
+                          data-desc="Shipping.<br> You can use custom text or disable popup for selected product"
+                          placeholder="Shipping. Disable or html code"
+                          class="form-control{% if product_meta.shipping != blank %} optwithvalue{% endif %}">{% if product_meta.shipping != blank %}{{ product_meta.shipping }}{% endif %}</textarea>
+              </div>
+              
+              
+              <div>
+                {% if product.metafields.productgallery.group != blank %}{{ clear_button }}{% endif %}
+                <textarea name="group"
+                          data-desc="Use with documentation"
+                          placeholder="Show images only by selected variant"
+                          class="form-control{% if product.metafields.productgallery.group != blank %} optwithvalue{% endif %}">{% if product.metafields.productgallery.group != blank %}{{ product.metafields.productgallery.group }}{% endif %}</textarea>
+              </div>
+              
+              
+              <div class="custom_tabs">
+                {% for field in product_meta %}
+                {% assign f = field | first %}
+                {% assign f = ',' | append: f | append: ',' %}
+                {% unless allkeys contains f %}
+                
+                <div class="tabs_item">
+                  {{ clear_button }}
+                  <p>For unique tab:</p>
+                  <input name="custom_tab"
+                         class="form-control"
+                         data-desc="Key you can get from product page section. Item unique tab"
+                         placeholder="Key from product page"
+                         value="{{ field | first }}">
+                  <textarea class="form-control"
+                            data-desc="Your html code. Field can not be empty"
+                            >{{ field | last }}</textarea>
+                </div>
+                
+                {% endunless %}
+                {% endfor %}
+                <div class="tab_button_add">+ Add unique tab for product page</div>
+              </div>
+            
+              
+            </div>
+            <div class="show_all-marg">
+              <span class="show_all show_all-link show_all-js" data-m="+ Show All" data-h="- Hide"></span>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+    {%- if paginate.pages > 1 -%}
+    {%- include 'pagination' -%}
+    {%- endif -%}
+    
+  </div>
+</div>
+{%- endpaginate -%}
+<div class="info-modal" style="display: none;">
+</div>
+<div class="bot-padd"></div>
+<div class="save_button" style="display: none;">
+  <button class="btn">{{ btn_save }}</button>
+  <button class="btn cancel-operation">{{ btn_cancel }}</button>
+</div>
+
+<div class="tabs_item" style="display:none;">
+  <p>For unique tab:</p>
+  <input name="custom_tab"
+         class="form-control"
+         data-desc="Key you can get from product page section. Item unique tab"
+         placeholder="Key from product page">
+  <textarea class="form-control"
+            data-desc="Your html code. Field can not be empty"
+            ></textarea>
+</div>
+
+<script>
+var clear_button = '{{ clear_button }}';
+function add_handler(t,a,e){$.ajax({type:"POST",url:"https://"+wokiee_app.url+"/api/product/add",data:$.extend({},wokiee_app.main_info,{productid:e.productid,namespace:e.namespace,key:e.key,value:e.value,value_type:"string"}),cache:!1,success:function(e){console.log("done"),t.parent().find(".clear_option").length||t.parent().find("select").length||t.parent().append(clear_button),t.remove(),a.addClass("datasaved"),setTimeout(function(){a.removeClass("datasaved").addClass("optwithvalue")},500)},error:function(e,a){alert("error"),t.remove()}})}function remove_handler(t,a,e){$.ajax({type:"POST",url:"https://"+wokiee_app.url+"/api/product/delete",data:$.extend({},wokiee_app.main_info,{productid:e.productid,namespace:e.namespace,key:e.key,value:e.value,value_type:"string"}),cache:!1,success:function(e){console.log("done"),t.remove(),a.addClass("datasaved"),setTimeout(function(){a.removeClass("datasaved").removeClass("optwithvalue")},500)},error:function(e,a){alert("error"),t.remove()}})}$("body").on("click",".tab_button_add",function(e){e.preventDefault();var a=$(".tabs_item").last().clone();$(this).before(a.show())}),$(function(){$(".datepicker").datepicker({dateFormat:"yy/dd/mm",changeMonth:!0,changeYear:!0,onSelect:function(e){var a=new Date,t=a.getHours();t=t<10?"0"+t:t,t="00";var s=a.getMinutes();s=s<10?"0"+s:s,s="00";var i=a.getSeconds();i=i<10?"0"+i:i,e=e+" "+t+":"+s+":"+(i="00"),$(this).val(e),$(this).trigger("change")}})}),$("body").on("click",".show_all-js",function(e){$(this).hasClass("active")?$(this).removeClass("active"):$(this).addClass("active");var a=$(this).closest(".pr-edit").find(".hidden_fields");if(a.hasClass("hide")?a.removeClass("hide"):a.addClass("hide"),!$(this).hasClass("btn-set-all"))return!1;$(this).hasClass("active")?($(this).removeClass("btn"),$(this).addClass("show_all-link")):($(this).addClass("btn"),$(this).removeClass("show_all-link"))}),$("body").on("click",".show_all_fields",function(e){if(showallfields=$(this).hasClass("active")?($(".show_all_fields").removeClass("active"),$(".hidden_fields:not(.all_fields_header)").addClass("hide"),$(".show_all-js:not(.all_fields_header)").show(),"false"):($(".show_all_fields").addClass("active"),$(".hidden_fields:not(.all_fields_header)").removeClass("hide"),$(".show_all-js:not(.all_fields_header)").hide().removeClass("active"),"true"),-1<location.href.indexOf("showallfields")){var a=location.href.split("showallfields");a=a[0]+"showallfields="+showallfields}else a=location.href+"?showallfields="+showallfields;window.history.pushState("object or string","Title",a)}),$("body").on("change input","input, select, textarea",function(){if("search"==$(this).attr("name"))return!1;if($(this).parent().find(".save_button").length)return!1;var e=$(".save_button").last().clone();$(this).parent().append(e.show())}),$("body").on("focus","input, select, textarea",function(){$(this).attr("data-def-value",$(this).val())}),$("body").on("click",".hide_search_results",function(){$(".search-data-results").addClass("hide"),$(".search-data-results").find(".row").empty(),$(".all_products_data").show(),$(".tt-pagination").css("visibility","visible")}),$("body").on({mouseenter:function(){var e=$(this),a=e.attr("data-desc");if(void 0!==a&&!1!==a){var t=$(".info-modal").clone().html(a);e.parent().prepend(t);var s=parseInt((e.innerHeight()-t.innerHeight())/2);t.css("top",e.position().top+s).show(),t.css("left",$(this).innerWidth()+10).show()}},mouseleave:function(){$(this).parent().find(".info-modal").remove()}},"[data-desc]"),$("body").on("click","button",function(e){if(e.preventDefault(),$(this).closest("form").hasClass("search")){var a=$(this).closest("form").find('[name="search"]').val();$('[name="search"]').val(a);var t="/search?type=product&q="+a+"&view=for_metafields";$.get(t,function(e){$(".search-data-results").removeClass("hide");var a=e,t=$(".search-data-results").find(".row");if(t.empty(),$("html, body").animate({scrollTop:$(".search-data-results").offset().top-60},500),$(".all_products_data").hide(),$(".tt-pagination").css("visibility","hidden"),""==a)return t.html('<span style="margin: 30px auto; 0">NO RESULTS</span>'),!1;t.html(e)});return!1}if($(this).hasClass("pressed"))return!1;$(this).addClass("pressed");var s=$(this).parent().parent().find("[name]"),i=s.attr("data-def-value");if(s.removeAttr("data-def-value"),$(this).hasClass("cancel-operation"))return $(this).parent().remove(),s.val(i),!1;var l=$(this).closest(".pr-edit"),n={};n.productid=l.attr("data-id"),n.namespace="group"==s.attr("name")?"productgallery":"description",n.key="custom_tab"==s.attr("name")?s.val():s.attr("name"),n.value="custom_tab"==s.attr("name")?$(this).parent().parent().find("textarea").val():s.val(),$(this).parent().find(".cancel-operation").remove(),$(this).text("Process"),""==n.value||"default"==n.value?(n.value,remove_handler($(this).parent(),s,n)):add_handler($(this).parent(),s,n)}),$("body").on("click",".clear_option",function(e){if(e.preventDefault(),$(this).hasClass("pressed"))return!1;$(this).addClass("pressed");var a=$(this).closest(".pr-edit"),t={},s=$(this).parent().find("[name]");t.productid=a.attr("data-id"),t.namespace="group"==s.attr("name")?"productgallery":"description",t.key="custom_tab"==s.attr("name")?s.val():s.attr("name"),"custom_tab"==s.attr("name")&&$(this).parent().parent().find("textarea").val(""),t.value="",s.val(""),remove_handler($(this),s,t)});var showallfields="small";function browserlink(){$("body").on("click",".tt-pagination a",function(e){if("false"==showallfields)return!0;e.preventDefault(),window.location.href=$(this).attr("href")+"&showallfields="+showallfields}),"true"==(showallfields=function(e,a){var t=location.href.match(e);t=t?t[0].split("=").pop():a;return t}(new RegExp(/showallfields=([^&#]*)/g),"false"))&&$(".show_all_fields").last().trigger("click")}browserlink(),$(window).scroll(function(){$(this).scrollTop()>$(".stickposition-start").offset().top+40?$(".stickbuttons").addClass("stickbuttons-active"):$(".stickbuttons").removeClass("stickbuttons-active")});
+</script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

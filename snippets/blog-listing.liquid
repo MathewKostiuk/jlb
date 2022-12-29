@@ -1,0 +1,9 @@
+<div class="tt-listing-post{{ half }}">
+  {%- for article in blog.articles -%}
+  {%- include 'blog-listing-item' -%}
+  {%- endfor -%}
+  
+  {%- if paginate.pages > 1 -%}
+  {%- include 'pagination' -%}
+  {%- endif -%}
+</div>

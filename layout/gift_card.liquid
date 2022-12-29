@@ -1,0 +1,47 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html{% if settings.use_boxed %} id="tt-boxed"{% endif %} class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  <!-- v1.1.0 Wokiee -->
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_base }}">
+  <meta name="keywords" content="{{ "general.meta.keywords" | t }}" />
+  <meta name="author" content="{{ "general.meta.author" | t }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  
+  {%- if settings.use_favicon -%}
+  	<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon" />
+  {%- endif -%}
+
+  <title>
+    {{ shop.name }} &ndash; {{ 'general.password_page.opening_soon' | t }}
+  </title>
+
+  {%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  <link href="https://fonts.googleapis.com/css?family={{ settings.font_name1 }}:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  {% if settings.font_name1 != settings.font_name2 and settings.font_name2 != '' %}
+  <link href="https://fonts.googleapis.com/css?family={{ settings.font_name2 }}:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.min.js' | asset_url | script_tag }}
+  
+  {{ content_for_header }}
+{% render 'weglot_hreftags' %}
+{% render 'weglot_switcher' %}
+</head>
+
+<body>
+  {{ content_for_layout }}
+
+  {{ 'vendor.min.js' | asset_url | script_tag }}
+</body>
+</html>

@@ -1,0 +1,46 @@
+{%- if search.performed -%}
+
+{%- if search.results_count == 0 -%}
+
+<div class="container-indent nomargin">
+  <div class="tt-empty-search">
+    <span class="tt-icon icon-h-04"></span>
+    <h1 class="tt-title">{{ 'general.search.no_results_title_html' | t }}</h1>
+    <p>{{ 'general.search.no_results_html' | t }} <span class="color-def-dark">'{{ search.terms }}'</span></p>
+  </div>
+</div>
+{%- else -%}
+
+<div class="container-indent">
+  <div class="container">
+    <h1 class="tt-title-subpages noborder">
+      {{ 'general.search.results_title' | t }} "{{ search.terms }}" <span class="tt-title-total">({{ search.results_count }})</span>
+    </h1>
+    <div class="row">
+      <div class="col-md-12">
+        {%- paginate search.results by 12 -%}
+        <div class="tt-product-listing row">
+          {%- for item in search.results -%}{%- assign product = item -%}
+          <div class="col-6 col-md-4 col-lg-3 tt-col-item">{%- include "product-grid-item" -%}</div>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}{%- include 'pagination' -%}{%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- endif -%}
+
+
+{%- else -%}
+
+<div class="container-indent nomargin">
+  <div class="tt-empty-search">
+    <span class="tt-icon icon-h-04"></span>
+    <h1 class="tt-title">{{ 'general.search.no_results_title_html' | t }}</h1>
+  </div>
+</div>
+
+{%- endif -%}

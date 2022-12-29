@@ -1,0 +1,12 @@
+<div class="tt-item" id="{{ comment.id }}">
+  <div class="tt-comments-level-1">
+    <div class="tt-avatar"></div>
+    <div class="tt-content">
+      <div class="tt-comments-title">
+        <span class="username">{{ 'blogs.article.by_author' | t }} <span>{{ comment.author }}</span></span>
+        <span class="time">{{ 'blogs.article.posted_in' | t }} {{ comment.created_at | date: '%B' }} {{ comment.created_at | date: '%d, %Y' }}</span>
+      </div>
+      <p>{{ comment.content }}</p>
+    </div>
+  </div>
+</div>

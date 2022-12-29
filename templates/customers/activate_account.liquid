@@ -1,0 +1,41 @@
+<div class="container-indent">
+  <div class="container">
+    <h1 class="tt-title-subpages noborder">{{ 'customer.activate_account.title_main' | t }}</h1>
+    <div class="tt-login-form">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="tt-item">
+            <h2 class="tt-title">{{ 'customer.activate_account.title_form' | t }}</h2>
+            {{ 'customer.activate_account.subtext' | t }}
+            
+            <div class="form-default form-top">
+              {% form 'activate_customer_password' %}
+              
+                <div class="tt-base-color">
+                {{ form.errors | default_errors }}
+                </div>
+              
+                <div class="form-group">
+                  <label for="loginInputEmail">{{ 'customer.activate_account.password' | t }}</label>
+                  <input type="password" value="" name="customer[password]" class="form-control" id="loginInputEmail">
+                </div>
+                <div class="form-group">
+                  <label for="loginInputPassword">{{ 'customer.activate_account.password_confirm' | t }}</label>
+                  <input type="password" value="" name="customer[password_confirmation]" class="form-control" id="loginInputPassword">
+                </div>
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="form-group">
+                      <button class="btn btn-border" type="submit">{{ 'customer.activate_account.submit' | t }}</button>
+                    </div>
+                  </div>
+                </div>
+              
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

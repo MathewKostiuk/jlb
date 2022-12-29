@@ -1,0 +1,832 @@
+{%- assign item = section.settings -%}
+
+{%- capture image_size -%}{{ item.logo_max_width }}x{%- endcapture -%}
+{%- capture image_size_retina -%}{{ item.logo_max_width | times: 2 }}x{%- endcapture -%}
+{%- capture headerlogo -%}{%- if item.logo != blank -%}{{ item.logo | img_url: image_size }}{%- else -%}title_{{ item.logo_text }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogoretina -%}{%- if item.logo != blank -%}{{ item.logo | img_url: image_size_retina }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogoalt -%}{{ item.logo.alt }}{%- endcapture -%}
+
+{%- if template == "index" and settings.header_position -%}
+{%- capture headerlogo -%}{%- if settings.show_static_logo -%}{{ 'staticlogo.png' | asset_img_url: image_size }}{%- else -%}title_{{ item.logo_text }}{%- endif -%}{%- endcapture -%}
+{%- endif -%}
+
+{%- capture image_size -%}{{ item.logo_max_mobile_width }}x{%- endcapture -%}
+{%- capture image_size_retina -%}{{ item.logo_max_mobile_width | times: 2 }}x{%- endcapture -%}
+{%- capture headerlogomobile -%}{%- if item.logomobile != blank -%}{{ item.logomobile | img_url: image_size }}{%- else -%}title_{{ item.logo_text }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogomobileretina -%}{%- if item.logomobile != blank -%}{{ item.logomobile | img_url: image_size_retina }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogomobilealt -%}{{ item.logomobile.alt }}{%- endcapture -%}
+
+
+{%- assign str_blocks_title = '|' -%}
+{%- assign str_blocks_title_drag = '|' -%}
+{%- for block in section.blocks -%}
+
+{%- assign str_blocks_title = str_blocks_title | append: block.settings.linklist | append: '_' | append: forloop.index0 -%}
+{%- unless forloop.last -%}{%- assign str_blocks_title = str_blocks_title | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+{%- for block in section.blocks -%}
+{%- assign str_blocks_title_drag = str_blocks_title_drag | append: block.settings.newnavigation_item | append: '_' | append: forloop.index0 -%}
+{%- unless forloop.last -%}{%- assign str_blocks_title_drag = str_blocks_title_drag | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+
+
+{%- assign menu_currency = '' -%}
+{%- assign menu_language = '' -%}
+{%- assign infobar = '' -%}
+{%- assign topbar = '' -%}
+{%- for block in section.blocks -%}
+{%- if block.type == 'menu_currency' -%}{%- assign menu_currency = block.settings -%}{%- endif -%}
+{%- if block.type == 'menu_language' -%}{%- assign menu_language = block.settings -%}{%- endif -%}
+{%- if block.type == 'infobar' -%}{%- assign infobar = block -%}{%- endif -%}
+{%- if block.type == 'topbar' -%}{%- assign topbar = block -%}{%- endif -%}
+{%- endfor -%}
+
+{%- capture logoposition -%}{%- case item.logo_bar -%}
+{%- when 'logocenter' -%}tt-obj-logo obj-aligment-center
+{%- when 'allinline' -%}tt-col-obj tt-obj-logo{% if item.menu_bar == 'menucenter' %} menu-in-center{% endif %}
+{%- else -%}tt-obj-logo
+{%- endcase -%}{%- endcapture -%}
+
+
+{%- capture menuposition -%}{%- case item.menu_bar -%}
+{%- when 'menucenter' -%}obj-aligment-center
+{%- when 'menuright' -%}obj-aligment-right
+{%- else -%}obj-aligment-left
+{%- endcase -%}{%- endcapture -%}
+
+
+{%- capture optionsposition -%}{%- case item.logo_bar -%}
+{%- when 'logocenter' -%}tt-obj-options obj-move-right tt-position-absolute
+{%- when 'allinline' -%}tt-col-obj tt-obj-options obj-move-right
+{%- else -%}tt-obj-options obj-move-right tt-position-absolute
+{%- endcase -%}{%- endcapture -%}
+
+{%- include "main-menu-mobile" mm: item.main_menu_selected -%}
+<header class="desctop-menu-large{% if item.small_header_height %} small-header{% endif %}">
+  {%- include "header_infobar" -%}
+  
+  {%- include "custom_header_mobile" -%}
+  <!-- tt-desktop-header -->
+  <div class="tt-desktop-header custom-header{% if settings.header_position and template == 'index' %} tt-header-static{% endif %}">    
+
+    <div class="container{% if item.header_fullwidth %}-fluid{% endif %}">
+      <div class="tt-header-holder">
+
+        {%- if item.logo_bar == 'allinline' and item.menu_design == 'tt-menu-small' -%}
+        <div class="tt-col-obj tt-obj-menu {{ menuposition }}"{% if item.menu_bar == 'menucenter' and item.menupadding != '' %} style="padding-right: {{ item.menupadding }}px;"{% endif %}>
+          <!-- tt-menu -->
+          <div class="tt-desctop-parent-menu tt-parent-box">
+            <div class="tt-desctop-menu">
+              {%- include "main-menu-custom" -%}
+            </div>
+          </div>
+        </div>
+        {%- endif -%}
+
+        <div class="{{ optionsposition }}">
+          {%- include "header_options" -%}
+        </div>
+
+      </div>
+    </div>
+
+    {%- if item.logo_bar != 'allinline' or item.menu_design != 'tt-menu-small' -%}
+    {%- if item.menu_design != 'tt-menu-small' -%}<div class="tt-color-scheme-01 menubackground">{%- endif -%}
+      <div class="container{% if item.header_fullwidth %}-fluid{% endif %} single-menu">
+        <div class="tt-header-holder">
+          <div class="tt-obj-menu {{ menuposition }}">
+            <div class="tt-desctop-parent-menu tt-parent-box">
+              <div class="tt-desctop-menu {{ item.menu_design }}">
+                {%- include "main-menu-custom" -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- if item.menu_design != 'tt-menu-small' -%}</div>{%- endif -%}
+    {%- endif -%}    
+  </div>
+  <!-- stuck nav -->
+  <div class="tt-stuck-nav custom-sticky{% unless item.header_sticky_header %} disabled{% endunless %}">
+    <div class="container custom-sticky-container">
+      <div class="tt-header-row ">
+        <div class="custom-logo-container">
+          <img class="stuck-logo mobile" src="https://cdn.shopify.com/s/files/1/0088/6027/0688/files/JLlogo4_navy.png?v=1584000115"/>
+        </div>
+        <div class="tt-stuck-parent-menu"></div>
+        <div class="header-tools">
+          <div class="tt-stuck-parent-search tt-parent-box"></div>
+          {%- unless settings.catalogue_mode -%}
+            {%- if template != "cart" -%}
+              <div class="tt-stuck-parent-cart tt-parent-box"></div>
+            {%- endif -%}
+          {%- endunless -%}
+          {%- if item.show_customer_links -%}
+            <div class="tt-stuck-parent-account tt-parent-box"></div>
+          {%- endif -%}
+          {%- if item.show_options_links -%}
+            <div class="tt-stuck-parent-multi tt-parent-box"></div>
+          {%- endif -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  var stickyHeader = document.querySelector('.custom-sticky');
+  var threshold = 50;
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset >= threshold) {
+        stickyHeader.classList.add('custom-scrolled');
+      } else {
+        stickyHeader.classList.remove('custom-scrolled');
+      }
+    });
+  });
+</script>
+
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "header_sticky_header",
+        "label": "Enable sticky header",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "small_header_height",
+        "label": "Small header height",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Main Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu_selected",
+        "label": "Menu Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": "Header width"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_fullwidth",
+        "label": "Header fullwidth",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo Text",
+        "default": "Wokiee",
+		"info": "Work when logo image is empty."
+      },
+      {
+        "type": "text",
+        "id": "logo_margin_top",
+        "label": "Desktop logo top offset",
+        "default": "0",
+		"info": "Integer in px"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Main",
+		"info": "95x19px"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Logo Main width (in pixels)",
+        "default": "95"
+      },
+      {
+        "type": "image_picker",
+        "id": "logomobile",
+        "label": "Logo Mobile",
+		"info": "95x19px"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_mobile_width",
+        "label": "Logo Mobile width (in pixels)",
+        "default": "95"
+      },
+      {
+        "type": "header",
+        "content": "Header Design"
+      },
+      {
+        "type": "select",
+        "id": "logo_bar",
+        "label": "Logo bar",
+        "options": [
+          {
+            "value": "default",
+            "label": "Logo left. Options right"
+          },
+          {
+            "value": "logocenter",
+            "label": "Logo center. Options right"
+          },
+          {
+            "value": "allinline",
+            "label": "All in line with menu"
+          }
+        ],
+        "default": "default",
+		"info": "\"All in line with menu\" work with menu design: \"Menu without background\""
+      },
+      {
+        "type": "select",
+        "id": "menu_bar",
+        "label": "Main menu position",
+        "options": [
+          {
+            "value": "default",
+            "label": "Menu left"
+          },
+          {
+            "value": "menuright",
+            "label": "Menu right"
+          },
+          {
+            "value": "menucenter",
+            "label": "Menu center"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "select",
+        "id": "menu_design",
+        "label": "Menu design",
+        "options": [
+          {
+            "value": "tt-menu-small",
+            "label": "Menu without background"
+          },
+          {
+            "value": "tt-hover-01",
+            "label": "Menu with background"
+          },
+          {
+            "value": "tt-hover-02",
+            "label": "Menu with background and item background"
+          }
+        ],
+        "default": "tt-menu-small"
+      },
+      {
+        "type": "text",
+        "id": "menupadding",
+        "label": "\"All in line\". Menu center correction",
+        "default": "37",
+		"info": "Integer in px. Correct menu center position in the screen. Works with option \"All in line\" when the menu in the center. For the screen size > 1230px"
+      },
+      {
+        "type": "header",
+        "content": "Options in logo bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_customer_links",
+        "label": "Show customer links",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_options_links",
+        "label": "Show options links",
+        "default": true,
+		"info": "Language menu. Currency menu"
+      }
+	],
+	"blocks": [
+      {
+        "type": "menu_language",
+        "name": "Languages menu",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "select",
+            "id": "language_menu_settings",
+            "label": "Languages menu settings",
+            "options": [
+              {
+                "value": "default",
+                "label": "Menu with external links"
+              },
+              {
+                "value": "weglot",
+                "label": "Weglot Translate APP. Default APP design"
+              },
+              {
+                "value": "weglot_theme",
+                "label": "Weglot Translate APP. Theme design"
+              }
+            ],
+            "default": "default"
+          },
+          {
+            "type": "paragraph",
+            "content": "Menu with external links"
+          },
+          {
+            "type": "text",
+            "id": "default_language",
+            "label": "Default language name",
+            "default": "English"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Mini Menu Link List"
+          }
+        ]
+      },
+      {
+        "type": "menu_currency",
+        "name": "Multiple сurrencies",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Explain to your customers what happens at checkout [Click here](https:\/\/help.shopify.com\/themes\/customization\/currencies\/show-multiple-currencies#explain-to-your-customers-what-happens-at-checkout)."
+          },
+          {
+            "type": "paragraph",
+            "content": "Write ISO 4217 Currency Codes [Click here](http:\/\/www.xe.com\/iso4217.php). Your currencies name: icon [Click here](http:\/\/character-code.com\/currency-html-codes.php), text."
+          },
+          {
+            "type": "textarea",
+            "id": "supported_currencies",
+            "label": "Currencies you wish to support",
+            "default": "USD, $&nbsp;&nbsp;US Dollars | EUR, €&nbsp;&nbsp;Euro | GBP, &pound;&nbsp;&nbsp;British Pounds",
+            "info": "Example: USD, $ US Dollars | EUR, € Euro | GBP, &pound; British Pounds"
+          },
+          {
+            "type": "paragraph",
+            "content": "&nbsp; - space"
+          }
+        ]
+      },
+      {
+        "type": "infobar",
+        "name": "Information bar",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "Show content",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "show_content_index",
+            "label": "Show content only in the index",
+            "default": false
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Html Text",
+            "default": "20% STUDENT DISCOUNT PLUS FREE NEXT DAY DELIVEY, EXCLUDES SALE. <a href=\"#\">DETAILS<\/a>"
+          },
+          {
+            "type": "checkbox",
+            "id": "background_image",
+            "label": "Use background image",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background image",
+            "info": "Image size max height 150px. Use *.png image. Image always in center and not responsive"
+          }
+        ]
+      },
+      {
+        "type": "topbar",
+        "name": "Top bar",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "Show content",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Html Text",
+            "default": "<div class=\"tt-box-info\">\n<ul>\n<li>\n<i class=\"icon-f-93\"><\/i>+566 4774 9930; +566 4774 9940\n<\/li>\n<li>\n<i class=\"icon-f-92\"><\/i>ALL WEEK FROM 9 AM TO 9 PM <\/li>\n<\/ul>\n<\/div>"
+          },
+          {
+            "type": "header",
+            "content": "Social Buttons"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_socials",
+            "label": "Show social buttons",
+            "default": true
+          },
+          {
+            "type": "url",
+            "id": "facebook_url",
+            "label": "Facebook",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "twitter_url",
+            "label": "Twitter",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "gmail_url",
+            "label": "Gmail",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "instagram_url",
+            "label": "Instagram",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "pinterest_url",
+            "label": "Pinterest",
+            "info": "If url is empty? Link will be hidden"
+          }
+        ]
+      },
+      {
+        "type": "menu_two_columns",
+        "name": "Simple submenu 2 columns",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select menu item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=1"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main menu item full name",
+			"info": "Work with new admin panel drag menu. Copy and paste full item name from main menu. Drop-down limit=1"
+          }
+        ]
+      },
+      {
+        "type": "ms_simplewithtitle",
+        "name": "Simple submenu with title",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select menu item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=1"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main menu item full name",
+			"info": "Work with new admin panel drag menu. Copy and paste full item name from main menu. Drop-down limit=1"
+          }
+        ]
+      },
+      {
+        "type": "megamenu",
+        "name": "Megamenu",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select Menu Item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=4"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main Menu Item Full Name",
+			"info": "Work with new admil panel drag menu. Copy and paste full item name from main menu. Drop-down limit=2"
+          },
+          {
+            "type": "select",
+            "id": "grid",
+            "label": "Items In Row",
+            "options": [
+              {
+                "value": "2",
+                "label": "6"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "3"
+              }
+            ],
+            "default": "4"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Categorie Images"
+          },
+          {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Image Item 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "Image Item 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image3",
+            "label": "Image Item 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image4",
+            "label": "Image Item 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "image5",
+            "label": "Image Item 5"
+          },
+          {
+            "type": "image_picker",
+            "id": "image6",
+            "label": "Image Item 6"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Widgets"
+          },
+          {
+            "type": "radio",
+            "id": "widget",
+            "label": "Widget In the Submenu",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "gallery",
+                "label": "Gallery"
+              },
+              {
+                "value": "banner",
+                "label": "Banner"
+              }
+            ],
+            "default": "banner"
+          },
+          {
+            "type": "header",
+            "content": "Widget > Gallery"
+          },
+          {
+            "type": "text",
+            "id": "widgetgallery_title",
+            "label": "Title",
+            "default": "SPECIALS"
+          },
+          {
+            "type": "url",
+            "id": "widgetgallery_url",
+			"label": "Title Link"
+          },
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          },
+          {
+            "type": "text",
+            "id": "collection_limit",
+            "label": "Show Products",
+            "default": "4",
+            "info": "Integer"
+          },
+          {
+            "type": "header",
+            "content": "Widget > Banner"
+          },
+          {
+            "type": "url",
+            "id": "widgetbanner_url",
+            "label": "Banner Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "widgetbanner_img",
+            "label": "Image",
+            "info": "Image must be JPG, 410 x 430 Px"
+          },
+          {
+            "type": "textarea",
+            "id": "widgetbanner_title",
+            "label": "Text 1",
+            "default": "SALE"
+          },
+          {
+            "type": "textarea",
+            "id": "widgetbanner_title2",
+            "label": "Text 2",
+            "default": "70% OFF"
+          },
+          {
+            "type": "textarea",
+            "id": "widgetbanner_title3",
+            "label": "Text 3",
+            "default": "Free shipping on all US order or order above $99"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color",
+            "label": "Text 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color2",
+            "label": "Text 2 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color3",
+            "label": "Text 3 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color4",
+            "label": "Button Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "checkbox",
+            "id": "widgetbanner_btn",
+            "label": "Show Button",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "widgetbanner_btnname",
+            "label": "Button Name",
+            "default": "SHOP NOW!"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Bottom Banners"
+          },
+          {
+            "type": "select",
+            "id": "banners_grid",
+            "label": "Show Banners",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "customhtml",
+                "label": "Custom Html"
+              },
+              {
+                "value": "12",
+                "label": "1"
+              },
+              {
+                "value": "6",
+                "label": "2"
+              }
+            ],
+            "default": "6"
+          },
+          {
+            "type": "textarea",
+            "id": "html",
+            "label": "Custom Html",
+            "info": "Paste your html code. Banners Off.",
+            "default": "Custom Html"
+          },
+          {
+            "type": "url",
+            "id": "banner1_url",
+            "label": "Banner 1 Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "bottombanners_img_1",
+            "label": "Image 1",
+            "info": "Image must be JPG, 542 x 160 Px"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit1",
+            "label": "Title 1",
+            "default": "SUMMER <span class=\"tt-base-color\">2018<\/span>"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit11",
+            "label": "Title 2",
+            "default": "NEW ARRIVALS"
+          },
+          {
+            "type": "color",
+            "id": "color_11",
+            "label": "Title 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "color_12",
+            "label": "Title 2 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "url",
+            "id": "banner2_url",
+            "label": "Banner 2 Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "bottombanners_img_2",
+            "label": "Image 2",
+            "info": "Image must be JPG, 542 x 160 Px"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit2",
+            "label": "Title 1",
+            "default": "CLEARANCE SALES"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit21",
+            "label": "Title 2",
+            "default": "GET UP TO 20% OFF"
+          },
+          {
+            "type": "color",
+            "id": "color_21",
+            "label": "Title 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "color_22",
+            "label": "Title 2 Color",
+            "default": "#ffffff"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

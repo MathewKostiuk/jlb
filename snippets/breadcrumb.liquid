@@ -1,0 +1,45 @@
+{%- comment -%}
+Documentation - http://docs.shopify.com/support/your-website/navigation/creating-a-breadcrumb-navigation
+{%- endcomment -%}
+
+{%- unless template == 'index' -%}
+<div class="tt-breadcrumb">
+  <div class="container">
+    <ul>
+      <li><a href="/">Home</a></li>
+      {%- if template contains 'product' -%}
+      {%- if collection -%}            
+      {%- if collection.handle -%}
+      {%- capture url -%}/collections/{{ collection.handle }}{%- endcapture -%}
+      <li>{{ collection.title | link_to: url }}</li>
+      {%- endif -%}
+      {%- endif -%}
+
+      <li><span>{{ product.title }}</span></li>
+
+      {%- elsif template contains 'collection' and collection.handle -%}
+      {%- if current_tags -%}
+      {%- capture url -%}/collections/{{ collection.handle }}{%- endcapture -%}
+      <li>{{ collection.title | link_to: url }}</li>
+      {%- else -%}
+      <li>{{ collection.title | capitalize }}</li>
+      {%- endif -%}
+
+      {%- elsif template == 'article' -%}
+      <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+      <li>{{ article.title }}</li>
+      {%- elsif template contains 'customers' and template != "customers/account" -%}
+      {%- assign account = 'customer.account.title_main' | t -%}
+      <li>{{ account | capitalize | link_to: "/account" }}</li>
+      <li>{{ page_title }}</li>
+
+      {%- elsif template contains 'page' -%}
+      <li>{{ page.title }}</li>
+
+      {%- else -%}
+      <li>{{ page_title }}</li>
+      {%- endif -%}
+    </ul>
+  </div>
+</div>
+{%- endunless -%}

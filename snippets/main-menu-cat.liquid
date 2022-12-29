@@ -1,0 +1,66 @@
+<nav>
+  <ul>
+    
+    {%- for link in linklists[section.settings.main_menu_selected].links -%}
+    
+      {%- assign submenu_type = "" -%}
+      {%- capture return -%}{%- include "get_linklist_dropdown", customlink: link -%}{%- endcapture -%}
+      {%- assign return = return | split: "%%" -%}
+      {%- assign child_list_handle = return | last | strip -%}
+    
+      {%- comment -%} Check submenu type {%- endcomment -%}
+      {%- assign title = child_list_handle -%}
+      {%- assign _title = title | append: '_' -%}
+      {%- assign checkval = '|' | append: _title -%}
+    
+      {%- if str_blocks_title contains checkval -%}
+    	{%- assign i = str_blocks_title | split: checkval | last | split: '|' | first | plus: 0 -%}
+	    {%- assign section_block = section.blocks[i] -%}
+    	{%- assign submenu_type = section_block.type -%}
+    	{%- assign section_block = section_block.settings -%}
+      {%- endif -%}
+    
+      {%- assign _title = link.title | append: '_' -%}
+      {%- assign checkval = '|' | append: _title -%}
+      {%- if str_blocks_title_drag contains checkval -%}
+    	{%- assign i = str_blocks_title_drag | split: checkval | last | split: '|' | first | plus: 0 -%}
+	    {%- assign section_block = section.blocks[i] -%}
+    	{%- assign submenu_type = section_block.type -%}
+    	{%- assign section_block = section_block.settings -%}
+      {%- endif -%}
+
+      {%- capture secondlevel -%}{%- if child_list_handle == 'false' -%}{{ link.handle }}{%- else -%}{{ child_list_handle }}{%- endif -%}{%- endcapture -%}
+    
+      {%- assign level_2 = linklists[secondlevel] -%}
+      {%- if level_2.empty? -%}
+      {%- assign secondlevel = link.title | handle -%}
+      {%- assign level_2 = linklists[secondlevel] -%}
+      {%- endif -%}
+    
+    <li{% unless level_2.empty? %} class="tt-submenu"{% endunless %}>
+      <a href="{{ link.url }}">
+        {%- assign svg = 'svg_item_' | append: forloop.index -%}
+        {%- assign svg = item[svg] -%}
+        {% if svg != '' %}{{ svg }}{% endif %}<span>{{ link.title }}</span></a>
+
+      {%- unless level_2.empty? -%}
+
+      {%- if submenu_type == '' -%}
+      	{%- include 'main-submenu-simplecat' -%}
+      {%- endif -%}
+
+      {%- if submenu_type == 'ms_simplewithtitle' or submenu_type == 'menu_two_columns' -%}
+      	{%- include 'main-submenu-simple_with_titlecat' -%}
+      {%- endif -%}
+      
+      {%- if submenu_type == 'megamenu' -%}
+      	{%- include 'main-submenu-megamenucat' -%}
+      {%- endif -%}
+      
+      {%- endunless -%}
+      
+    </li>
+    {%- endfor -%}
+    
+  </ul>
+</nav>

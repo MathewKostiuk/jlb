@@ -1,0 +1,109 @@
+<div class="container-indent">
+  <div class="container">
+    <h1 class="tt-title-subpages noborder">{{ 'customer.account.title_main' | t }}</h1>
+    <div class="tt-shopping-layout">
+      <h2 class="tt-title">{{ 'customer.order.title' | t: name: order.name }}</h2>
+      <a href="/account" class="tt-link-back">
+        <i class="icon-e-19"></i> {{ 'customer.general.return' | t }}
+      </a>
+      <div class="tt-data">{{ order.created_at | date: "%B %d, %Y %R" }}</div>
+      
+      {% if order.cancelled %}
+      <div>
+        <p><strong>{{ 'customer.order.cancelled' | t }} {{ order.cancelled_at | date: "%B %d, %Y %R" }}</strong></p>
+        <span>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason }}</span>
+      </div>
+      <br>
+      {% endif %}
+      
+      <div class="tt-wrapper">
+        <div class="tt-table-responsive">
+          <table class="tt-table-shop-03">
+            <thead>
+              <tr>
+                <th>{{ 'customer.order.product' | t }}</th>
+                <th>{{ 'customer.order.price' | t }}</th>
+                <th>{{ 'customer.order.quantity' | t }}</th>
+                <th>{{ 'customer.order.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for line_item in order.line_items %}
+              <tr>
+                <td>
+                  {{ line_item.title | link_to: line_item.product.url }}
+                  {% if line_item.fulfillment %}
+                  <div>
+                    {{ 'customer.order.fulfilled' | t }}  {{ line_item.fulfillment.created_at | date: format: 'short' }}
+                    {% if line_item.fulfillment.tracking_number %}
+                    <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                </td>
+                <td>{{ line_item.price | money }}</td>
+                <td>{{ line_item.quantity }}</td>
+                <td>{{ line_item.quantity | times: line_item.price | money }}</td>
+              </tr>
+              {% endfor %}
+              
+              <tr>
+                <td colspan="3"><strong>{{ 'customer.order.subtotal' | t }}</strong></td>
+                <td>{{ order.subtotal_price | money }}</td>
+              </tr>
+
+              {% for shipping_method in order.shipping_methods %}
+              <tr>
+                <td colspan="3"><strong>{{ shipping_method.title }}</strong></td>
+                <td>{{ shipping_method.price | money }}</td>
+              </tr>
+              {% endfor %}
+
+              {% for tax_line in order.tax_lines %}
+              <tr>
+                <td colspan="3">{{ tax_line.title }} {{ tax_line.rate | times: 100 }}%</td>
+                <td>{{ tax_line.price | money }}</td>
+              </tr>
+              {% endfor %}
+              <tr>
+                <td colspan="3"><strong>{{ 'customer.order.total' | t }}</strong></td>
+                <td><strong>{{ order.total_price | money }} {{ order.currency }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="tt-wrapper">
+        <div class="tt-shop-info">
+          <div class="tt-item">
+            <h6 class="tt-title">{{ 'customer.order.billing_address' | t }}</h6>
+            <div class="tt-description">
+              <strong>{{ 'customer.order.payment_status' | t }}: {{ order.financial_status_label }}</strong>
+              <p>{{ order.billing_address.name }}</p>
+              <p>{{ order.billing_address.company }}</p>
+              <p>{{ order.billing_address.street }}</p>
+              <p>{{ order.billing_address.city }}, {{ order.billing_address.province }}</p>
+              <p>{{ order.billing_address.country }} {{ order.billing_address.zip }}</p>
+              <p>{{ order.billing_address.phone }}</p>
+            </div>
+          </div>          
+          {% if order.shipping_address %}
+          <div class="tt-item">
+            <h6 class="tt-title">{{ 'customer.order.shipping_address' | t }}</h6>
+            <div class="tt-description">
+              <strong>{{ 'customer.order.fulfillment_status' | t }}: {{ order.fulfillment_status_label }}</strong>
+              <p>{{ order.shipping_address.name }}</p>
+              <p>{{ order.shipping_address.company }}</p>
+              <p>{{ order.shipping_address.street }}</p>
+              <p>{{ order.shipping_address.city }}, {{ order.shipping_address.province }}</p>
+              <p>{{ order.shipping_address.country }} {{ order.shipping_address.zip }}</p>
+              <p>{{ order.shipping_address.phone }}</p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

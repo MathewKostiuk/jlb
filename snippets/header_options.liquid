@@ -1,0 +1,25 @@
+{%- include "menu-search" -%}
+{%- include "menu-cart" -%}
+{%- include "menu-customer" -%}
+
+{%- if item.show_options_links -%}
+<!-- tt-langue and tt-currency -->
+<!--<div class="tt-desctop-parent-multi tt-parent-box">
+  <div class="tt-multi-obj tt-dropdown-obj">
+    <button class="tt-dropdown-toggle"
+            data-tooltip="{{ 'general.tooltip_texts.header_settings' | t }}"
+            data-tposition="bottom"
+            ><i class="icon-f-79"></i></button>
+    <div class="tt-dropdown-menu">
+      <div class="tt-mobile-add">
+        <button class="tt-close">Close</button>
+      </div>
+      <div class="tt-dropdown-inner">
+        {%- include "menu-language" -%}
+        {%- include "menu-currency" -%}
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- /tt-langue and tt-currency -->
+{%- endif -%}

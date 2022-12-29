@@ -1,0 +1,72 @@
+{%- capture html_tabs_nav -%}  
+{%- assign selected = true -%}
+{%- for block in section.blocks -%}
+{%- assign b_i = block.settings -%}
+{%- case block.type -%}
+  {%- when 'tab_desc' -%}
+	<li class="nav-item">
+      <a class="nav-link{% if selected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+  {%- when 'tab_same_html' -%}
+	<li class="nav-item">
+      <a class="nav-link{% if fselected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+  {%- when 'tab_unique' -%}
+	{%- if product_meta[b_i.key] != blank -%}
+	<li class="nav-item">
+      <a class="nav-link{% if selected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+	{%- endif -%}
+  {%- when 'tab_review' -%}
+	<li class="nav-item">
+      <a id="tab_review" class="nav-link{% if selected %} show active{% endif %}" data-toggle="tab" href="#tt-tab-0{{ forloop.index }}" role="tab">{{ b_i.title }}</a>
+	</li>
+	{%- assign selected = false -%}
+{%- endcase -%}
+{%- endfor -%}
+{%- endcapture -%}
+
+{%- capture html_tabs -%}
+{%- assign selected = true -%}
+{%- for block in section.blocks -%}
+{%- assign b_i = block.settings -%}
+{%- case block.type -%}
+  {%- when 'tab_desc' -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      {{ product.description }}
+	</div>
+	{%- assign selected = false -%}
+  {%- when 'tab_same_html' -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      {{ b_i.html }}
+	</div>
+	{%- assign selected = false -%}
+  {%- when 'tab_unique' -%}
+	{%- if product_meta[b_i.key] != blank -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      {{ product_meta[b_i.key] }}
+	</div>
+	{%- assign selected = false -%}
+	{%- endif -%}
+  {%- when 'tab_review' -%}
+	<div class="tab-pane{% if selected %} active fade{% endif %}" id="tt-tab-0{{ forloop.index }}" role="tabpanel">
+      <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+	</div>
+	{%- assign selected = false -%}
+{%- endcase -%}
+{%- endfor -%}
+{%- endcapture -%}
+
+{%- if html_tabs != '' -%}
+<div class="container-indent1 prpage-tabs">
+  <div class="container container-fluid-custom-mobile-padding">
+    <ul class="nav nav-tabs tt-tabs-default tt-tabs-left" role="tablist">
+      {{ html_tabs_nav }}
+    </ul>
+    <div class="tab-content">{{ html_tabs }}</div>
+  </div>
+</div>
+{%- endif -%}

@@ -1,0 +1,246 @@
+{%- assign item = section.settings -%}
+{%- assign blog = blogs[item.blog] -%}
+{%- assign grid = item.items | plus: 0 -%}
+
+{%- capture image_size -%}600x{%- endcapture -%}
+
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent">
+  <div class="container{% if item.fullwidth %}-fluid{% endif %}">
+    {%- if item.show_title -%}<div class="tt-block-title">
+      <h2 class="tt-title">
+        {%- if item.use_title_as_link -%}<a href="{{ blog.url }}" class="title-hover-underline" title="{{ item.button_text }}">{{ item.text1 }}</a>
+        {%- else -%}{{ item.text1 }}
+        {%- endif -%}
+      </h2>
+      {% unless item.text2 == '' %}<div class="tt-description">{{ item.text2 }}</div>{% endunless %}
+      {% unless item.default_carousel %}{% unless item.text3 == '' %}<p>{{ item.text3 }}</p>{% endunless %}{% endunless %}
+    </div>{% endif %}
+    <div class="tt-blog-thumb-list">
+      <div class="row">
+        {%- unless blog.empty? -%}
+        
+        {%- for article in blog.articles limit: item.limit -%}
+        <div class="col-12 col-sm-6 col-md-6 col-lg-{{ grid }}">
+          <div class="tt-blog-thumb">
+            {%- if article.image != blank -%}
+            <div class="tt-img">
+              <a href="{{ article.url }}" target="_blank">
+                <img class="lazyload"
+                     data-src="{{ article.image.src | img_url: image_size }}"
+                     data-srcset="{% include 'lazyload_string' value: article.image %}"
+                     alt="{{ article.image.alt }}">
+              </a>
+            </div>
+            {%- endif -%}
+            
+            <div class="tt-title-description">
+              <div class="tt-background"></div>
+              {%- if article.tags.size > 0 and item.show_tags -%}<div class="tt-tag text-uppercase">
+                {%- for tag in article.tags -%}
+              		{%- assign a_url = tag | handle -%}{%- assign a_url = blog.url | append: '/tagged/' | append: a_url  -%}
+              		{{ tag | link_to: a_url }}
+              	{%- endfor -%}
+              </div>{% endif %}
+              <div class="tt-title{% if settings.block_titles_uppercase %} text-uppercase{% endif %}">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+              </div>
+              {%- if item.show_description -%}
+              <p>{% if article.excerpt.size > 0 %}
+                {%- if section.settings.truncate_excerpt -%}{{ article.excerpt | strip_html | truncatewords: section.settings.truncate, section.settings.truncate_last_symbols }}
+                {%- else -%}{{ article.excerpt }}
+                {%- endif -%}
+                {%- else -%}{{ article.content | strip_html | truncatewords: section.settings.truncate, section.settings.truncate_last_symbols }}{%- endif -%}
+              </p>
+              {%- endif -%}
+              <div class="tt-meta">
+                {%- if section.settings.blog_show_author or section.settings.blog_show_date -%}
+                <div class="tt-autor">
+                  {% if item.blog_show_author %}{{ "blogs.general.author_by_html" | t: author: article.author }}{% endif %}
+                  {% if item.blog_show_date %} {{ "blogs.general.on" | t }} {{ article.published_at | date: '%B' }} {{ article.published_at | date: '%d, %Y' }}{% endif %}
+                </div>
+                {%- endif -%}
+                {%- if item.show_comment -%}
+                {%- if article.comments.size > 0 -%}{%- assign comment_url = article.url | append: '#comments' -%}{%- else -%}{%- assign comment_url = article.url | append: '#addcomment' -%}{%- endif -%}
+                <div class="tt-comments">
+                  <a href="{{ comment_url }}"><i class="tt-icon icon-f-88"></i>{{ article.comments.size }}</a>
+                </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+        {%- endfor -%}
+        
+        {%- else -%}
+        <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+        {%- endunless -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Blog Posts",
+	"class": "index-section",
+    "settings": [
+      {
+        "type": "select",
+        "id": "top_offset",
+        "label": "Top Offset",
+        "default": "normal",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Fullwidth size",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show Title Block",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "text1",
+        "label": "Title",
+        "default": "LATES FROM BLOG"
+      },
+      {
+        "type": "textarea",
+        "id": "text2",
+        "label": "Small description",
+        "default": "THE FRESHEST AND MOST EXCITING NEWS",
+		"info": "Empty field = hide field"
+      },
+      {
+        "type": "textarea",
+        "id": "text3",
+        "label": "Big description",
+		"info": "Empty field = hide field"
+      },
+      {
+        "type": "header",
+        "content": "Use title as link"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_title_as_link",
+        "label": "Use title as link to the blog",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Hover text",
+		"default": "SHOW ALL"
+      },
+      {
+        "type": "header",
+        "content": "Blog settings"
+      },
+      {
+        "id": "blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "text",
+        "id": "limit",
+        "label": "Items Length. Integer",
+        "default": "8"
+      },
+      {
+        "type": "select",
+        "id": "items",
+        "label": "Items in row",
+        "options": [
+          { "value": "6", "label": "2" },
+          { "value": "4", "label": "3" },
+          { "value": "3", "label": "4" }
+        ],
+        "default": "4",
+        "info": "For screen size > 1024"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_tags",
+        "label": "Show tags",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": "Show author",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_comment",
+        "label": "Show comment",
+        "default": true
+      },
+      {
+        "type": "paragraph",
+        "content": "_____"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_description",
+        "label": "Show description",
+        "default": true
+      },
+      {
+        "type": "paragraph",
+        "content": "Work only for the field \"Content\". Field \"Excerpt\" will show full."
+      },
+      {
+        "type": "checkbox",
+        "id": "truncate_excerpt",
+        "label": "Truncate Excerpt",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "truncate",
+        "label": "Show Words",
+        "default": "15",
+        "info": "Integer"
+      },
+      {
+        "type": "text",
+        "id": "truncate_last_symbols",
+        "label": "Last Symbols",
+        "default": "..."
+      }
+	],
+    "presets": [
+      {
+        "name": "Blog Posts",
+        "category": "Blog"
+      }
+    ]
+  }
+{% endschema %}

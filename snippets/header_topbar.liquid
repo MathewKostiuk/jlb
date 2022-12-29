@@ -1,0 +1,27 @@
+{%- if topbar != '' and topbar.settings.show_content -%}
+<div class="tt-color-scheme-01">
+  <div class="container{% if item.header_fullwidth %}-fluid{% endif %}">
+    <div class="tt-header-row tt-top-row">
+      <div class="tt-col-left">
+        {{ topbar.settings.text }}
+      </div>
+      {%- if topbar.settings.show_socials -%}
+      {%- capture soc_links -%}
+      {%- if topbar.settings.facebook_url -%}<li><a class="icon-g-64" target="_blank" href="{{ topbar.settings.facebook_url }}"></a></li>{%- endif -%}
+      {%- if topbar.settings.twitter_url -%}<li><a class="icon-h-58" target="_blank" href="{{ topbar.settings.twitter_url }}"></a></li>{%- endif -%}
+      {%- if topbar.settings.gmail_url -%}<li><a class="icon-g-66" target="_blank" href="{{ topbar.settings.gmail_url }}"></a></li>{%- endif -%}
+      {%- if topbar.settings.instagram_url -%}<li><a class="icon-g-67" target="_blank" href="{{ topbar.settings.instagram_url }}"></a></li>{%- endif -%}
+      {%- if topbar.settings.pinterest_url -%}<li><a class="icon-g-70" target="_blank" href="{{ topbar.settings.pinterest_url }}"></a></li>{%- endif -%}
+      {%- endcapture -%}
+      {%- assign soc_links = soc_links | strip -%}
+      {%- if soc_links != '' -%}
+      <div class="tt-col-right ml-auto">
+        <ul class="tt-social-icon">{{ soc_links }}</ul>
+      </div>
+      {%- endif -%}{%- endif -%}
+
+    </div>
+  </div>
+</div>
+{%- endif -%}
+

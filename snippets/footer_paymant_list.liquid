@@ -1,0 +1,24 @@
+{%- if pay_icons != '' and pay_icons.settings.show_content -%}
+<div class="tt-col-right">
+  <div class="tt-col-item">
+    <ul class="tt-payment-list">
+      {%- for i in (1..8) -%}
+      {%- assign img = 'pay_icon_' | append: forloop.index -%}
+      {%- assign img = pay_icons.settings[img] -%}
+      {%- assign url = 'pay_url_' | append: forloop.index -%}
+      {%- assign url = pay_icons.settings[url] -%}
+      {%- if img != blank -%}
+      <li>
+        <a href="{% if url == blank %}#{% else %}{{ url }}{% endif %}">
+          <img class="lazyload"
+               data-src="{{ img | img_url: 'x21' }}"
+               data-srcset="{{ img | img_url: 'x42' }} 1x, {{ img | img_url: 'x82' }} 2x"
+               alt="{{ img.alt }}"
+               style="height:{{ pay_icons.settings.payments_icons_max_height }}px;">
+        </a>
+      </li>
+      {%- endif -%}{%- endfor -%}
+    </ul>
+  </div>
+</div>
+{%- endif -%}

@@ -1,0 +1,88 @@
+{%- assign bg_alpha = b_i.background_alpha | divided_by: 100.00 -%}
+{%- assign bg_color = b_i.cbtnbg | color_modify: 'alpha', bg_alpha -%}
+{%- assign bg_alpha_a = b_i.background_alpha_a | divided_by: 100.00 -%}
+{%- assign bg_color_a = b_i.acbtnbg | color_modify: 'alpha', bg_alpha_a -%}
+
+{%- assign bor_alpha = b_i.border_alpha | divided_by: 100.00 -%}
+{%- assign bor_color = b_i.cbtnbor | color_modify: 'alpha', bor_alpha -%}
+{%- assign bor_alpha_a = b_i.border_alpha_a | divided_by: 100.00 -%}
+{%- assign bor_color_a = b_i.acbtnbor | color_modify: 'alpha', bor_alpha_a -%}
+
+{%- assign radius = '-moz-border-radius:' | append: item.bg_round | append: 'px;' | append: '-webkit-border-radius:' | append: item.bg_round | append: 'px;' | append: 'border-radius:' | append: item.bg_round | append: 'px;' | append: '-khtml-border-radius:' | append: item.bg_round | append: 'px;' %}
+
+{%- assign img_size2 = img_size | remove: 'x' | times: 2 | append: 'x' -%}
+{% if b_i.use_link %}
+<a href="{{ b_i.link }}" class="tt-promo-box{% if b_i.description_size == 'use_main_size' %}{% if item.description_size == 'small' %} tt-one-child{% endif %}{% else %}{% if b_i.description_size == 'small' %} tt-one-child{% endif %}{% endif %}{% if b_i.animation == 'use_main_animation' %}{% if item.animation == 'simple' %} hover-type-2{% endif %}{% else %}{% if b_i.animation == 'simple' %} hover-type-2{% endif %}{% endif %}" {% if item.show_border %}style="border: {{ item.border_color }} solid 1px"{% endif %} data-hovercolors>
+{% else %}
+<div class="tt-promo-box selecttext{% if b_i.description_size == 'use_main_size' %}{% if item.description_size == 'small' %} tt-one-child{% endif %}{% else %}{% if b_i.description_size == 'small' %} tt-one-child{% endif %}{% endif %}{% if b_i.animation == 'use_main_animation' %}{% if item.animation == 'simple' %} hover-type-2{% endif %}{% else %}{% if b_i.animation == 'simple' %} hover-type-2{% endif %}{% endif %}" {% if item.show_border %}style="border: {{ item.border_color }} solid 1px"{% endif %} data-hovercolors>
+{% endif %}
+
+  {%- if b_i.image == blank -%}{%- include "get_svg" type:'image' size:info_image_size -%}
+  {%- else -%}
+  {%- assign scale_numbers = '_' | append: img_size -%}
+    <img class="lazyload"
+         src="{{ b_i.image | img_url: img_size }}"
+         data-src="{{ b_i.image | img_url: img_size }}"
+         data-srcset="{% include 'lazyload_string' value: b_i.image %}"
+         alt="{{ b_i.image.alt }}">
+  {%- endif -%}
+  {%- unless b_i.description_size == 'hide' -%}{%- if b_i.text1 != '' or b_i.text2 != '' or b_i.show_icon -%}
+  <div class="tt-description {% if b_i.position != 'use_main_position' %}{{ b_i.position }}{% else %}{{ item.position }}{% endif %}">
+    <div class="tt-description-wrapper{% if b_i.text_to_left %} text-left{% endif %}"{% if item.use_same_desc_width %} style="min-width: {{ item.same_width }}px"{% endif %}>
+      <div class="tt-background" style="background:{{ bg_color }}; border: {{ bor_color }} solid 2px; {{ radius }}" data-bgc="{{ bg_color }}" data-abgc="{{ bg_color_a }}" data-borc="{{ bor_color }}" data-aborc="{{ bor_color_a }}"></div>
+      {%- if b_i.show_icon -%}
+      {%- assign icon_width = b_i.width | append: 'x' -%}
+      {%- assign icon_width2 = b_i.width | times: 2 | append: 'x' -%}
+      {%- assign img_size2 = img_size | remove: 'x' | times: 2 | append: 'x' -%}
+      <img src="{{ b_i.icon_image | img_url: icon_width }}"
+           srcset="{{ b_i.icon_image | img_url: icon_width }} 1x,
+                   {{ b_i.icon_image | img_url: icon_width2 }} 2x"
+           alt="{{ b_i.icon_image.alt }}"
+           >
+      {%- endif -%}
+      {% if b_i.text1 != '' %}<div class="tt-title-small" style="color:{{ b_i.cbtntext }};" data-c="{{ b_i.cbtntext }}" data-ac="{{ b_i.acbtntext }}">{{ b_i.text1 }}</div>{% endif %}
+      {% if b_i.text2 != '' %}<div class="tt-title-large" style="color:{{ b_i.cbtntext }};" data-c="{{ b_i.cbtntext }}" data-ac="{{ b_i.acbtntext }}">{{ b_i.text2 }}</div>{% endif %}
+    </div>
+  </div>
+  {%- endif -%}{%- endunless -%}
+  
+  {%- if b_i.show_custom_html -%}
+  <div class="tt-description {{ b_i.custom_html_position }}">
+    <div class="tt-description-wrapper{% if b_i.text_to_left %} text-left{% endif %}">
+      <div class="tt-background" style="background:rgba(0,0,0,0)"></div>
+      
+      {%- if b_i.show_prem_btn -%}
+      
+      <div class="custom-buttons">
+        {%- if b_i.show_prem_btn_1 -%}
+        {%- assign bg_alpha = b_i.background_alpha_1 | divided_by: 100.00 -%}
+        {%- assign bg_color = b_i.cbtnbg_1 | color_modify: 'alpha', bg_alpha -%}
+        {%- assign bg_alpha_a = b_i.background_alpha_a_1 | divided_by: 100.00 -%}
+        {%- assign bg_color_a = b_i.acbtnbg_1 | color_modify: 'alpha', bg_alpha_a -%}
+        <a href="{{ b_i.link_1 }}"
+           class="btn"
+           style="background:{{ bg_color }}; color:{{ b_i.cbtntext_1 }};" data-bgc="{{ bg_color }}" data-abgc="{{ bg_color_a }}" data-c="{{ b_i.cbtntext_1 }}" data-ac="{{ b_i.acbtntext_1 }}" data-hovercolors use-on-hover="true"
+           >{{ b_i.text_b_1 }}</a>{%- endif -%}
+        {%- if b_i.show_prem_btn_2 -%}
+        {%- assign bg_alpha = b_i.background_alpha_2 | divided_by: 100.00 -%}
+        {%- assign bg_color = b_i.cbtnbg_2 | color_modify: 'alpha', bg_alpha -%}
+        {%- assign bg_alpha_a = b_i.background_alpha_a_2 | divided_by: 100.00 -%}
+        {%- assign bg_color_a = b_i.acbtnbg_2 | color_modify: 'alpha', bg_alpha_a -%}
+        <a href="{{ b_i.link_2 }}"
+           class="btn"
+           style="background:{{ bg_color }}; color:{{ b_i.cbtntext_2 }};" data-bgc="{{ bg_color }}" data-abgc="{{ bg_color_a }}" data-c="{{ b_i.cbtntext_2 }}" data-ac="{{ b_i.acbtntext_2 }}" data-hovercolors use-on-hover="true"
+           >{{ b_i.text_b_2 }}</a>{%- endif -%}
+      </div>
+      
+      {%- endif -%}
+      
+      {{ b_i.custom_html }}
+    </div>
+  </div>
+  {%- endif -%}
+  
+{% if b_i.use_link == false %}
+</div>
+{% else %}
+</a>
+{% endif %}

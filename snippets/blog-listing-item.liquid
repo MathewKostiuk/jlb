@@ -1,0 +1,45 @@
+{%- if article.comments.size > 0 -%}{%- assign comment_url = article.url | append: '#comments' -%}{%- else -%}{%- assign comment_url = article.url | append: '#addcomment' -%}{%- endif -%}
+<div class="tt-post">
+  {%- unless article.image == blank -%}
+  <div class="tt-post-img">
+    <a href="{{ article.url }}"><img src="{{ article.image.src | img_url: '1024x1024' }}" alt="{{ article.image.alt }}"></a>
+  </div>
+  {%- endunless -%}  
+  <div class="tt-post-content">
+    {%- if article.tags.size > 0 and item.blog_show_tags -%}
+    <div class="tt-tag{% if item.blog_tags_uppercase %} text-uppercase{% endif %}">
+      {%- for tag in article.tags -%}{{ tag | link_to_tag: tag }}{%- endfor -%}
+    </div>{%- endif -%}
+
+    <h2 class="tt-title"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+    <div class="tt-description">
+      {%- if article.excerpt.size > 0 -%}
+      {%- if section.settings.truncate_excerpt -%}{{ article.excerpt | strip_html | truncatewords: section.settings.truncate, section.settings.truncate_last_symbols }}
+      {%- else -%}{{ article.excerpt }}
+      {%- endif -%}
+      {%- else -%}{{ article.content | strip_html | truncatewords: item.truncate, item.truncate_last_symbols }}{%- endif -%}
+    </div>
+
+    {%- if item.blog_show_author or item.blog_show_date or article.comments_enabled? and item.show_comments -%}
+    <div class="tt-meta">
+      {%- if item.blog_show_author or item.blog_show_date -%}
+      <div class="tt-autor">
+        {% if item.blog_show_author %}{{ 'blogs.article.by_author' | t }} <span>{{ article.author }}</span> {% endif %}{% if item.blog_show_date %}{{ 'blogs.article.posted_in' | t }} {{ article.published_at | date: '%B' }} {{ article.published_at | date: '%d, %Y' }}{% endif %}
+      </div>
+      {%- endif -%}
+      {%- if article.comments_enabled? and item.show_comments -%}
+      <div class="tt-comments">
+        <a href="{{ comment_url }}"><i class="tt-icon icon-f-88"></i>{{ article.comments.size }}</a>
+      </div>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+    {%- if item.blog_show_button -%}
+    <div class="tt-btn">
+      <a href="{{ article.url }}" class="btn">{{ 'blogs.article.read_more' | t }}</a>
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>

@@ -1,0 +1,421 @@
+{%- assign item = section.settings -%}
+{%- if item.show_section and section.blocks.size > 0 -%}
+<div class="tt-promo-fixed{% unless item.show_on_mobile %} tt-hidden-mobile{% endunless %}"
+     style="background-color:{{ item.bg_color }};{% if item.show_always %} opacity: 1;{% endif %}"
+     data-start="{{ item.val_first | times: 1000 | round }}"
+     data-min="{{ item.val_min | times: 1000 | round }}"
+     data-max="{{ item.val_max | times: 1000 | round }}">
+  <button class="tt-btn-close" style="color:{{ item.close_color }};" data-c="{{ item.close_color }}" data-ac="{{ item.close_active_color }}" data-hovercolors></button>
+  <div class="tt-img">
+    <a href="#"><img src="{{ 'dummy.png' | asset_url }}" alt=""></a>
+  </div>
+  <div class="tt-description" style="color:{{ item.text_color }};">
+    <div class="tt-box-top">
+      <p>{{ item.text1 }}</p>
+      <p><a href="#" class="pr_name" style="color:{{ item.name_color }};" data-c="{{ item.name_color }}" data-ac="{{ item.name_active_color }}" data-hovercolors>Product name</a></p>
+    </div>
+    <div class="tt-info" style="color:{{ item.text_color }};">
+      <span class="tt-info-value">info</span> <span class="tt-info-text">info</span>
+    </div>
+  </div>
+</div>
+
+{%- if section.blocks.size > 0 -%}
+<div class="hide promofixeddata">
+  {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+  {%- assign pri = b_i.pr_item -%}
+  {%- unless pri == blank -%}
+  {%- assign pri = all_products[pri] -%}
+  <div data-url="{{ pri.url }}"
+       data-image="{{ pri.featured_image.src | product_img_url: '150x' }}"
+       data-alt="{{ pri.featured_image.alt }}"
+       data-name="{{ pri.title }}"
+       data-text="{{ b_i.text1 }}{% unless b_i.text2 == '' %}||{{ b_i.text2 }}{% endunless %}{% unless b_i.text3 == '' %}||{{ b_i.text3 }}{% endunless %}{% unless b_i.text4 == '' %}||{{ b_i.text4 }}{% endunless %}{% unless b_i.text5 == '' %}||{{ b_i.text5 }}{% endunless %}"
+       data-min="{{ b_i.val_min }}"
+       data-max="{{ b_i.val_max }}"
+       ></div>
+  {%- endunless -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}
+
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Static Advertising",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_section",
+        "label": "Show section",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_on_mobile",
+        "label": "Show on mobile devices",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Modal delay settings"
+      },
+      {
+        "type": "textarea",
+        "id": "text1",
+        "label": "Main text",
+		"default": "Someone purchsed a"
+      },
+      {
+        "type": "text",
+        "id": "val_first",
+        "label": "Delay before first message after page load",
+        "default": "0",
+        "info": "Integer. Value in seconds"
+      },
+      {
+        "type": "text",
+        "id": "val_min",
+        "label": "Random range in seconds with next product. Minimum",
+        "default": "10",
+        "info": "Integer. Value in seconds. Range with new message"
+      },
+      {
+        "type": "text",
+        "id": "val_max",
+        "label": "Random range in seconds with next product. Maximum",
+        "default": "40",
+        "info": "Integer. Value in seconds. Range with new message"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_always",
+        "label": "Show always for change colors",
+        "default": false,
+  		"info": "Use only for customize theme"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#999999"
+      },
+      {
+        "type": "color",
+        "id": "name_color",
+        "label": "Product name",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "name_active_color",
+        "label": "Product name active",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "close_color",
+        "label": "Close button",
+        "default": "#999999"
+      },
+      {
+        "type": "color",
+        "id": "close_active_color",
+        "label": "Close button active",
+        "default": "#2879fe"
+      }
+	],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Product Item",
+        "settings": [
+          {
+            "type": "product",
+            "id": "pr_item",
+			"label": "Select Product"
+          },
+          {
+            "type": "text",
+            "id": "val_min",
+            "label": "Random range with minutes. Min",
+            "default": "1",
+  			"info": "Integer. Time of purchase. This is only text information"
+          },
+          {
+            "type": "text",
+            "id": "val_max",
+            "label": "Random range with minutes. Max",
+            "default": "16",
+  			"info": "Integer. Time of purchase. This is only text information"
+          },
+          {
+            "type": "text",
+            "id": "text1",
+            "label": "Random advertising text 1",
+            "default": "minutes ago from New York, USA"
+          },
+          {
+            "type": "text",
+            "id": "text2",
+            "label": "Random advertising text 2",
+            "default": "minutes ago from Berlin, Germany"
+          },
+          {
+            "type": "text",
+            "id": "text3",
+            "label": "Random advertising text 3",
+            "default": "minutes ago from Tokyo, Japan"
+          },
+          {
+            "type": "text",
+            "id": "text4",
+            "label": "Random advertising text 4",
+            "default": "minutes ago from Moscow, Russia"
+          },
+          {
+            "type": "text",
+            "id": "text5",
+            "label": "Random advertising text 5",
+            "default": "minutes ago from London, England"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+.tt-promo-fixed {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  padding: 10px;
+  overflow: hidden;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 6;
+  margin-right: 20px;
+  min-width: 300px;
+  max-width: 360px;
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  -webkit-opacity: 0;
+  opacity: 0;
+}
+
+.tt-promo-fixed .tt-btn-close {
+  background: none;
+  border: none;
+  outline: none;
+  color: #999999;
+  font-family: "wokiee_icons";
+  font-size: 14px;
+  position: absolute;
+  right: 2px;
+  top: 3px;
+  display: block;
+  cursor: pointer;
+  -moz-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  -webkit-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+
+.tt-promo-fixed .tt-btn-close:before {
+  display: block;
+  content: "\e9b3";
+}
+
+.tt-promo-fixed .tt-btn-close:hover {
+  color: #2879fe;
+}
+
+.tt-promo-fixed .tt-img {
+  width: 80px;
+  min-width: 80px;
+}
+
+.tt-promo-fixed .tt-img img {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 380px) {
+  .tt-promo-fixed .tt-img {
+    width: 65px;
+    min-width: 65px;
+  }
+}
+
+.tt-promo-fixed .tt-img + .tt-description {
+  margin-left: 13px;
+  margin-top: -3px;
+}
+
+.tt-promo-fixed .tt-description {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  padding-right: 17px;
+  color: #999999;
+}
+
+.tt-promo-fixed .tt-description .tt-title {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "{{ settings.font_name2 }}", sans-serif;
+}
+
+.tt-promo-fixed .tt-description p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.tt-promo-fixed .tt-description p a {
+  color: #191919;
+  display: inline-block;
+  -moz-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  -webkit-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+
+.tt-promo-fixed .tt-description p a:hover {
+  color: #2879fe;
+}
+
+.tt-promo-fixed .tt-description .tt-box-top {
+  -webkit-flex: 2 1 auto;
+  -ms-flex: 2 1 auto;
+  flex: 2 1 auto;
+}
+
+.tt-promo-fixed .tt-description .tt-info {
+  color: #999999;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 8px;
+  position: relative;
+  top: 2px;
+}
+
+.tt-promo-fixed .tt-description > *:nth-child(1) {
+  margin-top: 0;
+}
+.tt-promo-fixed .tt-description {
+ width: 100%;
+}
+.tt-promo-fixed .tt-description .tt-box-top {
+  width: 100%;
+}
+{% endstylesheet %}
+  
+{% javascript %}
+  function initPromoFixed(){
+    var $ttpromofixed = $(".tt-promo-fixed"),
+    	$promofixeddata = $(".promofixeddata"),
+        $promofixedclose = $ttpromofixed.find(".tt-btn-close");
+    
+    if($('html').hasClass('touch-device') && $ttpromofixed.hasClass('hidden-mobile')) return false;
+	if($ttpromofixed.hasClass('hidden-mobile') && $(window).width < 1025) return false;
+    if($promofixeddata.length == 0) return false;
+    
+    setPromoFixedItem($ttpromofixed, $promofixeddata);
+	showPromoFixed($ttpromofixed, $ttpromofixed.data('start'));
+    
+	showPromoFixedNextMessage($ttpromofixed, $promofixeddata, $promofixedclose)
+
+    $promofixedclose.click(function(){
+      $ttpromofixed.fadeTo(100, 0);
+    });
+  }
+  function showPromoFixedNextMessage($modal, $data, $close){
+    var nextmin = $modal.data('min'),
+        nextmax = $modal.data('max');
+	var i = getRndInteger(nextmin, nextmax);
+    setTimeout(function(){
+      $close.trigger('click');
+      setTimeout(function(){
+        setPromoFixedItem($modal, $data);
+        showPromoFixed($modal, 0);
+        showPromoFixedNextMessage($modal, $data, $close);
+      }, 100);
+    }, i);
+  }
+  function getPromoFixedCustomProductIndex($promofixeddata){
+    var min = 0,
+        max = $promofixeddata.children().length;
+    return getRndInteger(min, max);
+  }
+  function setPromoFixedItem($modal, $data){
+    var i = getPromoFixedCustomProductIndex($data)
+    var data = $data.children().eq(i);
+    $modal.find('.tt-img').find('a').attr('href', data.data('url')).find('img').attr('src', data.data('image')).attr('alt', data.data('alt'));
+    $modal.find('.pr_name').attr('href', data.data('url')).text(data.data('name'));
+    
+    var nummin = parseInt(data.data('min')),
+    	nummax = parseInt(data.data('max')),
+    	num = getRndInteger(nummin, nummax);
+    $modal.find('.tt-info-value').text(num);
+
+	if (typeof data.data('text') === typeof undefined) return false;
+    var str = data.data('text').split('||'),
+    	i = getRndInteger(0, str.length-1);
+    $modal.find('.tt-info-text').text(str[i]);
+  }
+  function showPromoFixed($parent, delay){
+    setTimeout(function(){
+      $parent.fadeTo(300, 1);
+    }, delay);
+  }
+  function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+  }
+  setTimeout(initPromoFixed, 300);
+{% endjavascript %}

@@ -1,0 +1,18 @@
+{% comment %}
+https://help.shopify.com/themes/liquid/filters/additional-filters#placeholder_svg_tag
+{% endcomment %}
+{%- capture svgname -%}
+{%- case type -%}
+{%- when 'collection' -%}
+{%- cycle 'collection-1', 'collection-2', 'collection-3', 'collection-4', 'collection-5', 'collection-6' -%}
+{%- when 'image' -%}
+image
+{%- when 'lifestyle' -%}
+{%- cycle 'lifestyle-1', 'lifestyle-2' -%}
+{%- else -%}
+{%- cycle 'product-1', 'product-2', 'product-3', 'product-4', 'product-5', 'product-6' -%}
+{%- endcase -%}
+{%- endcapture -%}
+{%- assign svg_height = size | remove: 'px' | split: 'x' | last | append: 'px' | strip_newlines -%}
+{%- assign new_text = size | append: '<span>Example of the rectangle image is not a responsive</span>' -%}
+<div class="svg_admin" style="height: {{ svg_height }};">{{ svgname | placeholder_svg_tag: 'placeholder-svg' }}<span>{{ size }}</span><span>Example of the rectangle image is not a responsive</span></div>

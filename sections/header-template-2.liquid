@@ -1,0 +1,890 @@
+{%- assign item = section.settings -%}
+
+{%- capture image_size -%}{{ item.logo_max_width }}x{%- endcapture -%}
+{%- capture image_size_retina -%}{{ item.logo_max_width | times: 2 }}x{%- endcapture -%}
+{%- capture headerlogo -%}{%- if item.logo != blank -%}{{ item.logo | img_url: image_size }}{%- else -%}title_{{ item.logo_text }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogoretina -%}{%- if item.logo != blank -%}{{ item.logo | img_url: image_size_retina }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogoalt -%}{{ item.logo.alt }}{%- endcapture -%}
+
+{%- if template == "index" and settings.header_position -%}
+{%- capture headerlogo -%}{%- if settings.show_static_logo -%}{{ 'staticlogo.png' | asset_img_url: image_size }}{%- else -%}title_{{ item.logo_text }}{%- endif -%}{%- endcapture -%}
+{%- endif -%}
+
+{%- capture image_size -%}{{ item.logo_max_mobile_width }}x{%- endcapture -%}
+{%- capture image_size_retina -%}{{ item.logo_max_mobile_width | times: 2 }}x{%- endcapture -%}
+{%- capture headerlogomobile -%}{%- if item.logomobile != blank -%}{{ item.logomobile | img_url: image_size }}{%- else -%}title_{{ item.logo_text }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogomobileretina -%}{%- if item.logomobile != blank -%}{{ item.logomobile | img_url: image_size_retina }}{%- endif -%}{%- endcapture -%}
+{%- capture headerlogomobilealt -%}{{ item.logomobile.alt }}{%- endcapture -%}
+
+
+{%- assign str_blocks_title = '|' -%}
+{%- assign str_blocks_title_drag = '|' -%}
+{%- for block in section.blocks -%}
+{%- assign str_blocks_title = str_blocks_title | append: block.settings.linklist | append: '_' | append: forloop.index0 -%}
+{%- unless forloop.last -%}{%- assign str_blocks_title = str_blocks_title | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+{%- for block in section.blocks -%}
+{%- assign str_blocks_title_drag = str_blocks_title_drag | append: block.settings.newnavigation_item | append: '_' | append: forloop.index0 -%}
+{%- unless forloop.last -%}{%- assign str_blocks_title_drag = str_blocks_title_drag | append: '|' -%}{%- endunless -%}
+{%- endfor -%}
+
+
+{%- assign menu_currency = '' -%}
+{%- assign menu_language = '' -%}
+{%- assign infobar = '' -%}
+{%- assign topbar = '' -%}
+{%- for block in section.blocks -%}
+{%- if block.type == 'menu_currency' -%}{%- assign menu_currency = block.settings -%}{%- endif -%}
+{%- if block.type == 'menu_language' -%}{%- assign menu_language = block.settings -%}{%- endif -%}
+{%- if block.type == 'infobar' -%}{%- assign infobar = block -%}{%- endif -%}
+{%- if block.type == 'topbar' -%}{%- assign topbar = block -%}{%- endif -%}
+{%- endfor -%}
+
+{%- include "main-menu-mobile" mm: item.main_menu_selected -%}
+{%- if item.show_categorie_button -%}<div class="CATEGORIE MOBILE"></div>{%- endif -%}
+
+<header class="desctop-menu-large small-header headertype2{% if item.header_border %} headerunderline{% endif %}">
+  {%- include "header_infobar" -%}
+  {%- include "header_topbar" -%}
+
+  <!-- tt-mobile-header -->
+  <div class="tt-mobile-header">
+    {%- if item.show_simple_info -%}
+    <div class="container-fluid">
+      <span class="header-tel-info">
+        {{ item.simple_info }}
+      </span>
+    </div>
+    {%- endif -%}
+    <div class="container-fluid tt-top-line">
+      <div class="tt-header-row">
+        <div class="tt-mobile-parent-menu">
+          <div class="tt-menu-toggle {% if item.show_categorie_button %}catmenumob-js{% else %}mainmenumob-js{% endif %}">
+            {% include "svg-mobile-menu" %}
+          </div>
+        </div>
+        {%- if item.show_categorie_button -%}
+        <div class="tt-parent-box">
+          <a href="#" class="catmobbtn mainmenumob-js">{% include "svg-categories" %}</a>
+        </div>
+        {%- endif -%}
+        <!-- search -->
+        <div class="tt-mobile-parent-search tt-parent-box">
+          <!-- tt-search -->
+          <div class="tt-search tt-dropdown-obj">
+            <button class="tt-dropdown-toggle"
+                    data-tooltip="{{ 'general.tooltip_texts.header_search' | t }}"
+                    data-tposition="bottom"
+                    >
+              <i class="icon-f-85"></i>
+            </button>
+            <div class="tt-dropdown-menu">
+              <div class="container">
+                <form action="/search" method="get" role="search">
+                  <div class="tt-col">
+                    <input type="hidden" name="type" value="product" />
+                    <input class="tt-search-input"
+                           type="search"
+                           name="q"
+                           placeholder="{{ 'general.search.place_holder' | t }}"
+                           aria-label="{{ 'general.search.place_holder' | t }}">
+                    <button type="submit" class="tt-btn-search"></button>
+                  </div>
+                  <div class="tt-col">
+                    <button class="tt-btn-close icon-f-84"></button>
+                  </div>
+                  <div class="tt-info-text">{{ 'general.search.header_message' | t }}</div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- /tt-search -->
+        </div>
+        <!-- /search -->
+        {%- unless settings.catalogue_mode -%}
+        {%- if template != "cart" -%}
+        <!-- cart -->
+        <div class="tt-mobile-parent-cart tt-parent-box"></div>
+        <!-- /cart -->
+        {%- endif -%}
+        {%- endunless -%}
+        {%- if item.show_customer_links -%}
+        <!-- account -->
+        <div class="tt-mobile-parent-account tt-parent-box"></div>
+        <!-- /account -->
+        {%- endif -%}
+        {%- if item.show_options_links -%}
+        <!-- currency -->
+        <div class="tt-mobile-parent-multi tt-parent-box"></div>
+        <!-- /currency -->
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="container-fluid tt-top-line">
+      <div class="row">
+        <div class="tt-logo-container">
+          <a class="tt-logo tt-logo-alignment" href="/">
+            {%- if headerlogomobile contains "title_" -%}<h2>{{ headerlogomobile | split:"title_" | last }}</h2>
+            {%- else -%}<img src="{{ headerlogomobile }}"
+                             srcset="{{ headerlogomobile }} 1x, {{ headerlogomobileretina }} 2x"
+                             alt="{{ headerlogomobilealt }}"
+                             class="tt-retina">
+            {%- endif -%}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- tt-desktop-header -->
+  <div class="tt-desktop-header{% if settings.header_position and template == 'index' %} tt-header-static{% endif %}">    
+
+    <div class="container{% if item.header_fullwidth %}-fluid{% endif %}">
+      <div class="tt-header-holder">
+
+        <div class="tt-obj-logo" itemscope itemtype="http://schema.org/Organization">
+          {%- include "header_logo" -%}
+        </div>
+        
+        <div class="search-type2{% unless item.show_simple_info %} obj-move-right{% endunless %}">
+          <!-- tt-search -->
+          <form action="/search" method="get" role="search" style="margin-left: {{ item.search_indent }}px;">
+            <i class="icon-f-85"></i>
+            <input type="hidden" name="type" value="product" />
+            <input class="tt-search-input"
+                   type="search"
+                   name="q"
+                   placeholder="{{ 'general.search.place_holder' | t }}"
+                   aria-label="{{ 'general.search.place_holder' | t }}">
+            <button type="submit" class="tt-btn-search">{{ 'general.search.button_name_header_type_2' | t }}</button>
+          </form>
+          <!-- /tt-search -->
+        </div>
+
+        {%- if item.show_simple_info -%}
+        <div class="tt-col-obj tt-obj-options obj-move-right">
+          <span class="header-tel-info">
+            {{ item.simple_info }}
+          </span>
+        </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+
+    <div class="container{% if item.header_fullwidth %}-fluid{% endif %} single-menu">
+      <div class="tt-header-holder">
+        <div class="tt-obj-menu obj-aligment-left">
+          {%- if item.show_categorie_button -%}
+          <div class="categories-btn-box tostuck-det-js" data-parent="categories-btn-box" data-stuckparent="tt-stuck-parent-categories">
+            [CATEGORIE, PLEASE SAVE PAGE]
+          </div>
+          {%- endif -%}
+          <div class="tt-desctop-parent-menu tt-parent-box">
+            <div class="tt-desctop-menu tt-menu-small">
+              {%- include "main-menu" -%}
+            </div>
+          </div>
+        </div>
+        <div class="tt-col-obj tt-obj-options obj-move-right">
+          <div class="tt-desctop-parent-search tt-parent-box hide"></div>
+          {%- include "menu-cart" -%}
+          {%- include "menu-customer" -%}
+
+          {%- if item.show_options_links -%}
+          <!-- tt-langue and tt-currency -->
+          <div class="tt-desctop-parent-multi tt-parent-box">
+            <div class="tt-multi-obj tt-dropdown-obj">
+              <button class="tt-dropdown-toggle"
+                      data-tooltip="{{ 'general.tooltip_texts.header_settings' | t }}"
+                      data-tposition="bottom"
+                      ><i class="icon-f-79"></i></button>
+              <div class="tt-dropdown-menu">
+                <div class="tt-mobile-add">
+                  <button class="tt-close">Close</button>
+                </div>
+                <div class="tt-dropdown-inner">
+                  {%- include "menu-language" -%}
+                  {%- include "menu-currency" -%}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /tt-langue and tt-currency -->
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- stuck nav -->
+  <div class="tt-stuck-nav{% unless item.header_sticky_header %} disabled{% endunless %}">
+    <div class="container">
+      <div class="tt-header-row ">
+        {%- if item.show_categorie_button -%}<div class="tt-stuck-parent-categories fromstuck-det-js"></div>{%- endif -%}
+        <div class="tt-stuck-parent-menu"></div>
+        {%- if item.show_categorie_button -%}<div class="tt-parent-box"><a href="#" class="catmobbtn mainmenumob-js">{% include "svg-categories" %}</a></div>{%- endif -%}
+        <div class="tt-stuck-parent-search tt-parent-box"></div>
+        {%- unless settings.catalogue_mode -%}
+        {%- if template != "cart" -%}
+        <div class="tt-stuck-parent-cart tt-parent-box"></div>
+        {%- endif -%}
+        {%- endunless -%}
+        {%- if item.show_customer_links -%}
+        <div class="tt-stuck-parent-account tt-parent-box"></div>
+        {%- endif -%}
+        {%- if item.show_options_links -%}
+        <div class="tt-stuck-parent-multi tt-parent-box"></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  
+</header>
+
+{% schema %}
+  {
+    "name": "Header type 2",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Categories button"
+      },
+      {
+        "type": "paragraph",
+        "content": "After saving the page with \"Categories button\" you will see the changes!!!"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_categorie_button",
+        "label": "Show categorie button",
+        "default": true,
+		"info": "Do action and save page!"
+      },
+      {
+        "type": "header",
+        "content": "Header settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_border",
+        "label": "Enable header underline",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_sticky_header",
+        "label": "Enable sticky header",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Main Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu_selected",
+        "label": "Menu Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": "Header width"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_fullwidth",
+        "label": "Header fullwidth",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo Text",
+        "default": "Wokiee",
+		"info": "Work when logo image is empty."
+      },
+      {
+        "type": "text",
+        "id": "logo_margin_top",
+        "label": "Desktop logo top offset",
+        "default": "0",
+		"info": "Integer in px"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo Main",
+		"info": "95x19px"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Logo Main width (in pixels)",
+        "default": "95"
+      },
+      {
+        "type": "image_picker",
+        "id": "logomobile",
+        "label": "Logo Mobile",
+		"info": "95x19px"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_mobile_width",
+        "label": "Logo Mobile width (in pixels)",
+        "default": "95"
+      },
+      {
+        "type": "header",
+        "content": "Options in logo bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_customer_links",
+        "label": "Show customer links",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_options_links",
+        "label": "Show options links",
+        "default": true,
+		"info": "Language menu. Currency menu"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_simple_info",
+        "label": "Show simple info",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "simple_info",
+        "label": "Simple info",
+        "default": "<i class=\"icon-f-93\"></i> 777 2345 7885; +777 2345 7886"
+      },
+      {
+        "type": "text",
+        "id": "search_indent",
+        "label": "Search indent. Work with enabled \"Simple info\"",
+        "default": "98",
+		"info": "Integer. Value will be in pixel"
+      }
+	],
+	"blocks": [
+      {
+        "type": "menu_language",
+        "name": "Languages menu",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "select",
+            "id": "language_menu_settings",
+            "label": "Languages menu settings",
+            "options": [
+              {
+                "value": "default",
+                "label": "Menu with external links"
+              },
+              {
+                "value": "weglot",
+                "label": "Weglot Translate APP. Default APP design"
+              },
+              {
+                "value": "weglot_theme",
+                "label": "Weglot Translate APP. Theme design"
+              }
+            ],
+            "default": "default"
+          },
+          {
+            "type": "paragraph",
+            "content": "Menu with external links"
+          },
+          {
+            "type": "text",
+            "id": "default_language",
+            "label": "Default language name",
+            "default": "English"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Mini Menu Link List"
+          }
+        ]
+      },
+      {
+        "type": "menu_currency",
+        "name": "Multiple сurrencies",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Explain to your customers what happens at checkout [Click here](https:\/\/help.shopify.com\/themes\/customization\/currencies\/show-multiple-currencies#explain-to-your-customers-what-happens-at-checkout)."
+          },
+          {
+            "type": "paragraph",
+            "content": "Write ISO 4217 Currency Codes [Click here](http:\/\/www.xe.com\/iso4217.php). Your currencies name: icon [Click here](http:\/\/character-code.com\/currency-html-codes.php), text."
+          },
+          {
+            "type": "textarea",
+            "id": "supported_currencies",
+            "label": "Currencies you wish to support",
+            "default": "USD, $&nbsp;&nbsp;US Dollars | EUR, €&nbsp;&nbsp;Euro | GBP, &pound;&nbsp;&nbsp;British Pounds",
+            "info": "Example: USD, $ US Dollars | EUR, € Euro | GBP, &pound; British Pounds"
+          },
+          {
+            "type": "paragraph",
+            "content": "&nbsp; - space"
+          }
+        ]
+      },
+      {
+        "type": "infobar",
+        "name": "Information bar",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "Show content",
+            "default": true
+          },
+          {
+            "type": "checkbox",
+            "id": "show_content_index",
+            "label": "Show content only in the index",
+            "default": false
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Html Text",
+            "default": "20% STUDENT DISCOUNT PLUS FREE NEXT DAY DELIVEY, EXCLUDES SALE. <a href=\"#\">DETAILS<\/a>"
+          },
+          {
+            "type": "checkbox",
+            "id": "background_image",
+            "label": "Use background image",
+            "default": false
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Background image",
+            "info": "Image size max height 150px. Use *.png image. Image always in center and not responsive"
+          }
+        ]
+      },
+      {
+        "type": "topbar",
+        "name": "Top bar",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "Show content",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "text",
+            "label": "Html Text",
+            "default": "<div class=\"tt-box-info\">\n<ul>\n<li>\n<i class=\"icon-f-93\"><\/i>+566 4774 9930; +566 4774 9940\n<\/li>\n<li>\n<i class=\"icon-f-92\"><\/i>ALL WEEK FROM 9 AM TO 9 PM <\/li>\n<\/ul>\n<\/div>"
+          },
+          {
+            "type": "header",
+            "content": "Social Buttons"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_socials",
+            "label": "Show social buttons",
+            "default": true
+          },
+          {
+            "type": "url",
+            "id": "facebook_url",
+            "label": "Facebook",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "twitter_url",
+            "label": "Twitter",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "gmail_url",
+            "label": "Gmail",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "instagram_url",
+            "label": "Instagram",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "pinterest_url",
+            "label": "Pinterest",
+            "info": "If url is empty? Link will be hidden"
+          }
+        ]
+      },
+      {
+        "type": "menu_two_columns",
+        "name": "Simple submenu 2 columns",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select menu item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=1"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main menu item full name",
+			"info": "Work with new admin panel drag menu. Copy and paste full item name from main menu. Drop-down limit=1"
+          }
+        ]
+      },
+      {
+        "type": "ms_simplewithtitle",
+        "name": "Simple submenu with title",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select menu item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=1"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main menu item full name",
+			"info": "Work with new admin panel drag menu. Copy and paste full item name from main menu. Drop-down limit=1"
+          }
+        ]
+      },
+      {
+        "type": "megamenu",
+        "name": "Megamenu",
+        "settings": [
+          {
+            "type": "link_list",
+            "id": "linklist",
+            "label": "Select Menu Item",
+			"info": "Work for old method with menu. Create navigations with documentation. Select item with mega menu. Not Use new drag admin panel menu. Drop-down limit=4"
+          },
+          {
+            "type": "textarea",
+            "id": "newnavigation_item",
+            "label": "Main Menu Item Full Name",
+			"info": "Work with new admil panel drag menu. Copy and paste full item name from main menu. Drop-down limit=2"
+          },
+          {
+            "type": "select",
+            "id": "grid",
+            "label": "Items In Row",
+            "options": [
+              {
+                "value": "2",
+                "label": "6"
+              },
+              {
+                "value": "3",
+                "label": "4"
+              },
+              {
+                "value": "4",
+                "label": "3"
+              }
+            ],
+            "default": "4"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Categorie Images"
+          },
+          {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Image Item 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "Image Item 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image3",
+            "label": "Image Item 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image4",
+            "label": "Image Item 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "image5",
+            "label": "Image Item 5"
+          },
+          {
+            "type": "image_picker",
+            "id": "image6",
+            "label": "Image Item 6"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Widgets"
+          },
+          {
+            "type": "radio",
+            "id": "widget",
+            "label": "Widget In the Submenu",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "gallery",
+                "label": "Gallery"
+              },
+              {
+                "value": "banner",
+                "label": "Banner"
+              }
+            ],
+            "default": "banner"
+          },
+          {
+            "type": "header",
+            "content": "Widget > Gallery"
+          },
+          {
+            "type": "text",
+            "id": "widgetgallery_title",
+            "label": "Title",
+            "default": "SPECIALS"
+          },
+          {
+            "type": "url",
+            "id": "widgetgallery_url",
+			"label": "Title Link"
+          },
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          },
+          {
+            "type": "text",
+            "id": "collection_limit",
+            "label": "Show Products",
+            "default": "4",
+            "info": "Integer"
+          },
+          {
+            "type": "header",
+            "content": "Widget > Banner"
+          },
+          {
+            "type": "url",
+            "id": "widgetbanner_url",
+            "label": "Banner Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "widgetbanner_img",
+            "label": "Image",
+            "info": "Image must be JPG, 410 x 430 Px"
+          },
+          {
+            "type": "textarea",
+            "id": "widgetbanner_title",
+            "label": "Text 1",
+            "default": "SALE"
+          },
+          {
+            "type": "textarea",
+            "id": "widgetbanner_title2",
+            "label": "Text 2",
+            "default": "70% OFF"
+          },
+          {
+            "type": "textarea",
+            "id": "widgetbanner_title3",
+            "label": "Text 3",
+            "default": "Free shipping on all US order or order above $99"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color",
+            "label": "Text 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color2",
+            "label": "Text 2 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color3",
+            "label": "Text 3 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "widgetbanner_color4",
+            "label": "Button Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "checkbox",
+            "id": "widgetbanner_btn",
+            "label": "Show Button",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "widgetbanner_btnname",
+            "label": "Button Name",
+            "default": "SHOP NOW!"
+          },
+          {
+            "type": "header",
+            "content": "----------------"
+          },
+          {
+            "type": "header",
+            "content": "Bottom Banners"
+          },
+          {
+            "type": "select",
+            "id": "banners_grid",
+            "label": "Show Banners",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "customhtml",
+                "label": "Custom Html"
+              },
+              {
+                "value": "12",
+                "label": "1"
+              },
+              {
+                "value": "6",
+                "label": "2"
+              }
+            ],
+            "default": "6"
+          },
+          {
+            "type": "textarea",
+            "id": "html",
+            "label": "Custom Html",
+            "info": "Paste your html code. Banners Off.",
+            "default": "Custom Html"
+          },
+          {
+            "type": "url",
+            "id": "banner1_url",
+            "label": "Banner 1 Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "bottombanners_img_1",
+            "label": "Image 1",
+            "info": "Image must be JPG, 542 x 160 Px"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit1",
+            "label": "Title 1",
+            "default": "SUMMER <span class=\"tt-base-color\">2018<\/span>"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit11",
+            "label": "Title 2",
+            "default": "NEW ARRIVALS"
+          },
+          {
+            "type": "color",
+            "id": "color_11",
+            "label": "Title 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "color_12",
+            "label": "Title 2 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "url",
+            "id": "banner2_url",
+            "label": "Banner 2 Link"
+          },
+          {
+            "type": "image_picker",
+            "id": "bottombanners_img_2",
+            "label": "Image 2",
+            "info": "Image must be JPG, 542 x 160 Px"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit2",
+            "label": "Title 1",
+            "default": "CLEARANCE SALES"
+          },
+          {
+            "type": "text",
+            "id": "banners_tit21",
+            "label": "Title 2",
+            "default": "GET UP TO 20% OFF"
+          },
+          {
+            "type": "color",
+            "id": "color_21",
+            "label": "Title 1 Color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "color",
+            "id": "color_22",
+            "label": "Title 2 Color",
+            "default": "#ffffff"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

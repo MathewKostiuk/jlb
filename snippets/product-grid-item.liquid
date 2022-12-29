@@ -1,0 +1,81 @@
+{%- capture url_images_size -%}{%- if external_size != empty? -%}{{ external_size }}{%- else -%}600x{%- endif -%}{%- endcapture -%}
+{%- assign product_meta = product.metafields.description -%}
+{%- comment -%} Price to show. {%- endcomment -%}
+{%- assign sale_on = false -%}
+{%- assign shownewicon = false -%}
+{%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+	{%- assign sale_on = true -%}
+{%- endif -%}
+
+{%- comment -%} Main Image URL. {%- endcomment -%}
+{%- assign main_url_image = product.featured_image -%}
+{%- assign hover_url_image = "" -%}
+{%- if product.images[1] -%}{%- if product.images[1].src contains "hover" or product_meta.hover == 'true' -%}
+	{%- assign hover_url_image = product.images[1].src -%}
+	{%- assign hover_url_image_alt = product.images[1].alt -%}
+{%- endif -%}{%- endif -%}
+
+{%- comment -%}
+date_difference = 60 * 60 * 24 * day counter, this is new product period in seconds
+{%- endcomment -%}
+  {%- assign date_now = 'now' | date: "%s" -%}
+  {%- assign date_published = product.published_at | date: "%s" -%}
+  {%- assign date_difference = date_now | minus: date_published -%}
+  {%- assign date_limit = 86400 | times: settings.new_product_period -%}
+
+  {%- if settings.show_unavailable_variants -%}
+  {%- assign pr_variant = product.variants | first -%}
+  {%- else -%}
+  {%- assign pr_variant = product.selected_or_first_available_variant -%}
+  {%- endif -%}
+
+{%- assign pid = product.id | append:"" -%}
+{%- assign wl = customer.metafields.wishlist -%}
+{%- unless wl == blank -%}
+{%- if wl[pid] == blank -%}
+{%- assign wl_text = false -%}
+{%- else -%}
+{%- assign wl_text = true -%}
+{%- endif -%}
+{%- else -%}
+{%- assign wl_text = false -%}
+{%- endunless -%}
+
+{%- capture wishlist_button -%}
+{%- if settings.product_item_show_wishlist and settings.show_wishlist -%}
+<a href="{{ product.url | within: collection }}"
+   data-productid="{{ product.id }}"
+   data-producth="{{ product.handle }}"
+   data-add="{{ "wishlist.buttons_text.tooltip_add" | t }}"
+   data-remove="{{ "wishlist.buttons_text.tooltip_remove" | t }}"
+   data-tooltip="{% if customer.id == blank %}{{ "wishlist.buttons_text.tooltip_login" | t }}{% else %}{% if wl_text %}{{ "wishlist.buttons_text.tooltip_remove" | t }}{% else %}{{ "wishlist.buttons_text.tooltip_add" | t }}{% endif %}{% endif %}"
+   data-tposition="left"
+   data-type="wishlist"
+   data-action="{% if wl_text %}wk-remove{% else %}wk-add{% endif %}"
+   class="wk-app-btn tt-btn-wishlist wlbutton-js{% if template.suffix == "wishlist" %} wk-delete-icon{% endif %}">
+  {% if template.suffix == "wishlist" %}{% include "svg-delete-icon" %}
+  {% else %}{% include "svg-heart" %}
+  {% endif %}</a>
+{%- endif -%}
+{%- endcapture -%}
+
+{%- capture compare_button -%}
+{% if settings.product_item_show_compare and settings.show_compare and template.suffix != "wishlist" %}
+<a href="{{ product.url | within: collection }}"
+   class="wk-app-btn tt-btn-compare compare-js"
+   data-action="wk-add"
+   data-add="{{ "compare.buttons_text.tooltip_add" | t }}"
+   data-remove="{{ "compare.buttons_text.tooltip_remove" | t }}"
+   data-tooltip="{{ "compare.buttons_text.tooltip_add" | t }}"
+   data-tposition="left"
+   data-compareid="{{ pr_variant.id }}">{% include "svg-compare" %}</a>
+{% endif %}
+{%- endcapture -%}
+
+
+{%- case settings.products_design -%}
+{%- when 'hidden' -%}
+{%- include "product-grid-item-design-2" -%}
+{%- else -%}
+{%- include "product-grid-item-design-1" -%}
+{%- endcase -%}

@@ -1,0 +1,265 @@
+{%- assign item = section.settings -%}
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent" data-sectionname="index_horizontaltabs">
+  <div class="container{% if item.fullwidth %}-fluid-custom{% endif %} container-fluid-custom-mobile-padding">
+
+    {% if item.show_title %}<div class="tt-block-title text-left">
+      <h2 class="tt-title">{{ item.text1 }}</h2>
+    </div>{% endif %}
+    {% if item.show_title %}<div class="tt-tab-wrapper">{% endif %}
+
+      <ul class="nav nav-tabs tt-tabs-default" role="tablist">
+        {%- for block in section.blocks -%}
+        <li class="nav-item">
+          <a href="#{{ section.id }}{{ forloop.index }}" class="nav-link{% if forloop.first %} active{% endif %}" data-toggle="tab" role="tab">{{ block.settings.tab_name }}</a>
+        </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="tab-content">
+        {%- for block in section.blocks -%}
+        {%- assign name_collection = block.settings.collection -%}
+        {%- if name_collection == blank -%}{%- assign name_collection = "all" -%}{%- endif -%}
+        {%- assign collection = collections[name_collection] -%}
+        <div id="{{ section.id }}{{ forloop.index }}" class="tab-pane{% if forloop.first %} active{% endif %}" role="tabpanel" {{ block.shopify_attributes }}>
+          {%- if block.type == 'item2' -%}
+          <div class="row tt-layout-product-item">
+            {%- for product in collection.products limit:block.settings.limit -%}
+            <div class="col-6 col-md-4 col-lg-{{ block.settings.toshow }}">
+              {% include "product-grid-item" %}
+            </div>
+            {%- endfor -%}
+          </div>
+          {%- if block.settings.showbtn -%}
+          <div class="text-center tt_product_showmore">
+            <a href="collections/{{ collection.handle }}" class="btn btn-border">{{ block.settings.btnname }}</a>
+          </div>
+          {%- endif -%}
+          {%- else -%}
+          {%- assign slider_mode = true -%}
+          <div class="tt-carousel-products-js row arrow-location-tab{% unless item.show_title %} no-title{% endunless %} tt-alignment-img tt-layout-product-item slick-animated-show-js" data-slick='{"slidesToShow": {{ block.settings.toshow }}, "slidesToScroll": {{ block.settings.step }}, "autoplay": {{ block.settings.module_autoplay }}, "autoplaySpeed": {{ block.settings.delay_time }}}' {{ block.shopify_attributes }}>
+            {%- for product in collection.products limit:block.settings.limit -%}
+            <div class="col-6 col-md-4 col-lg-{{ block.settings.toshow }}">
+              {% include "product-grid-item" %}
+            </div>
+            {%- endfor -%}
+          </div>
+          
+          {%- endif -%}
+        </div>
+        {%- endfor -%}
+      </div>
+
+    {%- if item.show_title -%}</div>{%- endif -%}
+  </div>
+</div>
+	
+
+
+{% schema %}
+{
+  "name": "Tabs Horizontal",
+  "class": "index-section",
+  "max_blocks": 8,
+  "settings": [
+      {
+        "type": "select",
+        "id": "top_offset",
+        "label": "Top Offset",
+        "default": "normal",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Fullwidth size",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show Title",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "text1",
+        "label": "Title",
+        "default": "WOMEN’S"
+      }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Tab Gallery",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "Tab Name",
+          "default": "Tab"
+        },
+        {
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        },
+        {
+          "type": "text",
+          "id": "limit",
+          "label": "Items Length. Integer",
+          "default": "8"
+        },
+        {
+          "type": "header",
+          "content": "Slider Settings"
+        },
+        {
+          "type": "select",
+          "id": "toshow",
+          "label": "Products In Row",
+          "options": [
+			{ "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+			{ "value": "5", "label": "5" },
+			{ "value": "6", "label": "6" }
+          ],
+          "default": "4",
+          "info": "For screen size > 1024"
+        },
+        {
+          "type": "select",
+          "id": "step",
+          "label": "Slides To Scroll",
+          "default": "1",
+          "info": "Max = Products In Row",
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            },
+            {
+              "value": "5",
+              "label": "5"
+            },
+            {
+              "value": "6",
+              "label": "6"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "module_autoplay",
+          "label": "Auto-rotate slides",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "delay_time",
+          "label": "Change slides every",
+          "options": [
+            { "value": "5000", "label": "5 seconds" },
+            { "value": "6000", "label": "6 seconds" },
+            { "value": "7000", "label": "7 seconds" },
+            { "value": "8000", "label": "8 seconds" },
+            { "value": "9000", "label": "9 seconds" },
+            { "value": "10000", "label": "10 seconds" }
+          ],
+          "default": "7000"
+        }
+      ]
+    },
+    {
+      "type": "item2",
+      "name": "Tab Grid",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "Tab Name",
+          "default": "Tab"
+        },
+        {
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        },
+        {
+          "type": "text",
+          "id": "limit",
+          "label": "Items Length. Integer",
+          "default": "8"
+        },
+        {
+          "type": "select",
+          "id": "toshow",
+          "label": "Products In Row",
+          "options": [
+			{ "value": "6", "label": "2" },
+            { "value": "4", "label": "3" },
+            { "value": "3", "label": "4" },
+            { "value": "2", "label": "6" }
+          ],
+          "default": "3",
+          "info": "For screen size > 1024"
+        },
+        {
+          "type": "checkbox",
+          "id": "showbtn",
+          "label": "Show Button",
+          "default": true
+        },
+        {
+          "type": "textarea",
+          "id": "btnname",
+          "label": "Button Name",
+          "default": "SEE ALL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabs Horizontal",
+      "category": "Products",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

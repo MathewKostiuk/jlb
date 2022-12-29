@@ -1,0 +1,36 @@
+{%- capture html_tabs -%}  
+{%- for block in section.blocks -%}
+{%- assign b_i = block.settings -%}
+{%- case block.type -%}
+  {%- when 'tab_desc' -%}
+    <div class="tt-item{% if b_i.open_tab_by_default %} active{% endif %}">
+      <div class="tt-collapse-title">{{ b_i.title }}</div>
+      <div class="tt-collapse-content" itemprop="description">{{ product_description[0] }}</div>
+    </div>
+  {%- when 'tab_same_html' -%}
+    <div class="tt-item{% if b_i.open_tab_by_default %} active{% endif %}">
+      <div class="tt-collapse-title">{{ b_i.title }}</div>
+      <div class="tt-collapse-content">{{ b_i.html }}</div>
+    </div>
+  {%- when 'tab_unique' -%}
+	{%- if product_meta[b_i.key] != blank -%}
+    <div class="tt-item{% if b_i.open_tab_by_default %} active{% endif %}">
+      <div class="tt-collapse-title">{{ b_i.title }}</div>
+      <div class="tt-collapse-content">{{ product_meta[b_i.key] }}</div>
+    </div>
+	{%- endif -%}
+  {%- when 'tab_review' -%}
+	<div id="tab_review" class="tt-item{% if b_i.open_tab_by_default %} active{% endif %}">
+      <div class="tt-collapse-title">{{ b_i.title }}</div>
+      <div class="tt-collapse-content">
+        <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+      </div>
+    </div>
+{%- endcase -%}
+{%- endfor -%}
+{%- endcapture -%}
+
+
+{%- if html_tabs != '' -%}
+<div class="tt-collapse-block prpage-tabs">{{ html_tabs }}</div>
+{%- endif -%}

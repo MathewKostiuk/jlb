@@ -1,0 +1,33 @@
+<!-- modal (ModalSubsribeGood) -->
+<div class="modal  fade"  id="ModalSubsribeGood" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xs">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+      </div>
+      <div class="modal-body">
+        <div class="tt-modal-subsribe-good">
+          <i class="icon-f-68"></i> <span>{{ 'general.general.subscribed_message' | t }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function checkSubscribe(){
+    if(location.search.indexOf('customer_posted=true') == -1) return false;
+    $('.tt-modal-subsribe-good').find('span').html('{{ 'general.general.subscribed_message' | t }}');
+    $('#ModalSubsribeGood').modal('show');
+    setTimeout(function(){window.history.pushState("", "", location.pathname)}, 100);
+  }
+  function checkSended(){
+    if(location.search.indexOf('contact_posted=true') == -1) return false;
+    $('.tt-modal-subsribe-good').find('span').html('{{ 'general.general.sended_message' | t }}');
+    $('#ModalSubsribeGood').modal('show');
+    setTimeout(function(){window.history.pushState("", "", location.pathname)}, 100);
+  }  
+  $(document).ready(function() {
+    checkSubscribe();
+    checkSended();
+  });
+</script>

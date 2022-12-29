@@ -1,0 +1,38 @@
+{%- if item.show_customer_links -%}
+<!-- tt-account -->
+<div class="tt-desctop-parent-account tt-parent-box">
+  <div class="tt-account tt-dropdown-obj">
+    <button class="tt-dropdown-toggle header-account-custom-icon header-custom-icon"
+            data-tooltip="{{ 'general.tooltip_texts.header_account' | t }}"
+            data-tposition="bottom"
+            >
+    </button>
+    <div class="tt-dropdown-menu">
+      <div class="tt-mobile-add">
+        <button class="tt-close">{{ "layout.customer.close" | t }}</button>
+      </div>
+      <div class="tt-dropdown-inner">
+        <ul>
+          {%- if shop.customer_accounts_enabled and customer -%}<li><a href="/account"><i class="icon-h-36"></i>{{ "layout.customer.account" | t }}</a></li>{%- endif -%}
+
+          {%- if shop.customer_accounts_enabled -%}
+          {%- if customer -%}<li><a href="/account/logout"><i class="icon-f-76"></i>{{ "layout.customer.log_out" | t }}</a></li>
+          {%- else -%}<li><a href="/account/login"><i class="icon-f-77"></i>{{ "layout.customer.sign_in" | t }}</a></li>
+          {%- if shop.customer_accounts_optional -%}<li><a href="/account/register"><i class="icon-f-94"></i>{{ "layout.customer.register" | t }}</a></li>{%- endif -%}
+          {%- endif -%}
+          {%- endif -%}
+          {%- if settings.terms_cond_checkbox_show -%}
+          <li><a href="/cart"><i class="icon-f-39"></i>{{ 'layout.customer.view_cart' | t }}</a></li>
+          {%- else -%}
+          <li><a href="/checkout"><i class="icon-f-68"></i>{{ "layout.customer.checkout" | t }}</a></li>
+          {%- endif -%}
+          
+          {% if settings.show_wishlist %}<li><a href="/pages/wishlist">{% include "svg-heart" %}{{ "wishlist.header.wishlist" | t }}</a></li>{% endif %}
+          {% if settings.show_compare %}<li><a href="/pages/compare">{% include "svg-compare" %}{{ "compare.header.compare" | t }}</a></li>{% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /tt-account -->
+{%- endif -%}

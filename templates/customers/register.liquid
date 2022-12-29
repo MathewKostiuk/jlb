@@ -1,0 +1,56 @@
+{% capture required %}{{ 'customer.general.required_fields' | t }}{% endcapture %}
+<div class="container-indent">
+  <div class="container">
+    <h1 class="tt-title-subpages noborder">{{ 'customer.register.title_main' | t }}</h1>
+    <div class="tt-login-form">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="tt-item">
+            <h2 class="tt-title">{{ 'customer.register.title_form' | t }}</h2>
+            <div class="form-default">
+              {% form 'create_customer' %}
+                
+                <div class="tt-base-color">
+                {{ form.errors | default_errors }}
+                </div>
+                
+                <div class="form-group">
+                  <label for="loginInputName">{{ 'customer.register.first_name' | t }} {% if required != "" %}<sup>*</sup>{% endif %}</label>
+                  {% if required != "" %}<div class="tt-required">{{ required }}</div>{% endif %}
+                  <input type="text" name="customer[first_name]" class="form-control" id="loginInputName" placeholder="{{ 'customer.register.first_name_form' | t }}">
+                </div>
+                <div class="form-group">
+                  <label for="loginLastName">{{ 'customer.register.last_name' | t }} {% if required != "" %}<sup>*</sup>{% endif %}</label>
+                  <input type="text" name="customer[last_name]" class="form-control" id="loginLastName" placeholder="{{ 'customer.register.last_name_form' | t }}">
+                </div>
+                <div class="form-group">
+                  <label for="loginInputEmail">{{ 'customer.register.email' | t }} {% if required != "" %}<sup>*</sup>{% endif %}</label>
+                  <input type="email" name="customer[email]" class="form-control" id="loginInputEmail" placeholder="{{ 'customer.register.email_form' | t }}">
+                </div>
+                <div class="form-group">
+                  <label for="loginInputPassword">{{ 'customer.register.password' | t }} {% if required != "" %}<sup>*</sup>{% endif %}</label>
+                  <input type="password" name="customer[password]" class="form-control" id="loginInputPassword" placeholder="{{ 'customer.register.password_form' | t }}">
+                </div>
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="form-group">
+                      <button class="btn btn-border" type="submit">{{ 'customer.register.submit' | t }}</button>
+                    </div>
+                  </div>
+                  <div class="col-auto align-self-center">
+                    <div class="form-group">
+                      <ul class="additional-links">
+                        <li>&nbsp;{{ 'customer.general.or' | t }} <a href="{{ shop.url }}">{{ 'customer.register.cancel' | t }}</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="tt-product product-parent options-js{% if settings.center_product_information %} thumbprod-center{% endif %}{% if settings.show_product_without_hover %} product-nohover{% endif %}">
+  <div class="tt-image-box">
+    {%- unless settings.catalogue_mode -%}
+    {%- if settings.product_item_show_quickview and template.suffix != "wishlist" -%}
+    <a href="#"
+       data-toggle="modal"
+       data-target="#ModalquickView"
+       class="tt-btn-quickview"
+       data-value="{{ product.url | within: collection }}"
+       data-quantity="{% for variant in product.variants %}{% if variant.inventory_policy == "continue" %}{{ variant.id }}-continue;{% else %}{{ variant.id }}-{{ variant.inventory_quantity }};{% endif %}{% endfor %}"{% if settings.first_variant_column_is_image and settings.use_in_the_small_products %}
+       data-optionimages='{% include 'get_product_images_from_first_column' %}'{% endif %}
+       data-tooltip="{{ 'general.tooltip_texts.quick_view' | t }}"
+       data-tposition="left"
+       ></a>{%- endif -%}
+
+    {{ wishlist_button }}
+    {{ compare_button }}
+
+    {%- endunless -%}
+    <a href="{{ product.url | within: collection }}">
+      {%- assign main_url_image = main_url_image | product_img_url: url_images_size -%}
+      {%- if settings.use_cached_images %}{%- assign main_url_image = main_url_image | split: '?' | first -%}{%- endif -%}
+      <span class="tt-img">        
+        {% if slider_mode %}{% comment %}Check if slider product in the gallery. External variable{% endcomment %}
+        <img src="{{ main_url_image }}" alt="{{ product.featured_image.alt | escape }}"/>
+        {% else %}
+        <img class="lazyload"
+             data-src="{{ main_url_image }}"
+             data-srcset="{% include 'lazyload_string' value: product.featured_image %}"
+             alt="{{ product.featured_image.alt | escape }}"/>
+        {% endif %}
+      </span>
+      {%- if hover_url_image != '' -%}
+        {%- assign hover_url_image = hover_url_image | product_img_url: url_images_size -%}
+        {%- if settings.use_cached_images %}{%- assign hover_url_image = hover_url_image | split: '?' | first -%}{%- endif -%}
+      <span class="tt-img-roll-over">
+        <img class="lazyload" src="{{ hover_url_image }}" alt="{{ hover_url_image_alt }}"/>
+      </span>
+      {%- endif -%}
+      
+      <span class="tt-label-location">
+        {%- if product_meta.icon_new != 'disable' -%}{%- if date_difference < date_limit or product_meta.icon_new == 'always' -%}<span class="tt-label-new">{{ 'products.general.new' | t }}</span>{%- assign shownewicon = true -%}{%- endif -%}{%- endif -%}
+
+        {%- if product_meta.icon_sale != 'disable' -%}
+        {%- if sale_on -%}
+        {%- assign mc = pr_variant.compare_at_price | money_without_currency | replace: ',', '' -%}
+        {%- assign mo = pr_variant.price | money_without_currency | replace: ',', '' -%}        
+        {%- assign percent = mc | minus: mo | times: 100.0 | divided_by: mc | round | append: '%' -%}
+        {%- endif -%}
+        <span class="tt-label-sale"{% unless sale_on %} style="display: none;"{% endunless %}>{{ 'products.general.sale_html' | t }} <span class="thumb_percent">{{ percent }}</span></span>
+        {%- endif -%}
+
+        {%- unless product.available -%}<span class="tt-label-our-stock">{{ 'products.general.unavailable' | t }}</span>{%- endunless -%}
+        {%- unless product_meta.featured == blank -%}<span class="tt-label-our-fatured">{{ product_meta.featured }}</span>{%- endunless -%}
+      </span>
+    </a>
+
+    {%- unless settings.catalogue_mode -%}
+    {%- if product_meta.countdown != blank and settings.show_product_countdown -%}
+    <div class="tt-countdown_box tt-type-02">
+      <div class="tt-countdown_inner">
+        <div class="tt-countdown" data-date="{{ product_meta.countdown }}"></div>
+      </div>
+    </div>
+    {%- endif -%}
+    {%- endunless -%}
+  </div>
+
+  <div class="tt-description">
+    {%- if settings.show_product_vendor or settings.show_product_type or settings.product_item_show_rating -%}
+    <div class="tt-row">
+
+      {%- if settings.show_product_vendor or settings.show_product_type -%}
+      <ul class="tt-add-info">
+        {%- if settings.show_product_vendor -%}<li><a href="/collections/{{ collection.handle }}/{{ product.vendor | handle }}"
+                                                      class="text-uppercase"
+                                                      >{{ product.vendor }}</a></li>{%- endif -%}
+        {%- if settings.show_product_type -%}<li><a href="/collections/{{ collection.handle }}/{{ product.type | handle }}"
+                                                    class="text-uppercase"
+                                                    >{{ product.type }}</a></li>{%- endif -%}
+      </ul>
+      {%- endif -%}
+
+      {%- unless settings.catalogue_mode -%}
+      {%- if settings.product_item_show_rating -%}
+      <div class="tt-rating" data-url="{{ product.url | within: collection }}">
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      </div>
+      {%- endif -%}
+      {%- endunless -%}
+
+    </div>
+    {%- endif -%}
+
+    <h2 class="tt-title prod-thumb-title-color"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h2>
+
+    {%- unless settings.catalogue_mode -%}
+    {%- if sale_on -%}
+    <div class="tt-price"><span class="new-price">{{ pr_variant.price | money }}</span><span class="old-price">{{ pr_variant.compare_at_price | money }}</span></div>
+    {%- else -%}
+    <div class="tt-price"><span>{{ pr_variant.price | money }}</span><span class="old-price hide"></span></div>
+    {%- endif -%}
+    {%- endunless -%}
+
+    <div class="description" style="display:none;">{%- if product_meta.small_description != blank -%}{{ product_meta.small_description }}{%- else -%}{{ product.description | strip | strip_html | truncatewords: settings.truncate_product_description, settings.truncate_product_description_last_symbols }}{%- endif -%}</div>
+    
+    {%- if product.available or settings.show_unavailable_variants -%}
+    {%- include 'product-grid-options' -%}
+	{%- endif -%}
+    
+    {%- unless settings.catalogue_mode -%}
+    {%- if product.available -%}
+    {%- if settings.product_item_show_cart or settings.product_item_show_quickview -%}
+    <div class="tt-product-inside-hover">
+      {%- if settings.product_item_show_cart -%}
+      <div class="tt-row-btn">
+        <form action="/cart/add" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="{{ pr_variant.id }}">
+          <button class="tt-btn-addtocart{% if settings.ajax_addtocart %} addtocart-item-js{% endif %}{% unless pr_variant.available %} disable{% endunless %} thumbprod-button-bg"
+                  {%- if settings.show_addtocart_popup_related -%}{%- unless product.metafields.description.related_collection == blank -%}data-relatedcollection="{{ product.metafields.description.related_collection }}"{%- endunless -%}{%- endif -%}
+                  >{%- unless pr_variant.available -%}{{ 'products.general.unavailable_html' | t }}{%- else -%}{{ 'products.general.add_to_cart_html' | t }}{%- endunless -%}</button>
+        </form>
+      </div>
+      {%- endif -%}
+      <div class="tt-row-btn">
+      {%- if settings.product_item_show_quickview and template.suffix != "wishlist" -%}
+        <a href="#"
+           data-toggle="modal"
+           data-target="#ModalquickView"
+           class="tt-btn-quickview"
+           data-value="{{ product.url | within: collection }}"
+           data-quantity="{% for variant in product.variants %}{% if variant.inventory_policy == "continue" %}{{ variant.id }}-continue;{% else %}{{ variant.id }}-{{ variant.inventory_quantity }};{% endif %}{% endfor %}"{% if settings.first_variant_column_is_image and settings.use_in_the_small_products %}
+           data-optionimages='{% include 'get_product_images_from_first_column' %}'{% endif %}
+           data-tposition="left"
+           data-tooltip="{{ 'general.tooltip_texts.quick_view' | t }}"
+           ></a>{%- endif -%}
+        
+        {{ wishlist_button }}
+        {{ compare_button }}
+
+      </div>
+    </div>
+    {%- endif -%}
+    {%- endif -%}
+    {%- endunless -%}
+   
+  </div>
+  <div class="tt-description onerowactions">
+  </div>
+</div>

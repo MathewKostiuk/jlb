@@ -1,0 +1,72 @@
+<div class="container-indent comparepage hide">
+  <div class="container">
+    <div class="tt-block-title">
+      <h1 class="tt-title">{{ "compare.compare_page.title" | t }}</h1>
+    </div>
+    <div class="tt-compare-table" id="tt-compare-table" style="opacity:0">
+      <div class="tt-col-title tt-compare-table-js">
+        <div class="title-item maininfo"></div>
+        <div class="title-item maininfo"></div>
+        <div class="title-item maininfo"></div>
+        <div class="title-item maininfo"></div>
+        <div class="title-item maininfo"></div>
+		<div class="title-item maininfo"></div>        
+        <div class="title-item maininfo maininfolast"></div>
+        <div class="title-item">{{ 'compare.compare_page.field_description' | t }}</div>
+        <div class="title-item">{{ 'compare.compare_page.field_vendor' | t }}</div>
+      </div>
+      <div class="tt-col-item compare-items-box">
+        <div class="compare-init-slider">
+        </div>
+      </div>
+    </div>
+    <!-- / -->
+  </div>
+</div>
+<div class="container-indent nomargin comparepageempty hide">
+  <div class="tt-empty-wishlist">
+    <h1 class="tt-title">{{ "compare.compare_page.empty_title" | t }}</h1>
+    <p>{{ "compare.compare_page.empty_compare" | t }}</p>
+    <a href="/" class="btn">{{ "compare.compare_page.continue_shopping" | t }}</a>
+  </div>
+</div>
+
+<div class="compareitemhtml hide">
+  <div class="tt-item tt-compare-table-js">
+    <div class="tt-value tt-image-box">
+      <a href="#"
+         class="tt-remove-item compare-js"
+         data-action="delete"
+         data-tooltip="Remove from Compare"
+         data-tposition="right"
+         data-findtag="svg"
+         >{% include "svg-delete-icon" %}</a>
+    </div>
+    <div class="tt-value tt-image-box">
+      <div class="tt-img">
+        <a href="#"><img src="{{ 'dummy.png' | asset_url }}" alt=""></a>
+      </div>
+    </div>
+    <div class="tt-value tt-image-box">
+      <div class="tt-label-location">
+        <div class="tt-label-in-stock">{{ "compare.compare_page.in_stock" | t }}</div><div class="tt-label-our-stock">{{ "compare.compare_page.soldout" | t }}</div>
+      </div>
+    </div>
+    <div class="tt-value tt-image-box"><h2 class="tt-title"><a href="#"></a></h2></div>
+    <div class="tt-value tt-image-box"><div class="tt-price"><span class="new-price"></span><span class="old-price"></span></div></div>
+    <div class="tt-value tt-image-box">
+      <form action="/cart/add" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="false">
+        <button class="btn tt-btn-addtocart{% if settings.ajax_addtocart %} addtocart-item-js{% endif %} thumbprod-button-bg">
+          {{ 'products.general.add_to_cart_html' | t }}
+        </button>
+      </form>
+    </div>
+    <div class="tt-value tt-image-box tt-image-box-last"></div>
+
+    <div class="tt-value" data-val="description"></div>
+    <div class="tt-value" data-val="vendor"></div>
+  </div>
+  <div class="tt-value" data-val="empty">-</div>
+  <div class="title-item" data-val="maintable"></div>
+</div>

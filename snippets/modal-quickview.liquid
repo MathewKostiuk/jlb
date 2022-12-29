@@ -1,0 +1,92 @@
+<div class="modal fade" id="ModalquickView" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+      </div>
+      <div class="modal-body">
+        <div class="tt-modal-quickview desctope">
+          <div class="row">
+            <div class="col-12 col-md-5 col-lg-6">
+              <div class="product-main-image"></div>
+            </div>
+            <div class="col-12 col-md-7 col-lg-6">
+              <div class="tt-product-single-info">
+                {%- if settings.quickview_sku or settings.quickview_availability -%}
+                <div class="tt-add-info">
+                  <ul>
+                    {%- if settings.quickview_sku -%}
+                    <li class="sku-js"><span>{{ 'popup_quick_view.general.sku' | t }}</span> <span></span></li>
+                    {%- endif -%}
+                    
+                    {%- if settings.quickview_availability -%}
+                    <li class="availability">
+                      <span>{{ 'popup_quick_view.general.availability' | t }}</span> <span class="stock_quantity hide"></span> <span class="color-base in_stock hide">{{ 'popup_quick_view.general.in_stock' | t }}</span> <span class="many_in_stock hide">{{ 'popup_quick_view.general.many_in_stock' | t }}</span> <span class="color-red sold_out hide">{{ "popup_quick_view.general.sold_out" | t }}</span> <span class="continue_out hide">{{ 'popup_quick_view.general.purchase_when_out_of_stock' | t }}</span>
+                    </li>
+                    {%- endif -%}
+                  </ul>
+                </div>
+                {%- endif -%}
+                
+                <h2 class="tt-title">t</h2>
+                <div class="tt-price"><span></span><span class="old-price hide"></span></div>
+                
+                {%- if settings.quickview_rating -%}
+                <div class="tt-review">
+                  <div class="rating"
+                       data-tooltip="{{ 'general.tooltip_texts.view_review' | t }}"
+                       >
+                  </div>
+                </div>
+                {%- endif -%}
+
+                {%- if settings.quickview_desc_show -%}
+                <div class="description tt-wrapper">
+                  <!--<div class="text"></div>-->
+                </div>
+                {%- endif -%}
+
+                <div class="tt-swatches-container tt-quickview-swatches-container-js" data-swatches-design1="{{ settings.designoption1 }}" data-swatches-design2="{{ settings.designoption2 }}" data-swatches-design3="{{ settings.designoption3 }}"></div>
+
+                <div class="tt-wrapper">
+                  <form action="/cart/add" id="modal_quick_view" method="post" enctype="multipart/form-data">
+                    <input type="hidden" class="input_variant" name="id" value="">
+                    <div class="tt-row-custom-01">
+                      <div class="col-item">
+                        <div class="tt-input-counter style-01">
+                          <span class="minus-btn"></span>
+                          <input type="text" name="quantity" value="1" size="5">
+                          <span class="plus-btn"></span>
+                        </div>
+                      </div>
+                      <div class="col-item">
+                        <button class="btn btn-lg btn-addtocart{% if settings.ajax_addtocart %} addtocart-js{% endif %}"><i class="icon-g-46"></i>{{ "products.general.add_to_cart_html" | t }}</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                {%- if settings.quickview_vendor or settings.quickview_type or settings.quickview_barcode -%}
+                <div class="tt-wrapper">
+                  <div class="tt-add-info">
+                    <ul class="productvendorsmallinfo">
+                      {%- if settings.quickview_vendor -%}<li><span>{{ "products.product.vendor" | t }}</span> <span class="qv_vendor"></span></li>{%- endif -%}
+                      {%- if settings.quickview_type -%}<li><span>{{ "products.product.type" | t }}</span> <span class="qv_type"></span></li>{%- endif -%}
+                      {%- if settings.quickview_barcode -%}<li><span>{{ "products.product.barcode" | t }}</span> <span class="barcode"></span></li>{%- endif -%}
+                    </ul>
+                  </div>
+                </div>
+                {%- endif -%}
+                
+                <div class="tt-wrapper">
+                  <a href="#" class="viewfullinfo">{{ 'popup_quick_view.general.view_full_info' | t }}</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

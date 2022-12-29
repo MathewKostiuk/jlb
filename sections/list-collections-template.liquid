@@ -1,0 +1,418 @@
+{%- assign item = section.settings -%}
+{%- assign info_image_size = '600x600' -%}
+
+{%- assign lineitem = section.settings.lineitem | append: ',' | split: ',' -%}
+{%- assign linerow = '' -%}{%- assign count = 0 -%}{%- assign itemlimit = section.settings.item_grid | plus: 0 -%}
+{%- assign newlinecount = 0 -%}{%- capture current_itemlimit -%}{%- if lineitem[newlinecount] != empty? -%}{{ lineitem[newlinecount] | strip }}{%- else -%}{{ itemlimit }}{%- endif -%}{%- endcapture -%}{%- assign current_itemlimit = current_itemlimit | plus: 0 -%}{%- if current_itemlimit > 4 -%}{%- assign current_itemlimit = itemlimit -%}{%- endif -%}
+{%- for block in section.blocks limit: limit -%}{%- assign count = count | plus: 1 -%}
+{%- if count == current_itemlimit or forloop.last -%}{%- assign linerow = linerow | append: count -%}{%- assign count = 0 -%}{%- unless forloop.last -%}{%- assign linerow = linerow | append: "|" -%}{%- endunless -%}
+{%- assign newlinecount = newlinecount | plus: 1 -%}{%- capture current_itemlimit -%}{%- if lineitem[newlinecount] != empty? -%}{{ lineitem[newlinecount] | strip }}{%- else -%}{{ itemlimit }}{%- endif -%}{%- endcapture -%}{%- assign current_itemlimit = current_itemlimit | plus: 0 -%}{%- if current_itemlimit > 4 -%}{%- assign current_itemlimit = itemlimit -%}{%- endif -%}
+{%- endif -%}
+{%- endfor -%}{%- assign linerow = linerow | split: '|' -%}{%- assign array = '' -%}{%- assign clearfix = '' -%}
+{%- for _linerow in linerow -%}{%- for i in (1.._linerow) -%}
+{%- if _linerow == '1' -%}{%- assign array = array | append: 'col-sm-12 col-md-12' | append: '|' -%}
+{%- elsif _linerow == '2' -%}{%- assign array = array | append: 'col-sm-6' | append: '|' -%}
+{%- elsif _linerow == '3' -%}{%- assign array = array | append: 'col-sm-6 col-md-6 col-lg-4' | append: '|' -%}
+{%- elsif _linerow == '4' -%}{%- assign array = array | append: 'col-sm-6 col-md-6 col-lg-3' | append: '|' -%}
+{%- endif -%}{%- unless forloop.last -%}{%- assign clearfix = clearfix | append: ',' -%}{%- endunless -%}
+{%- endfor -%}{%- assign clearfix = clearfix | append: '<div class="clearfix hidden-xs hidden-sm"></div>' | append: ',' -%}{%- endfor -%}{%- assign array = array | split: '|' -%}{%- assign clearfix = clearfix | split: ',' -%}
+
+<div class="container-indent">
+  <div class="container">
+    <div class="tt-layout-promo-box">
+      <div class="row">
+        
+        {%- if item.html != '' -%}{{ item.html }}{%- endif -%}
+        
+        {%- if item.show_blocks -%}
+        {%- if section.blocks.size > 0 -%}
+
+        {%- for block in section.blocks -%}
+          {%- assign b_i = block.settings -%}
+          {%- assign collection = collections[b_i.collection] -%}
+
+          {%- assign bg_alpha = b_i.background_alpha | divided_by: 100.00 -%}
+          {%- assign bg_color = b_i.cbtnbg | color_modify: 'alpha', bg_alpha -%}
+          {%- assign bg_alpha_a = b_i.background_alpha_a | divided_by: 100.00 -%}
+          {%- assign bg_color_a = b_i.acbtnbg | color_modify: 'alpha', bg_alpha_a -%}
+          {%- assign radius = '-moz-border-radius:' | append: item.bg_round | append: 'px;' | append: '-webkit-border-radius:' | append: item.bg_round | append: 'px;' | append: 'border-radius:' | append: item.bg_round | append: 'px;' | append: '-khtml-border-radius:' | append: item.bg_round | append: 'px;' %}
+        
+        <div class="{{ array[forloop.index0] }}">          
+          <a href="{% if b_i.external_link %}{{ b_i.link }}{% else %}{{ collection.url }}{% endif %}" class="tt-promo-box{% if b_i.description_size == 'use_main_size' %}{% if item.description_size == 'small' %} tt-one-child{% endif %}{% else %}{% if b_i.description_size == 'small' %} tt-one-child{% endif %}{% endif %}{% if b_i.animation == 'use_main_animation' %}{% if item.animation == 'simple' %} hover-type-2{% endif %}{% else %}{% if b_i.animation == 'simple' %} hover-type-2{% endif %}{% endif %}" data-hovercolors>
+            {%- if b_i.image == blank and b_i.usecollectionimage == false or collection.image == blank -%}
+            <span>
+              {% include "get_svg" type:'collection' size:info_image_size %}
+            </span>
+            {%- else -%}
+            {%- unless b_i.usecollectionimage -%}
+            <img class="lazyload"
+                 src="{{ b_i.image | img_url: 'grande' }}"
+                 data-src="{{ b_i.image | img_url: 'grande' }}"
+                 data-srcset="{% include 'lazyload_string' value: b_i.image %}"
+                 alt="{{ b_i.image.alt }}">
+            {%- else -%}
+            <img class="lazyload"
+                 src="{{ collection.image | img_url: 'grande' }}"
+                 data-src="{{ collection.image | img_url: 'grande' }}"
+                 data-srcset="{% include 'lazyload_string' value: collection.image %}"
+                 alt="{{ collection.image.alt }}">
+            {%- endunless -%}
+            {%- endif -%}
+
+            {%- unless b_i.description_size == 'hide' -%}{%- if item.show_title -%}
+            <div class="tt-description {% if b_i.position != 'use_main_position' %}{{ b_i.position }}{% else %}{{ item.position }}{% endif %}">
+              <div class="tt-description-wrapper">
+                <div class="tt-background" style="background:{{ bg_color }}; {{ radius }}" data-bgc="{{ bg_color }}" data-abgc="{{ bg_color_a }}"></div>
+                <div class="tt-title-small" style="color:{{ b_i.cbtntext }};" data-c="{{ b_i.cbtntext }}" data-ac="{{ b_i.acbtntext }}">{% if collection != blank %}{% if b_i.custom_name != ''%}{{ b_i.custom_name }}{% else %}{{ collection.title }}{% endif %}{% else %}Select Collection{% endif %}</div>
+              </div>
+            </div>
+            {%- endif -%}{%- endunless -%}
+          </a>
+
+        </div>
+        {%- endfor -%}
+        
+        {%- else -%}
+        <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+        {%- endif -%}{%- endif -%}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Collections list page",
+    "settings": [
+      {
+        "type": "radio",
+        "id": "item_grid",
+        "label": "Default Grid",
+        "options": [
+          { "value": "2", "label": "2" },
+          { "value": "3", "label": "3" },
+          { "value": "4", "label": "4" }
+        ],
+        "default": "3"
+      },
+      {
+        "type": "textarea",
+        "id": "lineitem",
+        "label": "Unique value in row",
+		"info": "Integers(max 4). Separate by comma: 1,2,3,4"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show Button",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Custom html"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_blocks",
+        "label": "Show section CONTENT",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "html",
+        "label": "Custom html code",
+		"info": "Paste your custom html code with bootstrap 4"
+      },
+      {
+        "type": "header",
+        "content": "Main settings"
+      },
+      {
+        "type": "select",
+        "id": "description_size",
+        "label": "Button size",
+        "default": "small",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "big",
+            "label": "Big"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "animation",
+        "label": "Animation",
+        "default": "simple",
+        "options": [
+          {
+            "value": "scale",
+            "label": "Scale"
+          },
+          {
+            "value": "simple",
+            "label": "No scale"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "position",
+        "label": "Main text information position",
+        "info": "Main settings for all items",
+        "default": "normal",
+        "options": [
+          {
+            "value": "tt-point-v-t tt-point-h-l",
+            "label": "Top Left"
+          },
+          {
+            "value": "tt-point-v-t",
+            "label": "Top Center"
+          },
+          {
+            "value": "tt-point-v-t tt-point-h-r",
+            "label": "Top Right"
+          },
+          {
+            "value": "tt-point-h-l",
+            "label": "Left"
+          },
+          {
+            "value": "normal",
+            "label": "Center"
+          },
+          {
+            "value": "tt-point-h-r",
+            "label": "Right"
+          },
+          {
+            "value": "tt-point-v-b tt-point-h-l",
+            "label": "Bottom Left"
+          },
+          {
+            "value": "tt-point-v-b",
+            "label": "Bottom Center"
+          },
+          {
+            "value": "tt-point-v-b tt-point-h-r",
+            "label": "Bottom Right"
+          }
+        ]
+      },
+      {
+          "type": "header",
+          "content": "Description background roundness"
+      },
+      {
+          "type":      "range",
+          "id":        "bg_round",
+          "min":       0,
+          "max":       50,
+          "step":      1,
+          "unit":      "px",
+          "label":     "Description background roundness",
+          "default":   12
+      }
+	],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "label": "Collection",
+            "id": "collection",
+            "type": "collection"
+          },
+          {
+            "type": "checkbox",
+            "id": "external_link",
+            "label": "Use external link",
+            "default": false
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          },
+          {
+            "type": "checkbox",
+            "id": "usecollectionimage",
+            "label": "Set Collection Image",
+            "default": false,
+            "info": "Set image in collection settings. Default \"Custom Image\""
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Custom Image"
+          },
+          {
+            "type": "header",
+            "content": "Unique settings"
+          },
+          {
+            "type": "select",
+            "id": "description_size",
+            "label": "Description size",
+            "info": "Set unique size for this item",
+            "default": "use_main_size",
+            "options": [
+              {
+                "value": "use_main_size",
+                "label": "Use main size"
+              },
+              {
+                "value": "hide",
+                "label": "Hide"
+              },
+              {
+                "value": "small",
+                "label": "Small"
+              },
+              {
+                "value": "big",
+                "label": "Big"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "animation",
+            "label": "Animation",
+            "info": "Set unique animation for this item",
+            "default": "use_main_animation",
+            "options": [
+              {
+                "value": "use_main_animation",
+                "label": "Use main animation"
+              },
+              {
+                "value": "scale",
+                "label": "Scale"
+              },
+              {
+                "value": "simple",
+                "label": "No scale"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "position",
+            "label": "Text information position",
+            "info": "Set unique position for this item",
+            "default": "use_main_position",
+            "options": [
+              {
+                "value": "use_main_position",
+                "label": "Use main position"
+              },
+              {
+                "value": "tt-point-v-t tt-point-h-l",
+                "label": "Top Left"
+              },
+              {
+                "value": "tt-point-v-t",
+                "label": "Top Center"
+              },
+              {
+                "value": "tt-point-v-t tt-point-h-r",
+                "label": "Top Right"
+              },
+              {
+                "value": "tt-point-h-l",
+                "label": "Left"
+              },
+              {
+                "value": "normal",
+                "label": "Center"
+              },
+              {
+                "value": "tt-point-h-r",
+                "label": "Right"
+              },
+              {
+                "value": "tt-point-v-b tt-point-h-l",
+                "label": "Bottom Left"
+              },
+              {
+                "value": "tt-point-v-b",
+                "label": "Bottom Center"
+              },
+              {
+                "value": "tt-point-v-b tt-point-h-r",
+                "label": "Bottom Right"
+              }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Texts"
+          },
+          {
+            "type": "text",
+            "id": "custom_name",
+            "label": "Custom Name",
+            "info": "If \"Custom Name\" is empty, title = default collection name"
+          },
+          {
+            "type": "header",
+            "content": "Colors"
+          },
+          {
+            "type": "color",
+            "id": "cbtntext",
+            "label": "Base text color",
+            "default": "#191919"
+          },
+          {
+            "type": "color",
+            "id": "acbtntext",
+            "label": "Active text color",
+            "default": "#ffffff"
+          },
+          {
+            "type": "paragraph",
+            "content": "Background color"
+          },
+          {
+            "type": "color",
+            "id": "cbtnbg",
+            "label": "Base background color",
+            "default": "#ffffff"
+          },
+          {
+              "type": "text",
+              "id": "background_alpha",
+              "label": "Base background opacity",
+              "default": "90",
+              "info": "Range: 0-100 Percent"
+          },
+          {
+            "type": "color",
+            "id": "acbtnbg",
+            "label": "Active background color",
+            "default": "#191919"
+          },
+          {
+              "type": "text",
+              "id": "background_alpha_a",
+              "label": "Active background opacity",
+              "default": "90",
+              "info": "Range: 0-100 Percent"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

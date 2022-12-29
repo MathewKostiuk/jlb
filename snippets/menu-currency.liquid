@@ -1,0 +1,12 @@
+{%- assign currency = menu_currency.supported_currencies | split: '|' -%}
+
+{%- if currency.size > 1 -%}
+<ul class="currency">
+  {%- for value in currency -%}
+  {%- assign array = value | split: ',' -%}
+  {%- assign iso_4217 = array[0] | upcase | strip -%}
+  {%- assign name = array[1] | strip -%}
+  <li data-currency="{{ iso_4217 }}"{% if iso_4217 == shop.currency %} class="active"{% endif %}><a href="#">{{ name }}</a></li>
+  {%- endfor -%}
+</ul>
+{%- endif -%}

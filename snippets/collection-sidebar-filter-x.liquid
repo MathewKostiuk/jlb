@@ -1,0 +1,79 @@
+{%- assign group_data = 'filtergroup' | append: index -%}
+{%- assign group_key = 'show_' | append: group_data -%}
+
+{%- if settings[group_key] -%}
+{%- assign group_title = 'title_' | append: group_data -%}
+{%- assign group_design = 'design_' | append: group_data -%}
+{%- assign group_open = 'open_' | append: group_data -%}
+{%- assign group_tooltips = 'tooltips_' | append: group_data -%}
+
+{%- assign tags = settings[group_data] | split: ',' -%}{%- assign array = '' -%}{%- assign tag_lang = '' -%}{%- for tag in tags -%}{%- if tag contains '__' -%}{%- assign value = tag | split: '__' | first -%}{%- assign array = array | append: ',' | append: value -%}{%- assign value = tag | split: '__' | last | strip -%}{%- assign tag_lang = tag_lang | append: ',' | append: value -%}{%- else -%}{%- assign array = array | append: ',' | append: tag -%}{%- assign tag_lang = tag_lang | append: ',' | append: '_empty_' -%}{%- endif -%}{%- endfor -%}{%- assign tags = array | split: ',' -%}{%- assign tag_lang = tag_lang | split: ',' -%}
+{%- assign open = '' -%}{%- if settings[group_open] -%}{%- assign open = 'open' -%}{%- endif -%}
+
+{%- capture data -%}
+{%- assign tag_size = 0 -%}
+{%- for t in tags -%}
+{%- assign tag = t | strip | downcase -%}
+{%- assign all_tags = collection.all_tags | downcase -%}
+{%- assign checktag = '"' | append: tag | append: '"' -%}
+{%- if all_tags contains checktag -%}
+{%- assign cur_tags = current_tags | downcase | replace: 'amp;', '' -%}
+{%- unless cur_tags contains checktag -%}{%- assign tag_size = tag_size | plus: 1 -%}
+	<li>
+    {%- capture string -%}{%- if tag_lang[forloop.index0] != '_empty_' -%}{{ tag_lang[forloop.index0] }}{%- else -%}{{ t | strip }}{%- endif -%}{%- endcapture -%}
+    {%- assign oldtitle = 'Show products matching tag ' | append: tag -%}
+    {%- assign newtitle = settings[group_title] | append: ': ' | append: string -%}
+    
+    {%- capture texture -%}{%- include 'get_swatch_texture' with texture_name: string -%}{%- endcapture -%}
+    {%- capture texture_style -%}{%- if texture != '' -%}{{ texture | asset_url }}{%- endif -%}{%- endcapture -%}
+    
+    {%- if settings[group_design] == 'color' -%}
+    {%- assign color = tag | handle -%}
+    
+    {% capture tagborder %}{% if string == settings.shopby_color_filter_border %} border{% endif %}{% endcapture %}
+
+    {%- assign colors = ',' | append: settings.product_colors | strip_newlines | downcase | append: ',' -%}
+    {%- assign _tag = tag | downcase | strip -%}
+    {%- assign _tag = ',' | append: _tag | append: ':' -%}
+    {%- capture curcol -%}{%- if colors contains _tag -%}{{ colors | split: _tag | last | split: ',' | first | strip }}{%- else -%}{%- endif -%}{%- endcapture -%}
+
+    {%- capture tt -%}{% if settings[group_tooltips] %}data-tooltip="{% else %}title="{% endif %}{%- endcapture -%}
+    {%- capture newtitle -%}{% if settings[group_tooltips] %}{{ newtitle }}{% endif %}{%- endcapture -%}
+    {%- capture c -%}{{ string | link_to_tag: tag | replace: oldtitle, newtitle | replace: 'title="', tt }}{%- endcapture -%}
+    {%- if texture_style != '' -%}{%- assign s = '<a class="options-color' | append: tagborder | append: '" style="background: url(' | append: texture_style | append: ')" ' -%}{%- assign c = c | replace: '<a', s -%}
+    {%- elsif curcol != '' -%}{%- assign s = '<a class="options-color' | append: tagborder | append: '" style="background:' | append: curcol | append: '" ' -%}{%- assign c = c | replace: '<a', s -%}
+    {%- endif -%}
+    {{ c }}
+
+    {%- elsif settings[group_design] == 'button' -%}
+      {%- capture tt -%}{% if settings[group_tooltips] %}data-tooltip="{% else %}title="{% endif %}{%- endcapture -%}
+      {%- capture newtitle -%}{% if settings[group_tooltips] %}{{ newtitle }}{% endif %}{%- endcapture -%}
+      {%- capture c -%}{{ string | link_to_tag: tag | replace: oldtitle, newtitle | replace: 'title="', tt }}{%- endcapture -%}
+      {%- if texture_style != '' -%}{%- assign s = '<a class="options-color' | append: tagborder | append: '" style="background: url(' | append: texture_style | append: ')" ' -%}{%- assign c = c | replace: '<a', s -%}
+	  {%- endif -%}
+      {{ c }}
+    {%- else -%}
+      {% assign string = '<span>' | append: string | append: '</span>' %}
+      {% assign tt = 'data-tooltip="' | append: newtitle | append: '" data-tposition="right" data-findtag="span"' %}
+      {%- capture tt -%}{% if settings[group_tooltips] %}{{ tt }}{% endif %}{%- endcapture -%}
+      {{ string | link_to_tag: tag | replace: oldtitle, '' | replace: 'title=""', tt }}
+	{%- endif -%}
+  	</li>
+{%- endunless -%}{%- endif -%}{%- endfor -%}{%- endcapture -%}
+{%- assign data = data | strip -%}
+
+{%- capture design -%}{%- case settings[group_design] -%}
+{%- when 'inrow' -%}tt-list-inline
+{%- when 'button' -%}tt-options-swatch options-middle
+{%- when 'color' -%}tt-options-swatch options-middle
+{%- else -%}tt-list-row
+{%- endcase -%}{%- endcapture -%}
+
+<div class="tt-collapse {{ open }}{% if data == '' %} hide{% endif %}{{ sidebars_toright }}">
+  <h3 class="tt-collapse-title">{{ settings[group_title] }}</h3>
+  <div class="tt-collapse-content">
+    <ul class="{{ design | strip }} filtres-js">{{ data }}</ul>
+  </div>
+</div>
+
+{%- endif -%}

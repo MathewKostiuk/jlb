@@ -1,0 +1,163 @@
+{%- assign item = section.settings -%}
+
+{%- assign grid = section.settings.items -%}
+{%- capture info_image_size -%}
+{%- case grid -%}
+{%- when '6' -%}600x300px
+{%- when '4' -%}400x200px
+{%- else -%}246x106px
+{%- endcase -%}
+{%- endcapture -%}
+
+{%- assign img_size = info_image_size | split: 'x' | first | append: 'x' -%}
+
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent">
+  <div class="container{% if item.fullwidth %}-fluid-custom{% endif %}">
+    {% if item.show_title %}<div class="tt-block-title">
+      <h1 class="tt-title">{{ item.text1 }}</h1>
+      {% if item.text2 != '' %}<div class="tt-description">{{ item.text2 }}</div>{% endif %}
+    </div>{% endif %}
+    {%- if section.blocks.size > 0 -%}
+    <div class="row tt-img-box-listing">
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      <div class="col-6 col-sm-4 col-md-{{ grid }} col-12-440width" {{ block.shopify_attributes }}>
+        <a href="{{ b_i.link }}" class="tt-img-box" style="border-color:{{ item.border_base_color }};" data-borc="{{ item.border_base_color }}" data-aborc="{{ item.border_active_color }}" data-hovercolors>
+          {%- if b_i.image == blank -%}{% include "get_svg" type:'image' size:info_image_size no_info_text:'true' %}
+          {%- else -%}
+          <img class="lazyload"
+               src="{{ b_i.image | img_url: img_size }}"
+               data-src="{{ b_i.image | img_url: img_size }}"
+               data-srcset="{% include 'lazyload_string' value: b_i.image %}"
+               alt="{{ b_i.image.alt }}">
+          {%- endif -%}
+        </a>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- else -%}
+    <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+    {%- endif -%}
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Border Banners",
+  "class": "index-section",
+  "settings": [
+      {
+        "type": "select",
+        "id": "top_offset",
+        "label": "Top Offset",
+        "default": "normal",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Fullwidth size",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show Title Block",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "text1",
+        "label": "Title",
+        "default": "POPULAR"
+      },
+      {
+        "type": "textarea",
+        "id": "text2",
+        "label": "Description",
+        "default": "CLOTHING BRANDS"
+      },
+      {
+        "type": "select",
+        "id": "items",
+        "label": "Items in row",
+        "options": [
+          { "value": "6", "label": "2" },
+          { "value": "4", "label": "3" },
+          { "value": "3", "label": "4" }
+        ],
+        "default": "3",
+        "info": "For screen size > 1024"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "border_base_color",
+        "label": "Border base color",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "border_active_color",
+        "label": "Border active color",
+        "default": "#2879fe"
+      }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Image size 246x106px. Use *.png image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Border Banners",
+      "category": "Banner",
+      "blocks": [
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,10 @@
+{% unless product_meta.video == blank %}
+{{ tagopen }}
+<div data-value="{{ product_meta.video }}" class="video-link-product" data-toggle="modal" data-type="youtube" data-target="#modalVideoProduct">
+  <img src="{{ 'product-small-empty.png' | asset_url }}" alt="Video Slide">
+  <div>
+    <i class="icon-f-32"></i>
+  </div>
+</div>
+{{ tagclose }}
+{% endunless %}

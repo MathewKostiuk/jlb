@@ -1,0 +1,91 @@
+{%- assign item = section.settings -%}
+
+{%- capture info_image_size -%}
+{%- if item.fullwidth -%}
+2048x570px
+{%- else -%}
+1200x570px
+{%- endif -%}
+{%- endcapture -%}
+
+{%- assign img_size = info_image_size | split: 'x' | first | append: 'x' -%}
+
+<div class="container-indent{% unless item.topoffset %} nomargin{% endunless %}">
+  {% if item.fullwidth == false %}<div class="container">{% endif %}
+    {% if item.externallink == false %}<a href="{{ item.link }}" class="videomodalbox" target="_blank">
+    {% else %}<div data-value="{{ item.link }}" class="video-link-product videomodalbox" data-toggle="modal" data-type="youtube" data-target="#modalVideoProduct">
+    {% endif %}
+
+      {%- if item.image == blank -%}{%- include "get_svg" type:'image' size:info_image_size -%}
+      {%- else -%}
+      {%- assign scale_numbers = '_' | append: img_size -%}
+      <img class="videomodalbox-main"
+           src="{{ item.image | img_url: img_size }}"
+           alt="{{ item.image.alt }}">
+      {%- endif -%}
+      {%- if item.imageicon != blank -%}
+      <img class="videomodalbox-icon"
+           src="{{ item.imageicon | img_url: '100x' }}"
+           alt="{{ item.imageicon.alt }}">
+      {%- endif -%}
+    
+    {% if item.externallink%}</div>
+    {% else %}</a>
+  	{% endif %}
+  {% if item.fullwidth == false %}</div>{% endif %}
+  {% include "modal-video" %}
+</div>
+
+{% schema %}
+{
+  "name": "Video modal",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "topoffset",
+      "label": "Top Offset",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth Container",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+	  "info": "Main image"
+    },
+    {
+      "type": "image_picker",
+      "id": "imageicon",
+      "label": "Icon image",
+	  "info": "Png video icon. Size 80x80px"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link",
+      "info": "Example: https://www.youtube.com/embed/-8qK-qKtFoE?autoplay=1"
+    },
+    {
+      "type": "checkbox",
+      "id": "externallink",
+      "label": "Use modal with youtube",
+      "default": true,
+  	  "info": "Another action external link with new window"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video modal",
+      "category": "Simple Section",
+      "settings": {
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,25 @@
+<div class="tt-footer-custom tt-color-scheme-04">
+  <div class="container">
+    <div class="tt-row">
+      <div class="tt-col-left">
+        {%- if item.show_logoblock -%}
+        <div class="tt-col-item tt-logo-col">
+          <a href="/" class="tt-logo tt-logo-alignment">
+            {%- if footerlogo contains "title_" -%}<h2 class="tt-title">{{ footerlogo | split:"title_" | last }}</h2>
+            {%- else -%}<img src="{{ footerlogo }}" srcset="{{ footerlogo }} 1x, {{ footerlogoretina }} 2x" alt="{{ footerlogoalt }}" class="tt-retina">
+            {%- endif -%}
+          </a>
+        </div>
+        {%- endif -%}
+        {%- if item.footer_address != "" -%}
+        <div class="tt-col-item">
+          <div class="tt-box-copyright">{{ item.footer_address }}</div>
+        </div>
+        {%- endif -%}
+      </div>
+
+      {%- include "footer_paymant_list" -%}
+
+    </div>
+  </div>
+</div>

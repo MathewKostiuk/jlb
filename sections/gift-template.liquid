@@ -1,0 +1,36 @@
+{%- assign item = section.settings -%}
+{%- assign logo_size = item.logo_max_width | append: 'x' -%}
+{% if item.show_logo %}{% if item.image_l != blank %}
+<a href="{{ shop.url }}" class="tt-logo" itemprop="url">
+  <img class="tt-retina" src="{{ item.image_l | img_url: logo_size }}" alt="{{ item.image_l.alt }}">
+</a>
+{% endif %}{% endif %}
+
+{% schema %}
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_logo",
+        "label": "Show logo",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "image_l",
+        "label": "Logo image"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Logo Main width (in pixels)",
+        "default": "175"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,236 @@
+<div class="container-indent testimonials{{ section.id }}"{% if section.settings.usebgcolor %}
+     style="background: {{ section.settings.bgco }};
+            {% if section.settings.usebgimage %}
+            background-image: url('{{ section.settings.image | img_url: '1980x' }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            {% endif %}
+            "{% endif %}>
+  <div class="container{% if section.settings.usebgcolor %} testimonials-bg-pad{% if section.settings.mobpad %} testimonials-mob-pad{% endif %}{% endif %}" data-sectionname="index_testimonials">
+    <div class="tt-block-title">
+      <h2 class="tt-title" style="color: {{ section.settings.titleco }};">{{ section.settings.text1 }}</h2>
+    </div>
+    {%- if section.blocks.size > 0 -%}
+    <div class="tt-slider-fullwidth arrow-location-center-02 slick-animated-show-js" data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay": {{ item.module_autoplay }}, "autoplaySpeed": {{ item.delay_time }}}'>
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      <div class="item" {{ block.shopify_attributes }}>
+        <a href="blog-single-post.html" class="tt-content-info">
+          
+          {% unless b_i.text2 == '' %}<p style="color: {{ section.settings.descco }};">{{ b_i.text2 }}</p>{% endunless %}
+          {% if b_i.text3 != '' or b_i.text4 != '' %}
+          <div class="tt-subscription">
+            {% unless b_i.text3 == '' %}<div class="tt-text-lage" style="color: {{ section.settings.authco }};">{{ b_i.text3 }}</div>{% endunless %}
+            {% unless b_i.text4 == '' %}<div class="tt-text-small" style="color: {{ section.settings.hobbyco }};">{{ b_i.text4 }}</div>{% endunless %}
+          </div>
+          {%- endif -%}
+        </a>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- else -%}
+    <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+    {%- endif -%}
+  </div>
+  {% if section.settings.changebntcolor %}
+  <style>
+    .testimonials{{ section.id }} button{
+      background: {{ section.settings.bgbaseco }} !important;
+      color: {{ section.settings.arrbaseco }} !important;
+    }
+    .testimonials{{ section.id }} button:hover{
+      background: {{ section.settings.bgactiveco }} !important;
+      color: {{ section.settings.arractiveco }} !important;
+    }
+    .arrow-location-center-02 .slick-arrow, .arrow-location-center-02 .slick-arrow:active {
+      top: {{ section.settings.btnsposition }}% !important;
+    }
+  </style>
+  {% endif %}
+</div>
+
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "text1",
+      "label": "Title",
+      "default": "WHAT THEY’RE SAYING"
+    },
+    {
+      "type": "checkbox",
+      "id": "module_autoplay",
+      "label": "Auto-rotate slides",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "delay_time",
+      "label": "Change slides every",
+      "options": [
+        { "value": "5000", "label": "5 seconds" },
+        { "value": "6000", "label": "6 seconds" },
+        { "value": "7000", "label": "7 seconds" },
+        { "value": "8000", "label": "8 seconds" },
+        { "value": "9000", "label": "9 seconds" },
+        { "value": "10000", "label": "10 seconds" }
+      ],
+      "default": "7000"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "titleco",
+      "label": "Title color",
+      "default": "#191919"
+    },
+    {
+      "type": "color",
+      "id": "descco",
+      "label": "Description color",
+      "default": "#777777"
+    },
+    {
+      "type": "color",
+      "id": "authco",
+      "label": "Author color",
+      "default": "#191919"
+    },
+    {
+      "type": "color",
+      "id": "hobbyco",
+      "label": "Hobby color",
+      "default": "#999999"
+    },
+    {
+      "type": "checkbox",
+      "id": "changebntcolor",
+      "label": "Change buttons settings",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "bgbaseco",
+      "label": "Background base color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrbaseco",
+      "label": "Arrow base color",
+      "default": "#191919"
+    },
+    {
+      "type": "color",
+      "id": "bgactiveco",
+      "label": "Background active color",
+      "default": "#191919"
+    },
+    {
+      "type": "color",
+      "id": "arractiveco",
+      "label": "Arrow active color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "btnsposition",
+      "label": "Buttons vertical aligment. In percent",
+      "default": "50",
+	  "info": "Range = 0 - 100"
+    },
+    {
+      "type": "header",
+      "content": "Background color"
+    },
+    {
+      "type": "checkbox",
+      "id": "usebgcolor",
+      "label": "Use background color",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "mobpad",
+      "label": "Mobile bottom padding",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bgco",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "usebgimage",
+      "label": "Use background image",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+	  "info": "Recommended image size 1920x750px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Description",
+          "default": "Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.",
+		  "info": "If you want delete text from the screen clear field"
+        },
+        {
+          "type": "textarea",
+          "id": "text3",
+          "label": "Author",
+          "default": "ADRIAN PARKER",
+		  "info": "If you want delete text from the screen clear field"
+        },
+        {
+          "type": "textarea",
+          "id": "text4",
+          "label": "Hobby",
+          "default": "Developer",
+		  "info": "If you want delete text from the screen clear field. Field not work with slider mode"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "Sliders",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,318 @@
+{%- assign item = section.settings -%}
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent">
+  <div class="container{% if item.fullwidth %}-fluid{% endif %}">
+    <div class="{% if item.fullwidth %}row{% endif %} no-gutter">
+	  {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      {%- assign id = '#section' | append: section.id | append: forloop.index -%}
+      {%- if b_i.use_parallax and b_i.image != blank -%}
+      {%- assign id_s = 'data-anchor-target="' | append: id | append: '"' -%}
+      {%- assign img = b_i.image | img_url: '2048x' -%}
+      {%- assign img = 'style="background-image: url(' | append: img | append: ')"' -%}
+      {% assign parallax_atrr = ' data-bottom-top="background-position: 50% 200px;" data-top-bottom="background-position: 50% -200px;"' | append: img | append: id_s %}
+      <style>
+        {{ id }} .tt-promo-fullwidth {
+          height: {{ b_i.height1 }}px;
+        }
+        @media (max-width: 1199px){
+          {{ id }} .tt-promo-fullwidth {
+            height: {{ b_i.height2 }}px;
+          }
+        }
+        @media (max-width: 789px){
+          {{ id }} .tt-promo-fullwidth {
+            height: {{ b_i.height3 }}px;
+          }
+        }
+        @media (max-width: 451px){
+          {{ id }} .tt-promo-fullwidth {
+            height: {{ b_i.height4 }}px;
+          }
+        }
+      </style>
+      {%- endif -%}
+      {%- if b_i.use_custom_style_for_text_1 -%}
+      {% assign id_s = id | append: " .tt-promo-fullwidth" %}
+      <style>
+        {{ b_i.custom_style_for_text_1 | replace: ".tt-promo-fullwidth", id_s }}
+      </style>
+      {%- endif -%}
+      <div class="col-sm-12" {{ block.shopify_attributes }} id="section{{ section.id }}{{ forloop.index }}">
+        {% if b_i.show_button or b_i.use_link == false %}<div class="tt-promo-fullwidth"{{ parallax_atrr }}>{% else %}<a href="{{ b_i.link }}"{{ parallax_atrr }} class="tt-promo-fullwidth">{% endif %}
+        
+          {%- if b_i.use_parallax == false or b_i.image == blank -%}
+          {%- if b_i.image == blank -%}
+        	{%- if b_i.use_parallax -%}{%- include "get_svg" type:'image' size:'1920x1300' -%}
+        	{%- else -%}{%- include "get_svg" type:'image' size:'2048x800' -%}
+        	{%- endif -%}
+          {%- else -%}<img src="{{ b_i.image | img_url: '2048x' }}" alt="{{ b_i.image.alt }}">
+          {%- endif -%}
+          {%- endif -%}
+
+          <div class="tt-description {{ b_i.position }}">
+            <div class="tt-description-wrapper">
+              {% unless b_i.text1 == '' %}<div class="tt-title-small" style="color:{{ b_i.text_color1 }}">{{ b_i.text1 }}</div>{% endunless %}
+              {% unless b_i.text2 == '' %}<div class="tt-title-large" style="color:{{ b_i.text_color2 }}">{{ b_i.text2 }}</div>{% endunless %}
+              {% unless b_i.text3 == '' %}<p style="color:{{ b_i.text_color3 }}">{{ b_i.text3 }}</p>{% endunless %}
+              {% if b_i.show_button %}<a href="{{ b_i.link }}" class="btn btn-xl" style="color:{{ b_i.cbtntext }}; background:{{ b_i.cbtnbg }};" data-c="{{ b_i.cbtntext }}" data-ac="{{ b_i.acbtntext }}" data-bgc="{{ b_i.cbtnbg }}" data-abgc="{{ b_i.acbtnbg }}" data-hovercolors>{{ b_i.button_name }}</a>{% endif %}
+            </div>
+          </div>
+        {%- if b_i.show_button == false and b_i.use_link == true -%}</a>{%- else -%}</div>{%- endif -%}
+        
+      </div>
+      {%- endfor -%}
+      {%- else -%}
+      <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Big Banners",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "top_offset",
+      "label": "Top Offset",
+      "default": "normal",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth size",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_link",
+          "label": "Use link",
+          "default": true,
+		  "info": "Work when button is disable"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "If button disabled, image will be as link"
+        },
+        {
+          "type": "header",
+          "content": "Parallax"
+        },
+        {
+          "type": "paragraph",
+          "content": "Use parallax with fullscreen option. In boxed mode your image must be in center. Parallax mode is fullscreen image."
+        },
+        {
+          "type": "checkbox",
+          "id": "use_parallax",
+          "label": "Use parallax",
+          "default": false
+        },
+        {
+          "type": "paragraph",
+          "content": "Responsive settings. In mobile parallax not work!"
+        },
+        {
+          "type": "text",
+          "id": "height1",
+          "label": "Banner height. Screen width is more than 1200",
+          "default": "650",
+		  "info": "Integer. In pixel. Fullwidth size"
+        },
+        {
+          "type": "text",
+          "id": "height2",
+          "label": "Banner height. Screen width is more than 790 and less than 1199",
+          "default": "550",
+		  "info": "Integer. In pixel"
+        },
+        {
+          "type": "text",
+          "id": "height3",
+          "label": "Banner height. Screen width is more than 451 and less than 789",
+          "default": "350",
+		  "info": "Integer. In pixel"
+        },
+        {
+          "type": "text",
+          "id": "height4",
+          "label": "Banner height. Screen width is less than 450",
+          "default": "250",
+		  "info": "Integer. In pixel"
+        },
+        {
+          "type": "header",
+          "content": "Information"
+        },
+        {
+          "type": "textarea",
+          "id": "text1",
+          "label": "Text 1",
+          "default": "CLEARANCE",
+		  "info": "If you want delete text from the screen clear field"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Text 2",
+          "default": "SALES<br> 70% OFF",
+		  "info": "If you want delete text from the screen clear field"
+        },
+        {
+          "type": "textarea",
+          "id": "text3",
+          "label": "Text 3",
+          "default": "Last chance to take advantage of our discounts!",
+		  "info": "If you want delete text from the screen clear field"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Text information position",
+          "default": "normal",
+          "options": [
+            {
+              "value": "tt-point-h-l",
+              "label": "Left"
+            },
+            {
+              "value": "normal",
+              "label": "Center"
+            },
+            {
+              "value": "tt-point-h-r",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "use_custom_style_for_text_1",
+          "label": "Custom style text 1",
+          "default": false,
+		  "info": "Responsive rules"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_style_for_text_1",
+          "label": "Custom styles for Text 1",
+		  "default": ".tt-promo-fullwidth .tt-description .tt-title-small {\nfont-size: 30px;\nline-height: 40px;\nmargin-bottom: 16px;\n}\n@media (max-width: 1400px){\n\t.tt-promo-fullwidth .tt-description .tt-title-small {\n\t\tfont-size: 30px;\n\t\tline-height: 40px;\n\t\tmargin-bottom: 16px;\n\t}\n}\n@media (max-width: 1100px){\n\t.tt-promo-fullwidth .tt-description .tt-title-small {\n\t\tfont-size: 30px;\n\t\tline-height: 40px;\n\t\tmargin-bottom: 16px;\n\t}\n}\n@media (max-width: 900px){\n\t.tt-promo-fullwidth .tt-description .tt-title-small {\n\t\tfont-size: 20px;\n\t\tline-height: 30px;\n\t\tmargin-bottom: 10px;\n\t}\n}\n@media (max-width: 789px){\n\t.tt-promo-fullwidth .tt-description .tt-title-small {\n\t\tfont-size: 17px;\n\t\tline-height: 25px;\n\t\tmargin-bottom: 10px;\n\t}\n}\n@media (max-width: 657px){\n\t.tt-promo-fullwidth .tt-description .tt-title-small {\n\t\tfont-size: 15px;\n\t\tline-height: 20px;\n\t\tmargin-bottom: 7px;\n\t}\n}\n@media (max-width: 575px){\n\t.tt-promo-fullwidth .tt-description .tt-title-small {\n\t\tfont-size: 14px;\n\t\tline-height: 16px;\n\t\tmargin-bottom: 7px;\n\t}\n}\n@media (max-width: 450px){\n\t.tt-promo-fullwidth .tt-description .tt-title-small {\n\t\tfont-size: 12px;\n\t\tline-height: 12px;\n\t\tmargin-bottom: 4px;\n\t}\n}"
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_button",
+          "label": "Show button",
+          "default": true
+        },
+        {
+          "type": "textarea",
+          "id": "button_name",
+          "label": "Button name",
+          "default": "SHOP NOW!"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "text_color1",
+          "label": "Text 1 color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "text_color2",
+          "label": "Text 2 color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "text_color3",
+          "label": "Text 3 color",
+          "default": "#191919"
+        },
+        {
+          "type": "header",
+          "content": "Button Color"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext",
+          "label": "Base Text Button",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext",
+          "label": "Active Text Button",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "cbtnbg",
+          "label": "Base Background Button",
+          "default": "#2879fe"
+        },
+        {
+          "type": "color",
+          "id": "acbtnbg",
+          "label": "Active Background Button",
+          "default": "#2267d8"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Big Banners",
+      "category": "Banner",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

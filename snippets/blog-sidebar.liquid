@@ -1,0 +1,112 @@
+{%- for block in section.blocks -%}
+{%- assign b_s = block.settings -%}
+
+<div class="tt-block-aside">
+  <h3 class="tt-aside-title">{{ b_s.title }}</h3>
+  <div class="tt-aside-content">
+
+    {%- case block.type -%}
+    {%- when 'categories' -%}
+    {%- assign blogs_name = b_s.content | split: ',' -%}
+    {%- capture blogslinks -%}{%- include "blog-page-sidebar-tabblogs" -%}{%- endcapture -%}
+
+    <ul class="tt-list-row">
+      {{ blogslinks }}
+    </ul>
+
+    {%- when 'about' -%}
+    <div class="tt-aside-info">
+      {%- if b_s.image != blank -%}
+      <a href="#" class="tt-aside-img">
+        <img src="{{ b_s.image | img_url: '300x' }}" alt="{{ b_s.image.alt }}">
+      </a>
+      {%- endif -%}
+      <p>{{ b_s.content }}</p>
+      {%- if b_s.show_button -%}
+      <a href="{{ b_s.banner_link }}" class="btn-link btn-top">{{ b_s.button }}</a>
+      {%- endif -%}
+    </div>
+
+    {%- when 'tags' -%}
+    <ul class="tt-list-inline{% if b_s.blog_tags_uppercase %} text-uppercase{% endif %}">
+      {%- for tag in blog.all_tags -%}
+      <li>{{ tag | link_to_tag: tag }}</li>
+      {%- endfor -%}
+    </ul>
+
+    {%- when 'recent_post' -%}
+    {%- assign name_collection = b_s.sidebar_recent_blog_name -%}{%- assign length = b_s.sidebar_recent_blog_count | plus: 0 -%}
+    {%- if name_collection == blank -%}{%- assign name_collection = "all" -%}{%- endif -%}{%- assign selected_blog = blogs[name_collection] -%}
+   
+    <div class="tt-aside-post">
+    {%- for article in selected_blog.articles limit: length -%}
+      <div class="item">
+        {%- if article.tags.size > 0 and b_s.blog_show_tags -%}
+        <div class="tt-tag{% if b_s.blog_tags_uppercase %} text-uppercase{% endif %}">
+          {%- for tag in article.tags -%}{{ tag | link_to_tag: tag }}{%- endfor -%}
+        </div>{%- endif -%}
+        <a href="{{ article.url }}">
+          <div class="tt-title">{{ article.title }}</div>
+          <div class="tt-description">
+            {%- if article.excerpt.size > 0 -%}
+            {%- if b_s.truncate_excerpt -%}{{ article.excerpt | strip_html | truncatewords: b_s.truncate, b_s.truncate_last_symbols }}
+            {%- else -%}{{ article.excerpt }}
+            {%- endif -%}
+            {%- else -%}{{ article.content | strip_html | truncatewords: b_s.truncate, b_s.truncate_last_symbols }}{%- endif -%}</div>
+        </a>
+        {%- if b_s.blog_show_author or b_s.blog_show_date -%}
+        <div class="tt-info">
+          {% if b_s.blog_show_author %}{{ 'blogs.article.by_author' | t }} <span>{{ article.author }}</span> {% endif %}{% if b_s.blog_show_date %}{{ 'blogs.article.posted_in' | t }} {{ article.created_at | date: '%B' }} {{ article.created_at | date: '%d, %Y' }}{% endif %}
+        </div>
+        {%- endif -%}
+
+      </div>
+      {%- endfor -%}
+    </div>
+    
+    {%- when 'newsletter' -%}
+    <div class="tt-aside-subscribe-box">
+      <p>
+        {{ b_s.content }}
+      </p>
+      
+      {%- if settings.use_mailchimp_form -%}
+      {%- if settings.mailchimp_form_action != "" -%}
+      <form action="{{ settings.mailchimp_form_action }}" method="post" name="mc-embedded-subscribe-form" target="_blank" class="form-default">
+        <div class="form-group">
+          <input type="email" name="EMAIL" class="form-control" placeholder="{{ b_s.form_text }}">
+        </div>
+        <button type="submit" class="btn">{{ b_s.button }}</button>
+      </form>
+      {%- endif -%}
+      {%- else -%}
+      {%- form 'customer' -%}
+      {{ form.errors | default_errors }}
+      {%- if form.posted_successfully? -%}
+
+      {%- endif -%}
+      <div class="form-group">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email"
+               name="contact[email]"
+               class="form-control"
+               value="{% if customer %}{{ customer.email }}{% endif %}"
+               placeholder="{{ b_s.form_text }}"
+               autocorrect="off"
+               autocapitalize="off">
+        <button type="submit" class="btn" name="commit">{{ b_s.button }}</button>
+      </div>
+      {%- endform -%}
+      {%- endif -%}
+
+    </div>
+    
+    {%- else -%}
+
+    {{ b_s.content }}
+
+    {%- endcase -%}
+  </div>
+</div>
+
+{%- endfor -%}

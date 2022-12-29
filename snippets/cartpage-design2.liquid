@@ -1,0 +1,135 @@
+<div class="container-indent">
+  <div class="container">
+    <form action="/cart" method="post" novalidate id="updateform">
+      <h1 class="tt-title-subpages noborder">{{ 'cart.general.title' | t }}</h1>
+      <div class="row">
+        <div class="col-sm-12 col-xl-8">
+          <div class="tt-shopcart-table">
+            <table>
+              <tbody>
+                {% for item in cart.items %}
+                {% assign inv_man = item.variant.inventory_management %}{% assign inv_qua = item.variant.inventory_quantity | plus: 0 %}{% unless inv_man %}{% assign inv_qua = 100000 %}{% endunless %}{% if item.variant.available and inv_qua == 0 %}{% assign inv_qua = 100000 %}{% endif %}
+                <tr>
+                  <td>
+                    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="tt-btn-close svg-icon-delete" title="{{ 'cart.header.button_delete' | t }}">
+                      {% include "svg-delete-icon" %}
+                    </a>
+                  </td>
+                  <td>
+                    <div class="tt-product-img">
+                      <img src="{{ item | img_url: 'medium' }}" alt="{{ item.alt | escape }}">
+                    </div>
+                  </td>
+                  <td>
+                    <h2 class="tt-title">
+                      <a href="{{ item.url }}">{{ item.product.title }}</a>
+                      {% unless item.variant.title contains 'Default' %}
+                      <p>
+                        {% for option in item.product.options %}
+                        {{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
+                        {% endfor %}
+                      </p>
+                      {% endunless %}
+                    </h2>
+                    <ul class="tt-list-parameters">
+                      <li>
+                        <div class="tt-price">{{item.price | money}}</div>
+                      </li>
+                      <li>
+                        <div class="detach-quantity-mobile"></div>
+                      </li>
+                      <li>
+                        <div class="tt-price subtotal">{{item.line_price | money}}</div>
+                      </li>
+                    </ul>
+                  </td>
+                  <td>
+                    <div class="tt-price">{{item.price | money}}</div>
+                  </td>
+                  <td>
+                    <div class="detach-quantity-desctope">
+                      <div class="tt-input-counter style-01 input-counter">
+                        <span class="minus-btn"></span>
+                        <input type="text" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" size="{{ inv_qua }}" title="{% if inv_qua < 100000 %}{{inv_qua}} {{ 'products.product.in_stock' | t }}{% else %}{{ 'products.product.many_in_stock' | t }}{% endif %}">
+                        <span class="plus-btn" title="{% if inv_qua < 100000 %}{{inv_qua}} {{ 'products.product.in_stock' | t }}{% else %}{{ 'products.product.many_in_stock' | t }}{% endif %}"></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="tt-price subtotal">{{item.line_price | money}}</div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <div class="tt-shopcart-btn">
+              <div class="col-left">
+                <a class="btn-link" href="/"><i class="icon-e-09"></i>{{ 'cart.general.continue_shopping' | t }}</a>
+              </div>
+              <div class="col-right">
+                <a class="btn-link svg-icon-delete-inline"
+                   href="/cart/clear">
+                  {% include "svg-delete-icon" %}{{ 'cart.general.clear_cart' | t }}
+                </a>
+                <a class="btn-link" href="#" name="update"><i class="icon-e-17"></i>{{ 'cart.general.update' | t }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-xl-4">
+          <div class="tt-shopcart-wrapper">
+          {% if item.cart_shipping_enable %}
+          <div class="tt-shopcart-box">
+            {% include 'shipping-calculator' %}
+          </div>
+          {% endif %}
+          {% if item.cart_notes_enable %}
+          <div class="tt-shopcart-box">
+            <h4 class="tt-title">{{ 'cart.label.note' | t }}</h4>
+            <p>{{ 'cart.label.note_text' | t }}</p>
+            <div class="form-default" style="margin-top: 17px;">
+              <textarea id="note" name="note" class="form-control" rows="7">{{ cart.note }}</textarea>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="tt-shopcart-box tt-boredr-large">
+            <table class="tt-shopcart-table01">
+              <tbody>
+                <tr id="subtotal">
+                  <th>{{ 'cart.general.subtotal' | t }}</th>
+                  <td>{{ cart.total_price | money }}</td>
+                </tr>
+                <tr id="tax" style="display:none">
+                  <th>{{ 'cart.general.shipping_total' | t }}</th>
+                  <td>{{ 0 | money }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr id="grandtotal">
+                  <th>{{ 'cart.general.total' | t }}</th>
+                  <td>{{ cart.total_price | money }}</td>
+                </tr>
+              </tfoot>
+            </table>
+            {% if settings.terms_cond_checkbox_show %}
+            <div class="checkbox-group term-conditions-checkbox term-conditions-checkbox-js">
+              <input type="checkbox" id="cart-term-conditions-checkbox" value="1">
+              <label for="cart-term-conditions-checkbox">
+                <span class="check"></span>
+                <span class="box"></span>
+                {{ settings.terms_cond_checkbox_text }}
+              </label>
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-lg" name="checkout"{% if settings.terms_cond_checkbox_show %} disabled{% endif %}><span class="icon icon-check_circle"></span>{{ 'cart.general.checkout' | t }}</button>
+          </div>
+            
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

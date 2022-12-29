@@ -1,0 +1,39 @@
+{% if item.show_collection_title %}
+<h1 class="tt-title">
+  {{ collection.title }}{% if item.show_collection_products_count %} <span class="tt-title-total listing-total-js">({{ paginate.items }})</span>{% endif %}
+</h1>
+{% endif %}
+
+{%- unless item_sidebar contains "_disable_" -%}
+<div class="tt-btn-toggle">
+  <a href="#">{{ 'collections.toolbar.filter' | t }}</a>
+</div>
+{%- endunless -%}
+<div class="tt-sort">
+  <select class="sort-position">
+    <option value="manual"{% if collection.default_sort_by == 'manual' %} selected{% endif %}>{{ 'collections.sorting.featured' | t }}</option>
+    <option value="title-ascending"{% if collection.default_sort_by == 'title-ascending' %} selected{% endif %}>{{ 'collections.sorting.az' | t }}</option>
+    <option value="title-descending"{% if collection.default_sort_by == 'title-descending' %} selected{% endif %}>{{ 'collections.sorting.za' | t }}</option>
+    <option value="created-ascending"{% if collection.default_sort_by == 'created-ascending' %} selected{% endif %}>{{ 'collections.sorting.date_ascending' | t }}</option>
+    <option value="created-descending"{% if collection.default_sort_by == 'created-descending' %} selected{% endif %}>{{ 'collections.sorting.date_descending' | t }}</option>
+    <option value="price-ascending"{% if collection.default_sort_by == 'price-ascending' %} selected{% endif %}>{{ 'collections.sorting.price_ascending' | t }}</option>
+    <option value="price-descending"{% if collection.default_sort_by == 'price-descending' %} selected{% endif %}>{{ 'collections.sorting.price_descending' | t }}</option>
+    <option value="best-selling"{% if collection.default_sort_by == 'best-selling' %} selected{% endif %}>{{ 'collections.sorting.best_selling' | t }}</option>
+  </select>
+
+  {% if collection.all_products_count > pagination_limit_const and settings.show_perpage %}
+  <select class="show-qty">
+    <option>{{ pagination_limit_const }}</option>
+    <option {% if current_pagination_limit == 16 %}selected{% endif %}>16</option>
+    <option {% if current_pagination_limit == 32 %}selected{% endif %}>32</option>
+    <option {% if current_pagination_limit == 50 %}selected{% endif %} value="all">{{ 'collections.toolbar.all' | t }}</option>
+  </select>
+  {% endif %}
+</div>
+<div class="tt-quantity">
+  <a href="#" class="tt-col-one" data-value="tt-col-one"></a>
+  <a href="#" class="tt-col-two" data-value="tt-col-two"></a>
+  <a href="#" class="tt-col-three" data-value="tt-col-three"></a>
+  <a href="#" class="tt-col-four" data-value="tt-col-four"></a>
+  <a href="#" class="tt-col-six" data-value="tt-col-six"></a>
+</div>

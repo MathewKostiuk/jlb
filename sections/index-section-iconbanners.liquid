@@ -1,0 +1,239 @@
+{%- assign item = section.settings -%}
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent {{ item.custom_classes }}"{% if item.use_background and item.background_boxed == false %} style="background:{{ item.background_color }}"{% endif %}>
+  <div class="container{% if item.fullwidth %}-fluid{% endif %}">
+    <div class="row{% if item.items_always_in_center %} justify-content-center{% endif %} tt-services-listing{% if item.use_background %} tt-layout-02{% endif %}"{% if item.use_background and item.background_boxed %} style="background:{{ item.background_color }}"{% endif %}>
+      {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      <div class="col-xs-12 col-md-6 col-lg-{{ item.items }}" {{ block.shopify_attributes }}>
+        <a href="{{ b_i.link }}" class="tt-services-block" data-hovercolors>
+          {%- if b_i.show_icon != 'none' -%}
+          <div class="tt-col-icon">
+            {%- if b_i.show_icon == 'image' -%}
+            <img src="{{ b_i.image | img_url: '60x' }}" alt="{{ b_i.image.alt }}">
+            {%- else -%}
+            <i class="{{ b_i.icon }}" style="color: {% if item.same_iconcolor %}{{ item.icon_color }}{% else %}{{ b_i.icon_color }}{% endif %}"></i>
+            {%- endif -%}
+          </div>
+          {%- endif -%}
+          <div class="tt-col-description">
+            <h4 class="tt-title" style="color:{{ item.title_color }};" data-c="{{ item.title_color }}" data-ac="{{ item.title_hover_color }}">{{ b_i.text1 }}</h4>
+            {% unless b_i.text2 == '' %}<p style="color: {{ item.desc_color }}">{{ b_i.text2 }}</p>{% endunless %}
+          </div>
+        </a>
+      </div>
+      {%- endfor -%}
+      {%- else -%}
+      <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Icon Banners",
+  "class": "index-section",
+  "settings": [
+      {
+        "type": "select",
+        "id": "top_offset",
+        "label": "Top Offset",
+        "default": "normal",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          }
+        ]
+      },
+      {
+        "type": "textarea",
+        "id": "custom_classes",
+        "label": "Custom css classes",
+        "info": "For the custom styles. Add your styles in the theme.css.liquid"
+      },
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Fullwidth size",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "items_always_in_center",
+        "label": "Items in center",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "items",
+        "label": "Items in row",
+        "options": [
+          { "value": "6", "label": "2" },
+          { "value": "4", "label": "3" },
+          { "value": "3", "label": "4" }
+        ],
+        "default": "4",
+        "info": "For screen size > 1024"
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "checkbox",
+        "id": "same_iconcolor",
+        "label": "Use same icon color",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "icon_color",
+        "label": "Icon color",
+        "default": "#2879fe",
+		"info": "Not image"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "desc_color",
+        "label": "Description color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "title_hover_color",
+        "label": "Title hover color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_background",
+        "label": "Use background",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "background_boxed",
+        "label": "Boxed background",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#f7f8fa"
+      }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        },
+        {
+          "type": "select",
+          "id": "show_icon",
+          "label": "Icon settings",
+          "options": [
+            { "value": "icon", "label": "Use font icon" },
+            { "value": "image", "label": "Use image" },
+            { "value": "none", "label": "Hide icon" }
+          ],
+          "default": "icon"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Wokiee icon",
+          "default": "icon-f-48",
+		  "info": "[Wokiee Icons](\/\/portotheme.com\/shopify\/wokiee\/icons)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image instead of icon",
+          "info": "Image size 50x50px. Use *.png image"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Title",
+          "default": "FREE SHIPPING"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Content",
+		  "default": "Free shipping on all US order or order above $99"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#2879fe",
+          "info": "Not image. Uncheck \"Use same icon color\""
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon Banners",
+      "category": "Banner",
+        "blocks": [
+          {
+            "type": "item",
+            "settings": {
+              "icon": "icon-f-48",
+              "text1": "FREE SHIPPING",
+              "text2": "Free shipping on all US order or order above $99"
+            }
+          },
+          {
+            "type": "item",
+            "settings": {
+              "icon": "icon-f-35",
+              "text1": "SUPPORT 24/7",
+              "text2": "Contact us 24 hours a day, 7 days a week"
+            }
+          },
+          {
+            "type": "item",
+            "settings": {
+              "icon": "icon-e-09",
+              "text1": "30 DAYS RETURN",
+              "text2": "Simply return it within 24 days for an exchange."
+            }
+          }
+        ]
+    }
+  ]
+}
+{% endschema %}

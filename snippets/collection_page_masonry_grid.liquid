@@ -1,0 +1,27 @@
+{%- capture url_images_size -%}{%- if external_size != empty? -%}{{ external_size }}{%- else -%}400x{%- endif -%}{%- endcapture -%}
+{%- assign product_meta = product.metafields.description -%}
+{%- comment -%} Price to show. {%- endcomment -%}
+{%- assign sale_on = false -%}
+{%- assign shownewicon = false -%}
+{%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+	{%- assign sale_on = true -%}
+{%- endif -%}
+
+{%- comment -%} Main Image URL. {%- endcomment -%}
+{%- assign main_url_image = product.featured_image -%}
+{%- assign hover_url_image = "" -%}
+{%- if product.images[1] -%}{%- if product.images[1].src contains "hover" or product_meta.hover == 'true' -%}
+	{%- assign hover_url_image = product.images[1].src -%}
+	{%- assign hover_url_image_alt = product.images[1].alt -%}
+{%- endif -%}{%- endif -%}
+
+{%- comment -%}
+date_difference = 60 * 60 * 24 * day counter, this is new product period in seconds
+{%- endcomment -%}
+  {%- assign date_now = 'now' | date: "%s" -%}
+  {%- assign date_published = product.published_at | date: "%s" -%}
+  {%- assign date_difference = date_now | minus: date_published -%}
+  {%- assign date_limit = 86400 | times: settings.new_product_period -%}
+  {%- assign pr_variant = product.selected_or_first_available_variant -%}
+
+{%- include "product-grid-item-design-2" -%}

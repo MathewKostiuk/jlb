@@ -1,0 +1,25 @@
+{%- comment -%}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{%- endcomment -%}
+
+<div itemscope itemtype="http://schema.org/Product" class="product_page_mobile_slider_no_margin_top">
+  <meta itemprop="name" content="{{ product.title }}">
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: '800x' }}">
+
+  {% section 'product-template' %}
+
+</div>
+
+{% include "modal-video" %}
+
+<script>
+  global_quantity = {};
+  {% for variant in product.variants %}
+  {% if variant.inventory_policy == "continue" %}
+  	global_quantity[{{ variant.id }}] = 'continue';
+  {% else %}
+  	global_quantity[{{ variant.id }}] = {{ variant.inventory_quantity }};
+  {% endif %}
+  {% endfor %}
+</script>

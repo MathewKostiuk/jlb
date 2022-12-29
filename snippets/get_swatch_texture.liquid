@@ -1,0 +1,14 @@
+{%- comment -%}
+Incoming: texture_name
+Return image link or emtpy
+{%- endcomment -%}
+{%- capture schema -%}
+{% for i in (1..100) %}
+{%- assign key = 'filter_color' | append: i -%}
+_{{ settings[key] }}|
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign key = '_' | append: texture_name | append: '|' -%}
+{%- if schema contains key -%}
+{%- assign image_index = schema | strip_newlines | split: key | first | split: '|' | size | plus: 1 -%}
+{{ 'filter_color' | append: image_index | append: '.png' }}{%- endif -%}

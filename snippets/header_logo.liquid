@@ -1,0 +1,8 @@
+<a href="/" class="tt-logo" itemprop="url">
+  {%- if headerlogo contains "title_" -%}<h2 class="tt-title">{{ headerlogo | split:"title_" | last }}</h2>
+  {%- else -%}<img src="{{ headerlogo }}"
+                   srcset="{{ headerlogo }} 1x, {{ headerlogoretina }} 2x"
+                   alt="{{ headerlogoalt }}"
+                   class="tt-retina" itemprop="logo" style="top:{{ item.logo_margin_top }}px"/>
+  {%- endif -%}
+</a>

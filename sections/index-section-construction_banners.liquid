@@ -1,0 +1,816 @@
+{%- assign item = section.settings -%}
+
+{%- assign grid = section.settings.items -%}
+{%- capture info_image_size -%}
+{%- case grid -%}
+{%- when '6' -%}{% if item.fullwidth %}1024x400px{% else %}600x300px{% endif %}
+{%- when '4' -%}{% if item.fullwidth %}800x800px{% else %}400x400px{% endif %}
+{%- else -%}{% if item.fullwidth %}600x600px{% else %}300x300px{% endif %}
+{%- endcase -%}
+{%- endcapture -%}
+
+{%- assign img_size = info_image_size | split: 'x' | first | append: 'x' -%}
+
+<div class="container-indent{% if item.top_offset != 'normal' %} nomargin{% endif %} {{ item.custom_classes }}">
+  <div class="container{% if item.fullwidth %}-fluid-custom{% endif %}">
+    {%- if item.show_title -%}
+    <div class="tt-block-title">
+      <h2 class="tt-title">{{ item.text1 }}</h2>
+      {%- unless item.text2 == '' -%}<div class="tt-description">{{ item.text2 }}</div>{%- endunless -%}
+    </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+    <div class="row{% if section.blocks.size == 6 %} flex-sm-row-reverse{% elsif section.blocks.size == 5 %} tt-list-sm-shift{% endif %}{% if item.top_offset == 'none' or item.show_title %} tt-layout-promo-box{% endif %}">
+      {%- case section.blocks.size -%}
+      {%- when 6 -%}
+      <div class="col-sm-12 col-md-6">
+        <div class="row">
+          {%- capture info_image_size -%}910x780px{%- endcapture -%}
+          {%- capture img_size -%}{% if item.fullwidth %}x800{% else %}x400{% endif %}{%- endcapture -%}
+          <div class="col-sm-6">
+            {%- assign b_i = section.blocks[3].settings -%}{% include 'section-banner-item' %}
+          </div>
+          <div class="col-sm-6">
+            {%- assign b_i = section.blocks[4].settings -%}{% include 'section-banner-item' %}
+          </div>
+          <div class="col-sm-12">
+            {%- capture info_image_size -%}930x390px{%- endcapture -%}
+            {%- capture img_size -%}{% if item.fullwidth %}1024x{% else %}600x{% endif %}{%- endcapture -%}
+            {%- assign b_i = section.blocks[5].settings -%}{% include 'section-banner-item' %}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row">
+          <div class="col-sm-6">
+            {%- capture info_image_size -%}910x780px{%- endcapture -%}
+            {%- capture img_size -%}{% if item.fullwidth %}x800{% else %}x400{% endif %}{%- endcapture -%}
+            {%- assign b_i = section.blocks[0].settings -%}{% include 'section-banner-item' %}
+            {%- assign b_i = section.blocks[1].settings -%}{% include 'section-banner-item' %}
+          </div>
+          <div class="col-sm-6">
+            {%- capture info_image_size -%}910x1600px{%- endcapture -%}
+            {%- capture img_size -%}{% if item.fullwidth %}1024x{% else %}600x{% endif %}{%- endcapture -%}
+            {%- assign b_i = section.blocks[2].settings -%}{% include 'section-banner-item' %}
+          </div>
+        </div>
+      </div>
+
+      {%- when 5 -%}
+
+      <div class="col-md-3">
+        {%- capture info_image_size -%}455x390px{%- endcapture -%}
+        {%- capture img_size -%}{% if item.fullwidth %}600x{% else %}300x{% endif %}{%- endcapture -%}
+        <div class="row">
+          <div class="col-6 col-md-12 col-12-440width">
+            {%- assign b_i = section.blocks[0].settings -%}{% include 'section-banner-item' %}
+          </div>
+          <div class="col-6 col-md-12 col-12-440width">
+            {%- assign b_i = section.blocks[1].settings -%}{% include 'section-banner-item' %}
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-6 col-sm-6 col-md-6 col-12-440width">
+        {%- capture info_image_size -%}930x800px{%- endcapture -%}
+        {%- capture img_size -%}{% if item.fullwidth %}1024x{% else %}600x{% endif %}{%- endcapture -%}
+        {%- assign b_i = section.blocks[2].settings -%}{% include 'section-banner-item' %}
+      </div>
+      <div class="col-md-3">
+        <div class="row">
+          {%- capture info_image_size -%}455x390px{%- endcapture -%}
+          {%- capture img_size -%}{% if item.fullwidth %}600x{% else %}300x{% endif %}{%- endcapture -%}
+          <div class="col-6 col-md-12 col-12-440width">
+            {%- assign b_i = section.blocks[3].settings -%}{% include 'section-banner-item' %}
+          </div>
+          <div class="col-6 col-md-12 col-12-440width">
+            {%- assign b_i = section.blocks[4].settings -%}{% include 'section-banner-item' %}
+          </div>
+        </div>
+      </div>
+
+      {%- when 4 -%}
+
+      <div class="col-sm-12 col-md-6">
+        {%- capture info_image_size -%}930x800px{%- endcapture -%}
+        {%- capture img_size -%}{% if item.fullwidth %}1024x{% else %}600x{% endif %}{%- endcapture -%}
+        {%- assign b_i = section.blocks[0].settings -%}{% include 'section-banner-item' %}
+      </div>
+      <div class="col-sm-12 col-md-6">
+        <div class="row">
+          {%- capture info_image_size -%}455x390px{%- endcapture -%}
+          {%- capture img_size -%}{% if item.fullwidth %}600x{% else %}300x{% endif %}{%- endcapture -%}
+          <div class="col-sm-6">
+            {%- assign b_i = section.blocks[1].settings -%}{% include 'section-banner-item' %}
+          </div>
+          <div class="col-sm-6">
+            {%- assign b_i = section.blocks[2].settings -%}{% include 'section-banner-item' %}
+          </div>
+          <div class="col-sm-12">
+            {%- capture info_image_size -%}930x390px{%- endcapture -%}
+            {%- capture img_size -%}{% if item.fullwidth %}1024x{% else %}600x{% endif %}{%- endcapture -%}
+            {%- assign b_i = section.blocks[3].settings -%}{% include 'section-banner-item' %}
+          </div>
+        </div>
+      </div>
+
+      {%- when 3 -%}
+
+      <div class="col-sm-12 col-md-6 col-12-440width">
+        {%- capture info_image_size -%}930x800px{%- endcapture -%}
+        {%- capture img_size -%}{% if item.fullwidth %}1024x{% else %}600x{% endif %}{%- endcapture -%}
+        {%- assign b_i = section.blocks[0].settings -%}{% include 'section-banner-item' %}
+      </div>
+      <div class="col-sm-12 col-md-6 col-12-440width">
+        {%- capture info_image_size -%}930x390px{%- endcapture -%}
+        {%- capture img_size -%}{% if item.fullwidth %}1024x{% else %}600x{% endif %}{%- endcapture -%}
+        {%- assign b_i = section.blocks[1].settings -%}{% include 'section-banner-item' %}
+        {%- assign b_i = section.blocks[2].settings -%}{% include 'section-banner-item' %}
+      </div>
+
+      {%- else -%}
+
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      <div class="col-sm-6 col-md-6 col-12-440width">
+        {%- include 'section-banner-item' -%}
+      </div>
+      {%- endfor -%}
+
+      {%- endcase -%}
+    </div>
+    {%- else -%}
+    <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+    {%- endif -%}
+
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Constructive Banners",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "top_offset",
+      "label": "Top Offset",
+      "default": "normal",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        }
+      ]
+    },
+    {
+      "type": "textarea",
+      "id": "custom_classes",
+      "label": "Custom css classes",
+      "info": "For the custom styles. Add your styles in the theme.css.liquid"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth size",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Items length and design"
+    },
+    {
+      "type": "paragraph",
+      "content": "3 items = Big and 2 small"
+    },
+    {
+      "type": "paragraph",
+      "content": "4 items = Big and 3 small"
+    },
+    {
+      "type": "paragraph",
+      "content": "5 items = Big and 4 small"
+    },
+    {
+      "type": "paragraph",
+      "content": "6 items = 2 big and 4 small"
+    },
+    {
+      "type": "paragraph",
+      "content": "Add banners at the bottom"
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show title",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "text1",
+      "label": "Title",
+      "default": "POPULAR"
+    },
+    {
+      "type": "textarea",
+      "id": "text2",
+      "label": "Description",
+      "default": "CLOTHING BRANDS"
+    },
+    {
+      "type": "header",
+      "content": "Main settings"
+    },
+	{
+	  "type": "select",
+	  "id": "description_size",
+	  "label": "Description size",
+	  "default": "big",
+	  "options": [
+		{
+		  "value": "small",
+		  "label": "Small"
+		},
+		{
+		  "value": "big",
+		  "label": "Big"
+		}
+	  ]
+	},
+	{
+	  "type": "select",
+	  "id": "animation",
+	  "label": "Animation",
+	  "default": "scale",
+	  "options": [
+		{
+		  "value": "scale",
+		  "label": "Scale"
+		},
+		{
+		  "value": "simple",
+		  "label": "No scale"
+		}
+	  ]
+	},
+	{
+      "type": "select",
+      "id": "position",
+      "label": "Main text information position",
+	  "info": "Main settings for all items",
+      "default": "normal",
+      "options": [
+        {
+          "value": "tt-point-v-t tt-point-h-l",
+          "label": "Top Left"
+        },
+        {
+          "value": "tt-point-v-t",
+          "label": "Top Center"
+        },
+        {
+          "value": "tt-point-v-t tt-point-h-r",
+          "label": "Top Right"
+        },
+        {
+          "value": "tt-point-h-l",
+          "label": "Left"
+        },
+        {
+          "value": "normal",
+          "label": "Center"
+        },
+        {
+          "value": "tt-point-h-r",
+          "label": "Right"
+        },
+        {
+          "value": "tt-point-v-b tt-point-h-l",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "tt-point-v-b",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "tt-point-v-b tt-point-h-r",
+          "label": "Bottom Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Use same description width"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_same_desc_width",
+      "label": "Use same description width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "same_width",
+      "label": "Width",
+      "default": "330",
+	  "info": "Integer in px"
+    },
+    {
+        "type": "header",
+        "content": "Border"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_border",
+        "label": "Show border",
+        "default": false
+    },
+    {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color",
+        "default": "#e9e7e7"
+    },
+    {
+        "type": "header",
+        "content": "Description background roundness"
+    },
+    {
+        "type":      "range",
+        "id":        "bg_round",
+        "min":       0,
+        "max":       50,
+        "step":      1,
+        "unit":      "px",
+        "label":     "Description background roundness",
+        "default":   6
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_link",
+          "label": "Use link",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        },
+        {
+          "type": "header",
+          "content": "Unique settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_to_left",
+          "label": "Text to left",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "description_size",
+          "label": "Description size",
+          "info": "Set unique size for this item",
+          "default": "use_main_size",
+          "options": [
+            {
+              "value": "use_main_size",
+              "label": "Use main size"
+            },
+            {
+              "value": "hide",
+              "label": "Hide"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "big",
+              "label": "Big"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "label": "Animation",
+          "info": "Set unique animation for this item",
+          "default": "use_main_animation",
+          "options": [
+            {
+              "value": "use_main_animation",
+              "label": "Use main animation"
+            },
+            {
+              "value": "scale",
+              "label": "Scale"
+            },
+            {
+              "value": "simple",
+              "label": "No scale"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Text information position",
+          "info": "Set unique position for this item",
+          "default": "use_main_position",
+          "options": [
+            {
+              "value": "use_main_position",
+              "label": "Use main position"
+            },
+            {
+              "value": "tt-point-v-t tt-point-h-l",
+              "label": "Top Left"
+            },
+            {
+              "value": "tt-point-v-t",
+              "label": "Top Center"
+            },
+            {
+              "value": "tt-point-v-t tt-point-h-r",
+              "label": "Top Right"
+            },
+            {
+              "value": "tt-point-h-l",
+              "label": "Left"
+            },
+            {
+              "value": "normal",
+              "label": "Center"
+            },
+            {
+              "value": "tt-point-h-r",
+              "label": "Right"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-l",
+              "label": "Bottom Left"
+            },
+            {
+              "value": "tt-point-v-b",
+              "label": "Bottom Center"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-r",
+              "label": "Bottom Right"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Texts"
+        },
+        {
+          "type": "textarea",
+          "id": "text1",
+          "label": "Small Text",
+          "default": "GREAT SUMMER CLEARANCE SALES",
+		  "info": "New line = <br>"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Big Text",
+          "default": "GET UP TO <span style=\"color: #2879fe\">70% OFF<\/span>",
+		  "info": "New line = <br>"
+        },
+        {
+          "type": "header",
+          "content": "Image icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show image icon",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image",
+		  "info": "Use PNG image. Recommended size 124x38px"
+        },
+        {
+          "type": "text",
+          "id": "width",
+          "label": "Icon width. In pixel",
+          "default": "128",
+		  "info": "Integer"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext",
+          "label": "Base text color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext",
+          "label": "Active text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Background color"
+        },
+        {
+          "type": "color",
+          "id": "cbtnbg",
+          "label": "Base background color",
+          "default": "#ffffff"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha",
+            "label": "Base background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "color",
+          "id": "acbtnbg",
+          "label": "Active background color",
+          "default": "#2879fe"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_a",
+            "label": "Active background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "paragraph",
+          "content": "Border color"
+        },
+        {
+            "type": "color",
+            "id": "cbtnbor",
+            "label": "Base border color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "border_alpha",
+            "label": "Active border opacity",
+            "default": "0",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+            "type": "color",
+            "id": "acbtnbor",
+            "label": "Active border color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "border_alpha_a",
+            "label": "Active border opacity",
+            "default": "0",
+            "info": "Range: 0-100 Percent"
+        },
+		{
+          "type": "header",
+          "content": "Custom html block",
+		  "info": "If you are want to use custom buttons, please uncheck option \"Use link\" for the banner. You can not use custom link with enabled option \"Use link\", html of the banner will broke. Option you can find after banner image."
+		},
+        {
+          "type": "checkbox",
+          "id": "show_custom_html",
+          "label": "Show custom html",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "custom_html_position",
+          "label": "Custom html position",
+          "default": "normal",
+          "options": [
+            {
+              "value": "tt-point-v-t tt-point-h-l",
+              "label": "Top Left"
+            },
+            {
+              "value": "tt-point-v-t",
+              "label": "Top Center"
+            },
+            {
+              "value": "tt-point-v-t tt-point-h-r",
+              "label": "Top Right"
+            },
+            {
+              "value": "tt-point-h-l",
+              "label": "Left"
+            },
+            {
+              "value": "normal",
+              "label": "Center"
+            },
+            {
+              "value": "tt-point-h-r",
+              "label": "Right"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-l",
+              "label": "Bottom Left"
+            },
+            {
+              "value": "tt-point-v-b",
+              "label": "Bottom Center"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-r",
+              "label": "Bottom Right"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "[Button editor for html](https://wokiee-demos.myshopify.com/pages/customize-button?preview_theme_id=)"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_html",
+          "label": "Custom html",
+          "info": "Buttons code: <div class=\"custom-buttons\"><a href=\"#your_link\" class=\"btn\">Women’s<\/a><a href=\"#your_link\" class=\"btn\">Men’s<\/a><\/div>"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prem_btn",
+          "label": "Show premade buttons",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prem_btn_1",
+          "label": "Show button 1",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Link button 1",
+          "info": "Optional"
+        },
+        {
+            "type": "text",
+            "id": "text_b_1",
+            "label": "Text button 1",
+            "default": "SHOP WOMEN"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prem_btn_2",
+          "label": "Show button 2",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Link button 2",
+          "info": "Optional"
+        },
+        {
+            "type": "text",
+            "id": "text_b_2",
+            "label": "Text button 2",
+            "default": "SHOP MEN"
+        },
+        {
+          "type": "header",
+          "content": "Colors Button 1"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext_1",
+          "label": "Base text color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext_1",
+          "label": "Active text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Background color"
+        },
+        {
+          "type": "color",
+          "id": "cbtnbg_1",
+          "label": "Base background color",
+          "default": "#ffffff"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_1",
+            "label": "Base background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "color",
+          "id": "acbtnbg_1",
+          "label": "Active background color",
+          "default": "#2879fe"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_a_1",
+            "label": "Active background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "header",
+          "content": "Colors Button 2"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext_2",
+          "label": "Base text color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext_2",
+          "label": "Active text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Background color"
+        },
+        {
+          "type": "color",
+          "id": "cbtnbg_2",
+          "label": "Base background color",
+          "default": "#ffffff"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_2",
+            "label": "Base background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "color",
+          "id": "acbtnbg_2",
+          "label": "Active background color",
+          "default": "#2879fe"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_a_2",
+            "label": "Active background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Constructive Banners",
+      "category": "Banner",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

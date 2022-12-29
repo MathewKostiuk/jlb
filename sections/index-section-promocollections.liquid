@@ -1,0 +1,167 @@
+{%- assign item = section.settings -%}
+{%- assign grid = section.settings.items -%}
+{%- capture info_image_size -%}
+{%- case grid -%}
+{%- when '6' -%}600x400px
+{%- when '4' -%}400x350px
+{%- else -%}300x200px
+{%- endcase -%}
+{%- endcapture -%}
+{%- assign img_size = info_image_size | split: 'x' | first | append: 'x' -%}
+
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent">
+  <div class="container container-fluid-custom-mobile-padding">
+    <div class="tt-categories-listing">
+      <div class="row">
+        {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}{%- assign item = block.settings -%}
+        {%- assign collection = collections[item.collection] -%}
+        {%- assign links = linklists[item.linklist].links -%}
+        <div class="col-6 col-md-{{ grid }} col-12-440width">
+          <div class="tt-items-categories">
+            <a class="tt-title-block" href="{{ collection.url }}">
+              <h2 class="tt-title">{% if item.custom_name != ''%}{{ item.custom_name }}{% else %}{{ collection.title }}{% endif %}</h2>
+              {%- if item.image == blank and collection.image == blank -%}
+              <div style="margin-top: 17px;">{% include "get_svg" type:'collection' size:info_image_size %}</div>
+              {%- else -%}
+              {%- unless item.usecollectionimage -%}
+              <img class="lazyload"
+                   src="{{ item.image | img_url: 'grande' }}"
+                   data-src="{{ item.image | img_url: 'grande' }}"
+                   data-srcset="{% include 'lazyload_string' value: item.image %}"
+                   alt="{{ item.image.alt }}">
+              {%- else -%}
+              <img class="lazyload"
+                   src="{{ collection.image | img_url: 'grande' }}"
+                   data-src="{{ collection.image | img_url: 'grande' }}"
+                   data-srcset="{% include 'lazyload_string' value: collection.image %}"
+                   alt="{{ collection.image.alt }}">
+              {%- endunless -%}
+              {%- endif -%}
+            </a>
+            {%- if links.size > 0 -%}
+            <ul>
+              {%- for link in links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+            {%- endif -%}
+            {%- if section.settings.showtitle -%}<a href="{{ collection.url }}" class="btn-link-02">{{ section.settings.title }}</a>{%- endif -%}
+          </div>
+        </div>
+        {%- endfor -%}
+        {%- else -%}
+        <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Promo Collections",
+  "class": "index-section",
+  "settings": [
+      {
+        "type": "select",
+        "id": "top_offset",
+        "label": "Top Offset",
+        "default": "normal",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          }
+        ]
+      },
+    {
+      "type": "select",
+      "id": "items",
+      "label": "Items In Line",
+      "default": "4",
+      "options": [
+        {
+          "value": "6",
+          "label": "2"
+        },
+        {
+          "value": "4",
+          "label": "3"
+        },
+        {
+          "value": "3",
+          "label": "4"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "showtitle",
+      "label": "Show See All",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "See All",
+      "default": "See All Products"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Collection",
+      "settings": [
+        {
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image"
+        },
+        {
+          "type": "text",
+          "id": "custom_name",
+          "label": "Custom Name",
+          "info": "If \"Custom Name\" is empty, title = default collection name"
+        },
+        {
+          "type": "link_list",
+          "id": "linklist",
+          "label": "Links"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Collections",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

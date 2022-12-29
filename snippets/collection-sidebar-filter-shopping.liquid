@@ -1,0 +1,79 @@
+{%- assign count = 0 -%}
+{%- capture data -%}{%- for i in (1..10) -%}
+{%- assign group_data = 'filtergroup' | append: i -%}
+{%- assign group_key = 'show_' | append: group_data -%}
+{%- assign group_title = 'title_' | append: group_data -%}
+{%- assign tag_lang = ',' | append: settings[group_data] | strip_newlines -%}
+{%- capture value -%}{%- include 'get_current_sidebar_filters' key_access:group_key key_data:group_data -%}{%- endcapture -%}
+
+{%- if value != '' -%}
+{%- assign value = value | replace: 'amp;', '' | split: ',' -%}{%- for d in value -%}{%- assign count = count | plus: 1 -%}
+{%- if forloop.first -%}<li>{{ settings[group_title] }}:</li>{%- endif -%}
+
+<li class="padding-left-10">
+  {%- assign regexp = ',' | append: d | append: '__' -%}
+  {%- capture tag_translate -%}{%- if tag_lang contains regexp -%}{{ tag_lang | split: regexp | last | split: ',' | first }}{%- else -%}{{ d }}{%- endif -%}{%- endcapture -%}
+  {%- assign value = d | handle -%}
+  
+  {%- assign value = '~' | append: value | append: '~' -%}
+
+  {%- comment -%}
+  {%- assign search = current_tags | join: '~~' | append: '~' -%}
+  {%- assign search = '~' | append: search -%}
+  {%- endcomment -%}
+  
+  {%- assign search = '~' -%}
+  {%- for t in current_tags -%}
+  {%- assign _t = t | replace: '&amp;', '' | handle -%}
+  {%- assign search = search | append: _t -%}
+  {%- if forloop.last -%}{%- assign search = search | append: '~' -%}
+  {%- else -%}{%- assign search = search | append: '~~' -%}
+  {%- endif -%}
+  {%- endfor -%}
+
+  {%- assign search = search | remove: value | replace: '~~', '+' | replace: ' ', '-' | remove:'~' -%}
+  {%- assign tooltip_remove_str = 'general.tooltip_texts.filter_remove' | t: filter_name: tag_translate -%}
+
+  {% assign tag_translate = '<span>' | append: tag_translate | append: '</span>' %}
+  {% capture tt %}{% if settings.tooltips_clear_section %}{{ 'data-tooltip="' | append: tooltip_remove_str | append: '" data-tposition="right" data-findtag="span"' }}{% endif %}{% endcapture %}
+  {% assign t_html = tag_translate | link_to_remove_tag: d %}
+  {% assign t_h = t_html | split: 'title="' | last %}
+  {% assign t_h = t_h | split: '"' | first %}
+  {% assign t_h = 'title="' | append: t_h | append: '"' %}
+  {{ t_html | replace: t_h, tt }}
+  <!-- <a href="/collections/{{ collection.handle }}{% if search != '' %}/{{ search }}{% endif %}" data-tag="{{ d }}" title="{{ 'collections.sidebar.text_remove_parameter' | t }} {{ tag_translate }}">{{ tag_translate }}</a> -->
+</li>
+{%- endfor -%}{%- endif -%}{%- endfor -%}
+{%- endcapture -%}
+{%- assign data = data | strip -%}
+
+{%- if current_tags != blank -%}
+{%- assign title_html = true -%}
+{%- capture _data -%}
+{%- for t in current_tags -%}
+{%- assign _t = 'data-tag="' | append: t | append: '"' -%}
+{%- unless data contains _t -%}
+{%- if title_html -%}<li>{{ 'collections.sidebar.empty_search_parameter_html' | t }}</li>{%- assign title_html = false -%}{%- endif -%}
+{%- assign tooltip_remove_str = 'general.tooltip_texts.filter_remove' | t: filter_name: t -%}
+
+{% assign ts = '<span>' | append: t | append: '</span>' %}
+{% capture tt %}{% if settings.tooltips_clear_section %}{{ 'data-tooltip="' | append: tooltip_remove_str | append: '" data-tposition="right" data-findtag="span"' }}{% endif %}{% endcapture %}
+{% assign t_html = ts | link_to_remove_tag: t %}
+{% assign t_h = t_html | split: 'title="' | last %}
+{% assign t_h = t_h | split: '"' | first %}
+{% assign t_h = 'title="' | append: t_h | append: '"' %}
+<li class="padding-left-10">{{ t_html | replace: t_h, tt }}</li>
+{%- endunless -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- endif -%}
+{%- assign _data = _data | strip -%}
+{%- assign data = _data | append: data -%}
+
+<div class="tt-collapse open{% if data == '' %} hide{% endif %}">
+  <h3 class="tt-collapse-title">{{ 'collections.sidebar.filtres_title' | t }}</h3>
+  <div class="tt-collapse-content filtres-remove-js">
+    <ul class="tt-filter-list filtres-js clear-filters">{{ data }}</ul>
+    <a href="/collections/{{ collection.handle }}" class="btn-link-02 filtres-remove-js clear_all">{{ 'collections.sidebar.clear_all' | t }}</a>
+  </div>
+</div>

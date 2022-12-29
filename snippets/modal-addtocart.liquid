@@ -1,0 +1,100 @@
+<!-- modalAddToCart -->
+<div class="modal fade" id="modalAddToCartError" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-add-cart">
+          <i class="icon-h-10"></i>
+          <p class="error_message"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalAddToCartProduct" tabindex="-1" role="dialog" aria-label="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon-clear"></span></button>
+      </div>
+      <div class="modal-body">
+        <div class="tt-modal-addtocart mobile">
+          <div class="tt-modal-messages">
+            <i class="icon-f-68"></i> {{ 'cart.popup_product_added.message_mobile' | t }}
+          </div>
+          <a href="#" class="btn-link btn-close-popup">{{ 'cart.popup_product_added.continue_shopping' | t }}</a>
+          <a href="/cart" class="btn-link">{{ 'cart.popup_product_added.view_cart' | t }}</a>
+          {% if settings.terms_cond_checkbox_show %}
+          <div>
+            <div class="checkbox-group pm-term-conditions-checkbox term-conditions-checkbox-js">
+              <input type="checkbox" id="pmcart-term-conditions-checkbox" value="1">
+              <label for="pmcart-term-conditions-checkbox">
+                <span class="check"></span>
+                <span class="box"></span>
+                {{ settings.terms_cond_checkbox_text }}
+              </label>
+            </div>
+          </div>
+          {% endif %}
+          <a href="/checkout" class="btn-link{% if settings.terms_cond_checkbox_show %} disabled{% endif %}">{{ 'cart.popup_product_added.go_to_checkout' | t }}</a>
+        </div>
+        <div class="tt-modal-addtocart desctope">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="tt-modal-messages">
+                <i class="icon-f-68"></i> {{ 'cart.popup_product_added.message_main' | t }}
+              </div>
+              <div class="tt-modal-product">
+                <div class="tt-img"></div>
+                <div class="tt-title tt-title-js"></div>
+                <div class="description"></div>
+                <div class="tt-qty">{{ 'cart.popup_product_added.item_quantity' | t }} <span></span></div>
+              </div>
+              <div class="tt-product-total">
+                <div class="tt-total total-product-js">
+                  {{ 'cart.popup_product_added.item_price' | t }} <span class="tt-price"></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <a href="/cart" class="tt-cart-total" title="{{ 'cart.popup_product_added.view_cart' | t }}">
+                {{ 'cart.popup_product_added.quantity_html' | t: not_delete_variable:'<span class="modal-total-quantity"></span>' }}
+                <div class="tt-total">
+                  {{ 'cart.popup_product_added.total_price' | t }} <span class="tt-price full-total-js"></span>
+                </div>
+              </a>
+
+              <a href="#" class="btn btn-border btn-close-popup">{{ 'cart.popup_product_added.continue_shopping' | t }}</a>
+              <a href="/cart" class="btn btn-border">{{ 'cart.popup_product_added.view_cart' | t }}</a>
+              {% if settings.terms_cond_checkbox_show %}
+              <div class="checkbox-group pdm-term-conditions-checkbox term-conditions-checkbox-js">
+                <input type="checkbox" id="pcart-term-conditions-checkbox" value="1">
+                <label for="pcart-term-conditions-checkbox">
+                  <span class="check"></span>
+                  <span class="box"></span>
+                  {{ settings.terms_cond_checkbox_text }}
+                </label>
+              </div>
+              {% endif %}
+              <a href="/checkout" class="btn{% if settings.terms_cond_checkbox_show %} disabled{% endif %}">{{ 'cart.popup_product_added.go_to_checkout' | t }}</a>
+            </div>
+          </div>
+        </div>
+        
+        {%- if settings.show_addtocart_popup_related -%}
+        <div class="tt-modal-slider hide">
+          <hr>
+          <div class="tt-title">{{ 'cart.popup_product_added.related_products_title' | t }}</div>
+          <div class="tt-modal-slider-js header-menu-product arrow-location-03 row">
+          </div>
+        </div>
+        {%- endif -%}
+        
+      </div>
+    </div>
+  </div>
+</div>

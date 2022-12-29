@@ -1,0 +1,11 @@
+{%- if menu_language != '' and menu_language.linklist != blank and menu_language.language_menu_settings == "default" -%}
+<ul>
+  {%- for link in linklists[menu_language.linklist].links -%}
+  <li{% if menu_language.default_language == link.title %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+  {%- endfor -%}
+</ul>
+{%- endif -%}
+{%- if menu_language.language_menu_settings == "weglot_theme" -%}
+<ul class="menu_language_holder" data-css="{{ 'weglot_app.css' | asset_url }}">
+</ul>
+{%- endif -%}

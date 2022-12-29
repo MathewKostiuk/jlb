@@ -1,0 +1,587 @@
+{%- assign product_meta = product.metafields.description -%}
+
+{%- assign sale_on = false -%}
+{%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+  {%- assign sale_on = true -%}
+{%- endif -%}
+
+{%- comment -%} Main Image URL. {%- endcomment -%}
+{%- assign main_url_image = product.featured_image -%}
+
+{%- comment -%}
+date_difference = 60 * 60 * 24 * day counter, this is new product period in seconds
+{%- endcomment -%}
+  {%- assign date_now = 'now' | date: "%s" -%}
+  {%- assign date_published = product.published_at | date: "%s" -%}
+  {%- assign date_difference = date_now | minus: date_published -%}
+  {%- assign date_limit = 86400 | times: settings.new_product_period -%}
+  {%- assign pr_variant = product.selected_or_first_available_variant -%}
+
+{%- assign item = section.settings -%}
+
+{%- include item.page_design -%}
+
+{%- if item.show_share_buttons -%}
+<div class="container-indent wrapper-social-icon">
+  <div class="container text-center">
+    {%- include 'addthis' -%}
+  </div>
+</div>
+{%- endif -%}
+
+{%- if item.full_width_description != 'default' -%}
+{%- if item.full_width_description == 'design_tabs_in_column' -%}
+<div class="container-indent product_tabs">
+  <div class="container">
+    {%- include "product_page_tabs" -%}
+  </div>
+</div>
+{%- elsif item.full_width_description == 'design_tabs_in_row' -%}
+{% include "product_page_tabs_horizontal" %}
+{%- endif -%}
+{%- endif -%}
+
+{%- capture upsellcollection -%}{%- include "product-page-upsellcollection" -%}{%- endcapture -%}
+{%- assign upsellcollection = upsellcollection | strip -%}
+{{ upsellcollection }}
+
+{% comment %}
+{%- if item.show_custom_related -%}
+{%- assign product_meta = product.metafields.description -%}
+{%- unless product_meta.related_collection == blank -%}
+{%- assign name_collection = product_meta.related_collection -%}
+{%- assign collection = collections[name_collection] -%}
+{%- assign _pr = product.handle -%}
+<div class="container-indent">
+  <div class="container container-fluid-custom-mobile-padding">
+    <div class="tt-block-title text-left">
+      <h2 class="tt-title-small">{{ item.custom_related_title }}</h2>
+    </div>
+    <div class="tt-carousel-products row arrow-location-right-top tt-alignment-img tt-layout-product-item">
+      {%- for product in collection.products limit: length -%}
+      {%- if _pr != product.handle  -%}
+      <div class="col-2 col-md-4 col-lg-3">{%- include 'product-grid-item' -%}</div>
+      {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- endunless -%}
+{%- endif -%}
+{% endcomment %}
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Page design"
+      },
+      {
+        "type": "select",
+        "id": "page_design",
+        "label": "Page Design",
+        "options": [
+          {
+            "value": "product_page_1_design",
+            "label": "Default design"
+          },
+          {
+            "value": "product_page_2_design",
+            "label": "Two columns. Gallery left, content right"
+          },
+          {
+            "value": "product_page_3_design",
+            "label": "Tree columns"
+          }
+        ],
+        "default": "product_page_1_design"
+      },
+      {
+        "type": "select",
+        "id": "full_width_description",
+        "label": "Tabs Description Type",
+        "default": "default",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "design_tabs_in_column",
+            "label": "Full width tabs in column"
+          },
+          {
+            "value": "design_tabs_in_row",
+            "label": "Full width tabs in row"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "checkbox",
+        "id": "history",
+        "label": "Enable swatches history",
+        "default": true,
+		"info": "Work with browser history"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_badge_new",
+        "label": "Show Badge New",
+        "default": true,
+		"info": "Work with product time and metafield editor"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_badge_featured",
+        "label": "Show Custom Badge(Featured)",
+        "default": true,
+		"info": "Badge is created using a metafield editor"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_review",
+        "label": "Show review stars",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social buttons",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "use_select_button",
+        "label": "Show button Select Options",
+        "default": false,
+		"info": "When product not have selected variant we can use button select your options"
+      },
+      {
+        "type": "header",
+        "content": "Gallery general settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_no_zoom",
+        "label": "Gallery zoom",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "gallery_scroll",
+        "label": "Gallery scroll zoom",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "stickygallery",
+        "label": "Sticky Gallery",
+        "default": true
+	  },
+      {
+        "type": "header",
+        "content": "Gallery \"Default design\""
+      },
+      {
+        "type": "select",
+        "id": "gallery_type",
+        "label": "Gallery type",
+		"info": "Only for page \"Default design\"",
+        "options": [
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          },
+          {
+            "value": "vertical",
+            "label": "Vertical"
+          },
+          {
+            "value": "four_images",
+            "label": "Four images"
+          }
+        ],
+        "default": "horizontal"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_thumbnails",
+        "label": "Show thumbnails",
+        "default": true,
+		"info": "Only for horizontal and vertical \"Gallery type\""
+      },
+      {
+        "type": "header",
+        "content": "Product main information"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_main_info",
+        "label": "Show product main information",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "Show product SKU",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_qiantity",
+        "label": "Show product quantity",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Trust Badge"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_trust_badge",
+        "label": "Show trust badge",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "image_l",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_max_width",
+        "label": "Trust badge width (in pixels)",
+        "default": "541"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_lm",
+        "label": "Image Mobile"
+      },
+      {
+        "type": "text",
+        "id": "image_max_width_m",
+        "label": "Trust badge width mobile (in pixels)",
+        "default": "541"
+      },
+      {
+        "type": "header",
+        "content": "Options Design"
+      },
+      {
+        "type": "select",
+        "id": "designoption1",
+        "label": "Select design for options 1",
+		"info": "After change click button save",
+        "options": [
+          {
+            "value": "getButtonHtml",
+            "label": "Buttons"
+          },
+          {
+            "value": "getSelectButtonHtml",
+            "label": "Combobox"
+          }
+        ],
+        "default": "getButtonHtml"
+      },
+      {
+        "type": "select",
+        "id": "designoption2",
+        "label": "Select design for options 2",
+		"info": "After change click button save",
+        "options": [
+          {
+            "value": "getButtonHtml",
+            "label": "Buttons"
+          },
+          {
+            "value": "getSelectButtonHtml",
+            "label": "Combobox"
+          }
+        ],
+        "default": "getButtonHtml"
+      },
+      {
+        "type": "select",
+        "id": "designoption3",
+        "label": "Select design for options 3",
+		"info": "After change click button save",
+        "options": [
+          {
+            "value": "getButtonHtml",
+            "label": "Buttons"
+          },
+          {
+            "value": "getSelectButtonHtml",
+            "label": "Combobox"
+          }
+        ],
+        "default": "getButtonHtml"
+      },
+      {
+        "type": "header",
+        "content": "Product information"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_info",
+        "label": "Show product information",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_vendor",
+        "label": "Show product vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_type",
+        "label": "Show product type",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_barcode",
+        "label": "Show product barcode",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_tags",
+        "label": "Show product tags",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "product_tab_tags",
+        "label": "Popular product tags",
+        "info": "Enter all popular tags in this field. Example: dress,tops,shirts"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_item_show_wishlist",
+        "label": "Show Wishlist Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_item_show_compare",
+        "label": "Show Compare Button",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Size chart"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sizechart",
+        "label": "Show size chart information",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "btnname",
+        "label": "Button link name",
+        "default": "Size Guide"
+      },
+      {
+        "type": "textarea",
+        "id": "popupcontent",
+        "label": "Modal html content",
+        "default": "<h6 class=\"tt-title\">SIZE GUIDE<\/h6>\nThis is an approximate conversion table to help you find your size.\n<div class=\"tt-table-responsive-md\">\n\t<table class=\"tt-table-modal-info\">\n\t\t<thead>\n\t\t\t<tr>\n\t\t\t\t<th>Italian<\/th>\n\t\t\t\t<th>Spanish<\/th>\n\t\t\t\t<th>German<\/th>\n\t\t\t\t<th>UK<\/th>\n\t\t\t\t<th>US<\/th>\n\t\t\t\t<th>Japanese<\/th>\n\t\t\t\t<th>Chinese<\/th>\n\t\t\t\t<th>Russian<\/th>\n\t\t\t\t<th>Korean<\/th>\n\t\t\t<\/tr>\n\t\t<\/thead>\n\t\t<tbody>\n\t\t\t<tr>\n\t\t\t\t<td>34<\/td>\n\t\t\t\t<td>30<\/td>\n\t\t\t\t<td>28<\/td>\n\t\t\t\t<td>4<\/td>\n\t\t\t\t<td>00<\/td>\n\t\t\t\t<td>3<\/td>\n\t\t\t\t<td>155\/75A<\/td>\n\t\t\t\t<td>36<\/td>\n\t\t\t\t<td>44<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>36<\/td>\n\t\t\t\t<td>32<\/td>\n\t\t\t\t<td>30<\/td>\n\t\t\t\t<td>6<\/td>\n\t\t\t\t<td>0<\/td>\n\t\t\t\t<td>5<\/td>\n\t\t\t\t<td>155\/80A<\/td>\n\t\t\t\t<td>38<\/td>\n\t\t\t\t<td>44<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>38<\/td>\n\t\t\t\t<td>34<\/td>\n\t\t\t\t<td>32<\/td>\n\t\t\t\t<td>8<\/td>\n\t\t\t\t<td>2<\/td>\n\t\t\t\t<td>7<\/td>\n\t\t\t\t<td>160\/84A<\/td>\n\t\t\t\t<td>40<\/td>\n\t\t\t\t<td>55<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>40<\/td>\n\t\t\t\t<td>36<\/td>\n\t\t\t\t<td>34<\/td>\n\t\t\t\t<td>10<\/td>\n\t\t\t\t<td>4<\/td>\n\t\t\t\t<td>9<\/td>\n\t\t\t\t<td>165\/88A<\/td>\n\t\t\t\t<td>42<\/td>\n\t\t\t\t<td>55<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>42<\/td>\n\t\t\t\t<td>38<\/td>\n\t\t\t\t<td>36<\/td>\n\t\t\t\t<td>12<\/td>\n\t\t\t\t<td>6<\/td>\n\t\t\t\t<td>11<\/td>\n\t\t\t\t<td>170\/92A<\/td>\n\t\t\t\t<td>44<\/td>\n\t\t\t\t<td>66<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>44<\/td>\n\t\t\t\t<td>40<\/td>\n\t\t\t\t<td>38<\/td>\n\t\t\t\t<td>14<\/td>\n\t\t\t\t<td>8<\/td>\n\t\t\t\t<td>13<\/td>\n\t\t\t\t<td>175\/96A<\/td>\n\t\t\t\t<td>46<\/td>\n\t\t\t\t<td>66<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>46<\/td>\n\t\t\t\t<td>42<\/td>\n\t\t\t\t<td>40<\/td>\n\t\t\t\t<td>16<\/td>\n\t\t\t\t<td>10<\/td>\n\t\t\t\t<td>15<\/td>\n\t\t\t\t<td>170\/98A<\/td>\n\t\t\t\t<td>48<\/td>\n\t\t\t\t<td>77<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>48<\/td>\n\t\t\t\t<td>44<\/td>\n\t\t\t\t<td>42<\/td>\n\t\t\t\t<td>18<\/td>\n\t\t\t\t<td>12<\/td>\n\t\t\t\t<td>17<\/td>\n\t\t\t\t<td>170\/100B<\/td>\n\t\t\t\t<td>50<\/td>\n\t\t\t\t<td>77<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>50<\/td>\n\t\t\t\t<td>46<\/td>\n\t\t\t\t<td>44<\/td>\n\t\t\t\t<td>20<\/td>\n\t\t\t\t<td>14<\/td>\n\t\t\t\t<td>19<\/td>\n\t\t\t\t<td>175\/100B<\/td>\n\t\t\t\t<td>52<\/td>\n\t\t\t\t<td>88<\/td>\n\t\t\t<\/tr>\n\t\t\t<tr>\n\t\t\t\t<td>52<\/td>\n\t\t\t\t<td>48<\/td>\n\t\t\t\t<td>46<\/td>\n\t\t\t\t<td>22<\/td>\n\t\t\t\t<td>16<\/td>\n\t\t\t\t<td>21<\/td>\n\t\t\t\t<td>180\/104B<\/td>\n\t\t\t\t<td>54<\/td>\n\t\t\t\t<td>88<\/td>\n\t\t\t<\/tr>\n\t\t<\/tbody>\n\t<\/table>\n<\/div>",
+		"info": "If content is clear buttom link will be hide"
+      },
+      {
+        "type": "header",
+        "content": "Shipping"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_shipping",
+        "label": "Show shipping information",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "btnname2",
+        "label": "Button link name",
+        "default": "Shipping"
+      },
+      {
+        "type": "textarea",
+        "id": "popupcontentshipping",
+        "label": "Modal html content",
+        "default": "<h6 class=\"tt-title\">SHIPPING<\/h6>\n<ul>\n\t<li>Complimentary ground shipping within 1 to 7 business days<\/li>\n\t<li>In-store collection available within 1 to 7 business days<\/li>\n\t<li>Next-day and Express delivery options also available<\/li>\n\t<li>Purchases are delivered in an orange box tied with a Bolduc ribbon, with the exception of certain items<\/li>\n\t<li>See the delivery FAQs for details on shipping methods, costs and delivery times<\/li>\n<\/ul>\n<h6 class=\"tt-title\">RETURNS AND EXCHANGES<\/h6>\n<ul>\n\t<li>Easy and complimentary, within 14 days<\/li>\n\t<li>See conditions and procedure in our return FAQs<\/li>\n<\/ul>",
+		"info": "If content is clear buttom link will be hide"
+      },
+      {
+        "type": "header",
+        "content": "Message"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_message",
+        "label": "Show message",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "btnname3",
+        "label": "Button link name",
+        "default": "Ask about this product"
+      },
+      {
+        "type": "header",
+        "content": "Product page - three columns"
+      },
+      {
+        "type": "textarea",
+        "id": "prpage_tree_col_html",
+        "label": "Custom html",
+		"default": "<div class=\"tt-services-aside\">\n\t<a href=\"#\" class=\"tt-services-block\">\n\t\t<div class=\"tt-col-icon\">\n\t\t\t<i class=\"icon-f-48\"><\/i>\n\t\t<\/div>\n\t\t<div class=\"tt-col-description\">\n\t\t\t<h4 class=\"tt-title\">FREE SHIPPING<\/h4>\n\t\t\t<p>Free shipping on all US order or order above $99<\/p>\n\t\t<\/div>\n\t<\/a>\n\t<a href=\"#\" class=\"tt-services-block\">\n\t\t<div class=\"tt-col-icon\">\n\t\t\t<i class=\"icon-f-35\"><\/i>\n\t\t<\/div>\n\t\t<div class=\"tt-col-description\">\n\t\t\t<h4 class=\"tt-title\">SUPPORT 24\/7<\/h4>\n\t\t\t<p>Contact us 24 hours a day, 7 days a week<\/p>\n\t\t<\/div>\n\t<\/a>\n\t<a href=\"#\" class=\"tt-services-block\">\n\t\t<div class=\"tt-col-icon\">\n\t\t\t<i class=\"icon-e-09\"><\/i>\n\t\t<\/div>\n\t\t<div class=\"tt-col-description\">\n\t\t\t<h4 class=\"tt-title\">30 DAYS RETURN<\/h4>\n\t\t\t<p>Simply return it within 30 days for an exchange.<\/p>\n\t\t<\/div>\n\t<\/a>\n<\/div>",
+		"info": "For page design \"Tree columns\". [Icons](\/\/portotheme.com\/shopify\/wokiee\/icons)"
+      },
+      {
+        "type": "header",
+        "content": "Custom related products"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_custom_related",
+        "label": "Show сustom related products",
+        "default": true,
+        "info": "Work with product metafield. See documentation"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_related_title",
+        "label": "Custom related products title",
+        "default": "CUSTOM PRODUCTS"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab_desc",
+        "name": "Description Tab",
+		"limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+			"label": "Title",
+            "default": "DESCRIPTION"
+          },
+          {
+            "type": "checkbox",
+            "id": "open_tab_by_default",
+            "label": "Open tab by default",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "tab_same_html",
+        "name": "General Html Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+			"default": "GENERAL TAB"
+          },
+          {
+            "type": "textarea",
+            "id": "html",
+            "label": "Custom Html"
+          },
+          {
+            "type": "checkbox",
+            "id": "open_tab_by_default",
+            "label": "Open tab by default",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "tab_unique",
+        "name": "Unique Tab",
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Work with [APP metafield](https:\/\/apps.shopify.com\/metafields-editor)"
+          },
+          {
+            "type": "paragraph",
+            "content": "Namespace = description. Write your key name and use this name in metafield editor as key name."
+          },
+          {
+            "type": "text",
+            "id": "key",
+            "label": "Key",
+			"default": "Key name"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Tab Title",
+			"default": "UNIQUE TAB"
+          },
+          {
+            "type": "checkbox",
+            "id": "open_tab_by_default",
+            "label": "Open tab by default",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "tab_review",
+        "name": "Review Tab",
+		"limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+			"default": "REVIEWS"
+          },
+          {
+            "type": "checkbox",
+            "id": "open_tab_by_default",
+            "label": "Open tab by default",
+            "default": false
+          }
+        ]
+      },
+      {
+        "type": "related_products",
+        "name": "Related Products",
+		"limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+			"default": "RELATED PRODUCTS"
+          },
+          {
+            "type": "text",
+            "id": "product_upsell_collection_count",
+            "label": "Count",
+            "default": "8",
+            "info": "Integer"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,1028 @@
+<div class="{% if section.settings.top_offset == 'none' %}nomargin {% elsif section.settings.top_offset == 'small' %}tt-offset-small {% endif %}container-indent" data-sectionname="index_revolution">
+  <div class="container{% if section.settings.fullwidth %}-fluid{% endif %}">
+    <div class="{% if section.settings.fullwidth or section.settings.usebanner != 'none' %}row {% if section.settings.usebanner != 'none' %}grid-slider justify-content-center{% endif %}{% endif %}">
+      {% if section.settings.usebanner contains 'emptygap' %}<div class="col-md-3 for-categories-menu tt-hidden-mobile"></div>{% endif %}
+      {% if section.settings.usebanner != 'none' %}<div class="{% if section.settings.usebanner contains 'emptygap_' %}col-12 col-md-8 col-lg-6{% elsif section.settings.usebanner contains 'emptygap' %}col-12 col-md-12 col-lg-9{% else %}col-12 col-md-8 col-lg-9{% endif %}">{% endif %}
+      {%- if section.blocks.size > 0 -%}
+      <div class="slider-revolution{% unless settings.header_position %} revolution-default{% endunless %}" data-speed="{{ section.settings.delay_time }}"{% unless section.settings.img_fullscreen %} data-fullscreen="false" data-width="{{ section.settings.customwidthvalue }}" data-height="{{ section.settings.customheightvalue }}"{% endunless %}>
+        <div class="tp-banner-container">
+          <div class="tp-banner revolution" style="display: none;">
+            <ul>
+              {%- for block in section.blocks -%}
+              {%- if block.type == 'banner_item' -%}{%- continue -%}{%- endif -%}
+              {%- if block.settings.image != blank -%}{%- assign img_url = block.settings.image | img_url: 'x1024' -%}
+              {%- else -%}{%- assign img_url = 'template_slider.png' | asset_url -%}
+              {%- endif -%}
+              <li data-thumb="{{ img_url }}" data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off"  data-title="Slide"{% if block.settings.show_item_button != 'yes' and block.settings.banner_link != blank %} data-link="{{ block.settings.banner_link }}"{% endif %}>
+                {%- if block.settings.show_customhtml == 'no' -%}
+
+                {%- if block.settings.show_video == "yes" -%}
+                <div class="tp-caption tp-fade fadeout fullscreenvideo"
+                     data-x="0"
+                     data-y="0"
+                     data-speed="600"
+                     data-start="0"
+                     data-easing="Power4.easeOut"
+                     data-endspeed="1500"
+                     data-endeasing="Power4.easeIn"
+                     data-autoplay="true"
+                     data-autoplayonlyfirsttime="false"
+                     data-nextslideatend="true"
+                     data-forceCover="1"
+                     data-dottedoverlay="twoxtwo"
+                     data-aspectratio="16:9">
+                  <video class="video-js vjs-default-skin" preload="none" poster='{{ img_url }}' data-setup="{}">
+                    <source src='{{ block.settings.video_url | replace: "http:", "" | replace: "https:", ""  }}' />
+                  </video>
+                </div>
+                <div class="tp-caption  tp-fade"
+                     data-x="right"
+                     data-y="bottom"
+                     data-voffset="-60"
+                     data-hoffset="-90"
+                     data-speed="600"
+                     data-start="900"
+                     data-easing="Power4.easeOut"
+                     data-endeasing="Power4.easeIn">
+                  <div class="video-play" preload="none">
+                    <a class="icon-f-29 btn-play" href="#"></a>
+                    <a class="icon-f-28 btn-pause" href="#"></a>
+                  </div>
+                </div>
+                {%- else -%}
+                <img src="{{ img_url }}" alt="{{ block.settings.image.alt }}" data-bgposition="center {{ block.settings.position }}" data-bgfit="cover" data-bgrepeat="no-repeat" >
+                {%- endif -%}
+
+                {%- capture infoposition -%}{%- if block.settings.infoposition == "value" -%}{{ block.settings.info_point }}{%- else -%}{{ block.settings.infoposition }}{%- endif -%}{%- endcapture -%}
+                {%- capture textaligment -%}{{ block.settings.textaligment }}{%- endcapture -%}
+                {%- capture ani -%}{%- if block.settings.infoposition == "value" -%}lfl{%- elsif block.settings.infoposition == "right" -%}lfr{%- else -%}lfb{%- endif -%}{%- endcapture -%}
+                {%- capture offset -%}{%- if block.settings.infoposition == "value" -%}0{%- elsif block.settings.infoposition == "right" -%}-{{ block.settings.info_point }}{%- else -%}0{%- endif -%}{%- endcapture -%}
+                {%- if block.settings.show_infoblock == 'yes' -%}
+                <div class="tp-caption tp-caption1 {{ ani }} stb text-{{ textaligment }}"
+                     data-x="{{ infoposition }}"
+                     data-y="center"
+                     data-hoffset="{{ offset }}"
+                     data-voffset="-20"
+                     data-speed="600"
+                     data-start="900"
+                     data-easing="Power4.easeOut"
+                     data-endeasing="Power4.easeIn">
+                  {% if block.settings.text1 != '' %}<div class="tp-caption1-wd-1" style="color:{{ block.settings.color_text1 }}">{{ block.settings.text1 }}</div>{% endif %}
+                  {% if block.settings.text2 != '' %}<div class="tp-caption1-wd-2" style="color:{{ block.settings.color_text2 }}">{{ block.settings.text2 }}</div>{% endif %}
+                  {% if block.settings.text3 != '' %}<div class="tp-caption1-wd-3" style="color:{{ block.settings.color_text3 }}">{{ block.settings.text3 }}</div>{% endif %}
+                  {% if block.settings.show_item_button == 'yes' %}
+                  {%- assign radius = '-moz-border-radius:' | append: section.settings.bg_round_r | append: 'px;' | append: '-webkit-border-radius:' | append: section.settings.bg_round_r | append: 'px;' | append: 'border-radius:' | append: section.settings.bg_round_r | append: 'px;' | append: '-khtml-border-radius:' | append: section.settings.bg_round_r | append: 'px;' %}
+                  <div class="tp-caption1-wd-4">
+                    <a href="{{ block.settings.banner_link }}" class="btn btn-xl fnt-we-500" style="color:{{ block.settings.color_textbase }}; background:{{ block.settings.color_bgbase }}; {{ radius }}" data-c="{{ block.settings.color_textbase }}" data-ac="{{ block.settings.color_textactive }}" data-bgc="{{ block.settings.color_bgbase }}" data-abgc="{{ block.settings.color_bgactive }}" data-hovercolors>{{ block.settings.button_title }}</a>
+                    {% if block.settings.button2 %}<a href="{{ block.settings.banner_link2 }}" class="btn btn-xl fnt-we-500" style="color:{{ block.settings.color_textbase2 }}; background:{{ block.settings.color_bgbase2 }}; {{ radius }}" data-c="{{ block.settings.color_textbase2 }}" data-ac="{{ block.settings.color_textactive2 }}" data-bgc="{{ block.settings.color_bgbase2 }}" data-abgc="{{ block.settings.color_bgactive2 }}" data-hovercolors>{{ block.settings.button_title2 }}</a>{% endif %}
+                  </div>
+                  {%- endif -%}
+                </div>
+                {%- endif -%}
+
+                {%- else -%}{{ block.settings.code }}
+                {%- endif -%}
+              </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {%- else -%}
+      <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+      {%- endif -%}
+      {% if section.settings.usebanner != 'none' %}</div>{% endif %}
+      
+      {%- if section.blocks.size > 0 and section.settings.usebanner contains 'banner'-%}
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      {%- if block.type == 'slider_list' -%}{%- continue -%}{%- endif -%}
+      {%- assign item = section.settings -%}
+      <div class="col-10 col-sm-6 col-md-4 col-lg-3">
+        {%- include 'section-banner-item' -%}
+      </div>
+      {%- endfor -%}
+      {%- endif -%}
+	</div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Revolution Slider",
+  "class": "index-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "[Slider Documantation](\/\/zulijani.com\/slider-revolution\/documentation\/documentation.html)"
+    },
+    {
+      "type": "select",
+      "id": "top_offset",
+      "label": "Top Offset",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "usebanner",
+      "label": "Use banner with slider",
+      "default": "none",
+	  "info": "Empty gap used with categorie button from header type 3",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "emptygap",
+          "label": "+ Left empty gap"
+        },
+        {
+          "value": "banner",
+          "label": "+ Banner"
+        },
+        {
+          "value": "emptygap_banner",
+          "label": "Left empty gap + Banner"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "If you are use banner or empty gap please uncheck options fullwidth and fullscreen image!"
+    },
+    {
+      "type": "checkbox",
+      "id": "fullwidth",
+      "label": "Fullwidth size",
+      "default": true
+    },
+    {
+        "type":      "range",
+        "id":        "bg_round_r",
+        "min":       0,
+        "max":       50,
+        "step":      1,
+        "unit":      "px",
+        "label":     "Button roundness",
+        "default":   6
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "img_fullscreen",
+      "label": "Fullscreen image size",
+      "default": true,
+	  "info": "Not work with static header"
+    },
+    {
+      "type": "paragraph",
+      "content": "Width and height work only in not fullscreen image size"
+    },
+    {
+      "type": "text",
+      "id": "customwidthvalue",
+      "label": "Image width. In pixel",
+      "default": "1180",
+	  "info": "Disable \"Fullscreen image size\""
+    },
+    {
+      "type": "text",
+      "id": "customheightvalue",
+      "label": "Image height. In pixel",
+      "default": "650",
+	  "info": "Disable \"Fullscreen image size\""
+    },
+    {
+      "type": "select",
+      "id": "delay_time",
+      "label": "Change slides every",
+      "options": [
+        { "value": "10000", "label": "10 seconds" },
+        { "value": "12000", "label": "12 seconds" },
+        { "value": "14000", "label": "14 seconds" },
+        { "value": "16000", "label": "16 seconds" },
+        { "value": "18000", "label": "18 seconds" },
+        { "value": "20000", "label": "20 seconds" },
+        { "value": "22000", "label": "22 seconds" },
+        { "value": "24000", "label": "24 seconds" },
+        { "value": "26000", "label": "26 seconds" },
+        { "value": "28000", "label": "28 seconds" },
+        { "value": "30000", "label": "30 seconds" }
+      ],
+      "default": "16000"
+    },
+    {
+      "type": "header",
+      "content": "BANNER MAIN SETTINGS"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_same_desc_width",
+      "label": "Use same description width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "same_width",
+      "label": "Width",
+      "default": "330",
+	  "info": "Integer in px"
+    },
+    {
+        "type": "header",
+        "content": "Border"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_border",
+        "label": "Show border",
+        "default": false
+    },
+    {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color",
+        "default": "#e9e7e7"
+    },
+    {
+        "type": "header",
+        "content": "Description background roundness"
+    },
+    {
+        "type":      "range",
+        "id":        "bg_round",
+        "min":       0,
+        "max":       50,
+        "step":      1,
+        "unit":      "px",
+        "label":     "Description background roundness",
+        "default":   6
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slider_list",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "banner_link",
+          "label": "Link",
+          "info": "Optional. If button hide and link set = image is link"
+        },
+        {
+          "type": "radio",
+          "id": "position",
+          "label": "Image Position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+			{ "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "select",
+          "id": "show_video",
+          "label": "Show Video?",
+          "default": "no",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Yes"
+            }
+          ]
+        },
+        {
+          "type": "textarea",
+          "id": "video_url",
+          "label": "Paste Video Url",
+		  "default": "\/\/cdn.shopify.com\/s\/files\/1\/0130\/5041\/3114\/files\/Video.mp4?7607761490217037888",
+		  "info": "Video type \"mp4\". Use IMAGE for the slide!"
+        },
+        {
+          "type": "header",
+          "content": "Info"
+        },
+        {
+          "type": "select",
+          "id": "show_infoblock",
+          "label": "Show Info?",
+          "default": "yes",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Yes"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "show_item_button",
+          "label": "Show Button?",
+          "default": "yes",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Yes"
+            }
+          ]
+		},
+        {
+          "type": "radio",
+          "id": "infoposition",
+          "label": "Info Position",
+          "options": [
+			{ "value": "value", "label": "Left" },
+            { "value": "center", "label": "Center" },
+			{ "value": "right", "label": "Right" }
+          ],
+          "default": "value"
+        },
+        {
+          "type": "radio",
+          "id": "textaligment",
+          "label": "Text Aligment",
+          "options": [
+			{ "value": "value", "label": "Left" },
+            { "value": "center", "label": "Center" },
+			{ "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "info_point",
+          "label": "Left and Rigth Offset, integer",
+		  "default": "351"
+        },
+        {
+          "type": "header",
+          "content": "Texts"
+        },
+        {
+          "type": "textarea",
+          "id": "text1",
+          "label": "Text 1",
+		  "default": "Ready To",
+		  "info": "Empty field delete text"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Text 2",
+		  "default": "Use Unique<br>Demos",
+		  "info": "<br> = new string. Empty field delete text"
+        },
+        {
+          "type": "textarea",
+          "id": "text3",
+          "label": "Text 3",
+		  "default": "Optimized for speed, website that sells",
+		  "info": "<br> = new string. Empty field delete text"
+        },
+        {
+          "type": "text",
+          "id": "button_title",
+          "label": "Button Name",
+          "default": "SHOP NOW!"
+        },
+        {
+          "type": "header",
+          "content": "Button 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "button2",
+          "label": "Show button 2",
+          "default": false,
+		  "info": "Work with option \"Show Button?\""
+        },
+        {
+          "type": "url",
+          "id": "banner_link2",
+          "label": "Link for button 2"
+        },
+        {
+          "type": "text",
+          "id": "button_title2",
+          "label": "Button 2 Name",
+          "default": "SHOP NOW!"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_text1",
+          "label": "Text 1 Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "color_text2",
+          "label": "Text 2 Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "color_text3",
+          "label": "Text 3 Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Button Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_textbase",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "color_bgbase",
+          "label": "Background Color",
+          "default": "#2879fe"
+        },
+        {
+          "type": "color",
+          "id": "color_textactive",
+          "label": "Text Active Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "color_bgactive",
+          "label": "Background Active Color",
+          "default": "#2267d8"
+        },
+        {
+          "type": "paragraph",
+          "content": "Button 2 Colors"
+        },
+        {
+          "type": "color",
+          "id": "color_textbase2",
+          "label": "Button 2 Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "color_bgbase2",
+          "label": "Button 2 Background Color",
+          "default": "#2879fe"
+        },
+        {
+          "type": "color",
+          "id": "color_textactive2",
+          "label": "Button 2 Text Active Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "color_bgactive2",
+          "label": "Button 2 Background Active Color",
+          "default": "#2267d8"
+        },
+        {
+          "type": "header",
+          "content": "Custom Html"
+        },
+        {
+          "type": "paragraph",
+          "content": "Edit variables and content by [Documentation: Options](\/\/zulijani.com\/slider-revolution\/documentation\/documentation.html\/documentation.html#options). Create your custom information."
+        },
+        {
+          "type": "select",
+          "id": "show_customhtml",
+          "label": "Use Custom Html?",
+          "default": "no",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "yes",
+              "label": "Yes"
+            }
+          ]
+        },
+        {
+          "type": "textarea",
+          "id": "code",
+          "label": "Custom Html",
+          "info": "[Documentation: Options](http:\/\/zulijani.com\/slider-revolution\/documentation\/documentation.html)",
+		  "default": "<img src=\"\/\/cdn.shopify.com\/s\/files\/1\/0130\/5041\/3114\/files\/home1_01.png?v=1530224249\" alt=\"slide1\" data-bgposition=\"center center\" data-bgfit=\"cover\" data-bgrepeat=\"no-repeat\"><div class=\"tp-caption tp-caption1 lfb stb text-center\" data-x=\"center\" data-y=\"center\" data-hoffset=\"0\" data-voffset=\"-20\" data-speed=\"600\" data-start=\"900\" data-easing=\"Power4.easeOut\" data-endeasing=\"Power4.easeIn\">\n<div class=\"tp-caption1-wd-1\">Multipurpose<\/div>\n<div class=\"tp-caption1-wd-2\">Premium<br>Shopify Theme<\/div>\n<div class=\"tp-caption1-wd-3\">30 skins, powerful features, great support, exclusive offer<\/div>\n<div class=\"tp-caption1-wd-4\"><a href=\"#\" class=\"btn btn-xl\" data-text=\"SHOP NOW!\">SHOP NOW!<\/a><\/div>\n<\/div>"
+        }
+      ]
+    },
+    {
+      "type": "banner_item",
+      "name": "Banner",
+	  "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_link",
+          "label": "Use link",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        },
+        {
+          "type": "header",
+          "content": "Unique settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_to_left",
+          "label": "Text to left",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "description_size",
+          "label": "Description size",
+          "info": "Set unique size for this item",
+          "default": "use_main_size",
+          "options": [
+            {
+              "value": "use_main_size",
+              "label": "Use main size"
+            },
+            {
+              "value": "hide",
+              "label": "Hide"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "big",
+              "label": "Big"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "label": "Animation",
+          "info": "Set unique animation for this item",
+          "default": "use_main_animation",
+          "options": [
+            {
+              "value": "use_main_animation",
+              "label": "Use main animation"
+            },
+            {
+              "value": "scale",
+              "label": "Scale"
+            },
+            {
+              "value": "simple",
+              "label": "No scale"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Text information position",
+          "info": "Set unique position for this item",
+          "default": "use_main_position",
+          "options": [
+            {
+              "value": "use_main_position",
+              "label": "Use main position"
+            },
+            {
+              "value": "tt-point-v-t tt-point-h-l",
+              "label": "Top Left"
+            },
+            {
+              "value": "tt-point-v-t",
+              "label": "Top Center"
+            },
+            {
+              "value": "tt-point-v-t tt-point-h-r",
+              "label": "Top Right"
+            },
+            {
+              "value": "tt-point-h-l",
+              "label": "Left"
+            },
+            {
+              "value": "normal",
+              "label": "Center"
+            },
+            {
+              "value": "tt-point-h-r",
+              "label": "Right"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-l",
+              "label": "Bottom Left"
+            },
+            {
+              "value": "tt-point-v-b",
+              "label": "Bottom Center"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-r",
+              "label": "Bottom Right"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Texts"
+        },
+        {
+          "type": "textarea",
+          "id": "text1",
+          "label": "Small Text",
+          "default": "GREAT SUMMER CLEARANCE SALES",
+		  "info": "New line = <br>"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Big Text",
+          "default": "GET UP TO <span style=\"color: #2879fe\">70% OFF<\/span>",
+		  "info": "New line = <br>"
+        },
+        {
+          "type": "header",
+          "content": "Image icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show image icon",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image",
+		  "info": "Use PNG image. Recommended size 124x38px"
+        },
+        {
+          "type": "text",
+          "id": "width",
+          "label": "Icon width. In pixel",
+          "default": "128",
+		  "info": "Integer"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext",
+          "label": "Base text 1 color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext2",
+          "label": "Base text 2 color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext",
+          "label": "Active text 1 color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext2",
+          "label": "Active text 2 color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Background color"
+        },
+        {
+          "type": "color",
+          "id": "cbtnbg",
+          "label": "Base background color",
+          "default": "#ffffff"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha",
+            "label": "Base background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "color",
+          "id": "acbtnbg",
+          "label": "Active background color",
+          "default": "#2879fe"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_a",
+            "label": "Active background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "paragraph",
+          "content": "Border color"
+        },
+        {
+            "type": "color",
+            "id": "cbtnbor",
+            "label": "Base border color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "border_alpha",
+            "label": "Active border opacity",
+            "default": "0",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+            "type": "color",
+            "id": "acbtnbor",
+            "label": "Active border color",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "border_alpha_a",
+            "label": "Active border opacity",
+            "default": "0",
+            "info": "Range: 0-100 Percent"
+        },
+		{
+          "type": "header",
+          "content": "Custom html block",
+		  "info": "If you are want to use custom buttons, please uncheck option \"Use link\" for the banner. You can not use custom link with enabled option \"Use link\", html of the banner will broke. Option you can find after banner image."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_custom_html",
+          "label": "Show custom html",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "custom_html_position",
+          "label": "Custom html position",
+          "default": "normal",
+          "options": [
+            {
+              "value": "tt-point-v-t tt-point-h-l",
+              "label": "Top Left"
+            },
+            {
+              "value": "tt-point-v-t",
+              "label": "Top Center"
+            },
+            {
+              "value": "tt-point-v-t tt-point-h-r",
+              "label": "Top Right"
+            },
+            {
+              "value": "tt-point-h-l",
+              "label": "Left"
+            },
+            {
+              "value": "normal",
+              "label": "Center"
+            },
+            {
+              "value": "tt-point-h-r",
+              "label": "Right"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-l",
+              "label": "Bottom Left"
+            },
+            {
+              "value": "tt-point-v-b",
+              "label": "Bottom Center"
+            },
+            {
+              "value": "tt-point-v-b tt-point-h-r",
+              "label": "Bottom Right"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "[Button editor for html](https://wokiee-demos.myshopify.com/pages/customize-button?preview_theme_id=)"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_html",
+          "label": "Custom html",
+          "info": "Buttons code: <div class=\"custom-buttons\"><a href=\"#your_link\" class=\"btn\">Women’s<\/a><a href=\"#your_link\" class=\"btn\">Men’s<\/a><\/div>"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prem_btn",
+          "label": "Show premade buttons",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prem_btn_1",
+          "label": "Show button 1",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Link button 1",
+          "info": "Optional"
+        },
+        {
+            "type": "text",
+            "id": "text_b_1",
+            "label": "Text button 1",
+            "default": "SHOP WOMEN"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_prem_btn_2",
+          "label": "Show button 2",
+          "default": true
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Link button 2",
+          "info": "Optional"
+        },
+        {
+            "type": "text",
+            "id": "text_b_2",
+            "label": "Text button 2",
+            "default": "SHOP MEN"
+        },
+        {
+          "type": "header",
+          "content": "Colors Button 1"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext_1",
+          "label": "Base text color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext_1",
+          "label": "Active text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Background color"
+        },
+        {
+          "type": "color",
+          "id": "cbtnbg_1",
+          "label": "Base background color",
+          "default": "#ffffff"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_1",
+            "label": "Base background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "color",
+          "id": "acbtnbg_1",
+          "label": "Active background color",
+          "default": "#2879fe"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_a_1",
+            "label": "Active background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "header",
+          "content": "Colors Button 2"
+        },
+        {
+          "type": "color",
+          "id": "cbtntext_2",
+          "label": "Base text color",
+          "default": "#191919"
+        },
+        {
+          "type": "color",
+          "id": "acbtntext_2",
+          "label": "Active text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Background color"
+        },
+        {
+          "type": "color",
+          "id": "cbtnbg_2",
+          "label": "Base background color",
+          "default": "#ffffff"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_2",
+            "label": "Base background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        },
+        {
+          "type": "color",
+          "id": "acbtnbg_2",
+          "label": "Active background color",
+          "default": "#2879fe"
+        },
+        {
+            "type": "text",
+            "id": "background_alpha_a_2",
+            "label": "Active background opacity",
+            "default": "90",
+            "info": "Range: 0-100 Percent"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Revolution Slider",
+      "category": "Sliders"
+    }
+  ]
+}
+{% endschema %}

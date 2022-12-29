@@ -1,0 +1,3834 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Wokiee",
+    "theme_author": "p-themes",
+    "theme_version": "1.1.0",
+    "theme_documentation_url": "http:\/\/portotheme.com\/shopify\/wokiee\/doc\/index.html",
+    "theme_support_url": "http:\/\/www.portotheme.com\/support"
+  },
+  {
+    "name": "Settings",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_preloader",
+        "label": "Show Preloader",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "social_default_image",
+        "label": "Default social sharing image",
+        "info": "Displays when a page-specific image isn't available."
+      },
+      {
+        "type": "checkbox",
+        "id": "use_boxed",
+        "label": "Boxed Theme",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "use_rtl",
+        "label": "RTL Theme",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_breadcrumbs",
+        "label": "Show Breadcrubs",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "use_favicon",
+        "label": "Use favicon icon (16px x 16px)",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "catalogue_mode",
+        "label": "Catalogue Mode",
+        "default": false,
+        "info": "Hide cart, \"Add to Cart\" button, Price, Rating"
+      },
+      {
+        "type": "image",
+        "id": "favicon.png",
+        "label": "Favicon",
+        "max-width": 16,
+        "max-height": 16
+      },
+      {
+        "type": "header",
+        "content": "Roundness"
+      },
+      {
+        "type": "range",
+        "id": "small_roundness",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Small objects",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "big_roundness",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Big objects",
+        "default": 6
+      },
+      {
+        "type": "range",
+        "id": "small_pr_roundness",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Small product options",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "big_pr_roundness",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Big product options",
+        "default": 6
+      },
+      {
+        "type": "header",
+        "content": "Terms and Conditions checkbox"
+      },
+      {
+        "type": "checkbox",
+        "id": "terms_cond_checkbox_show",
+        "label": "Show checkbox",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "terms_cond_checkbox_text",
+        "label": "Terms and conditions text",
+        "default": "I agree with the terms and conditions"
+      },
+      {
+        "type": "header",
+        "content": "Ajax \"ADD TO CART\""
+      },
+      {
+        "type": "checkbox",
+        "id": "ajax_addtocart",
+        "label": "Use ajax \"ADD TO CART\"",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Wishlist in theme"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_wishlist",
+        "label": "Enable Wishlist",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Compare in theme"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_compare",
+        "label": "Enable Compare",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Buy in one click"
+      },
+      {
+        "type": "checkbox",
+        "id": "buy_in_one_click",
+        "label": "Show button on the product page",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Countdown Timezone"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_countdown_timezone",
+        "label": "Use Countdown Timezone",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "countdown_timezone",
+        "label": "Timezone",
+        "info": "[Find and paste your default timezone - (Column Tz)](https:\/\/en.wikipedia.org\/wiki\/List_of_tz_database_time_zones)",
+        "default": "US\/Arizona"
+      },
+      {
+        "type": "header",
+        "content": "\"Add to Cart\" Popup"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_addtocart_popup",
+        "label": "Show \"Add to Cart\" Popup",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_addtocart_popup_related",
+        "label": "Show related products in \"Add to Cart\" Popup",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Review"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_emptyreview",
+        "label": "Show Empty Review",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "checkbox",
+        "id": "all_links_is_external",
+        "label": "All links will open in new window",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "menu_links_is_external",
+        "label": "Menu links will open in new window",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "external_links_is_external",
+        "label": "External links will open in new window",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Custom code field"
+      },
+      {
+        "type": "textarea",
+        "id": "some_code_field",
+        "label": "Field for the custom code",
+        "info": "For html, js and other. Placed in the end before <\/body>"
+      },
+      {
+        "type": "header",
+        "content": "First product variant column is images"
+      },
+      {
+        "type": "paragraph",
+        "content": "Product variants has images. Set first product variant column as image. Example: Color"
+      },
+      {
+        "type": "checkbox",
+        "id": "first_variant_column_is_image",
+        "label": "First product variant column is images",
+        "info": "Used for the product options in the variant option design",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "use_in_the_small_products",
+        "label": "Use in the listing products",
+        "info": "Home page, listing, sliders. Small options icons",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Show unavailable variants"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_unavailable_variants",
+        "label": "Show unavailable variants",
+        "info": "Product thumbnails. Product page",
+        "default": true
+      },
+      {
+        "type": "image",
+        "id": "cross_20.png",
+        "label": "Image cross for options 20",
+        "info": "Image size: 20x20px. Product thumbnails for colors"
+      },
+      {
+        "type": "image",
+        "id": "cross_30.png",
+        "label": "Image cross for options 30",
+        "info": "Image size: 30x30px. Product page for colors"
+      },
+      {
+        "type": "image",
+        "id": "cross_40.png",
+        "label": "Image cross for options 40",
+        "info": "Image size: 40x40px. Product thumbnails for image"
+      },
+      {
+        "type": "image",
+        "id": "cross_60.png",
+        "label": "Image cross for options 60",
+        "info": "Image size: 60x60px. Product thumbnails image. Product page image"
+      },
+      {
+        "type": "header",
+        "content": "Admin Panel Helper"
+      },
+      {
+        "type": "paragraph",
+        "content": "Admin Panel Helper - show section images and youtube help videos. Update your link some time to get last videos in sections."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_helper",
+        "label": "Show Helper",
+        "info": "Will work in admin panel.",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "helper_info",
+        "label": "Link With Last Documentation Information",
+        "default": "\/\/cdn.shopify.com\/s\/files\/1\/0073\/3826\/2594\/t\/1\/assets\/wokiee_v1.0.3.js?5186256758932862582",
+        "info": "[Update information](https:\/\/wokiee-files.myshopify.com)"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "range",
+        "id": "body_weight",
+        "min": 300,
+        "max": 500,
+        "step": 100,
+        "label": "The thickness of the text in the theme",
+        "default": 300
+      },
+      {
+        "type": "range",
+        "id": "fontboldvalue",
+        "min": 500,
+        "max": 900,
+        "step": 100,
+        "label": "The medium of the text in the theme",
+        "default": 500
+      },
+      {
+        "type": "checkbox",
+        "id": "block_titles_uppercase",
+        "label": "Sections title to uppercase",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Google fonts"
+      },
+      {
+        "type": "text",
+        "id": "font_name1",
+        "label": "Title Google Font Name",
+        "default": "Hind",
+        "info": "Default font name = Hind"
+      },
+      {
+        "type": "text",
+        "id": "font_name2",
+        "label": "Content Google Font Name",
+        "default": "Hind",
+        "info": "Default font name = Hind"
+      },
+      {
+        "type": "header",
+        "content": "Shopify fonts"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_shopify_font_title",
+        "label": "Use shopify font for title",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Title Shopify Font Name",
+        "default": "work_sans_n6"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_shopify_font_content",
+        "label": "Use shopify font for content",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font_2",
+        "label": "Content Shopify Font Name",
+        "default": "work_sans_n6"
+      },
+      {
+        "type": "header",
+        "content": "Additional fonts and styles"
+      },
+      {
+        "type": "paragraph",
+        "content": "You can paste in theme additional external links. Open site with [Google Fonts](https:\/\/fonts.google.com). Configure your font. Paste in the field below full link with font."
+      },
+      {
+        "type": "textarea",
+        "id": "google_font_links",
+        "label": "Additional google font links",
+        "info": "[Google Fonts](https:\/\/fonts.google.com)"
+      },
+      {
+        "type": "textarea",
+        "id": "google_font_styles",
+        "label": "Additional style to use additional fonts",
+        "info": "Find with browser console place where you want new font. Copy classes and create styles for new font styles."
+      }
+    ]
+  },
+  {
+    "name": "Main Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_body_html",
+        "label": "Backround color",
+        "default": "#f7f8fa",
+        "info": "Boxed version"
+      },
+      {
+        "type": "color",
+        "id": "color_body",
+        "label": "Backround color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_base",
+        "label": "Base color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_dark",
+        "label": "Title color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_body_texts",
+        "label": "Main text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_body_second",
+        "label": "Second text color",
+        "default": "#999999",
+        "info": "Tags, text labels"
+      },
+      {
+        "type": "color",
+        "id": "color_additional_fields",
+        "label": "Additional fields color",
+        "default": "#f7f8fa",
+        "info": "User forms, breadcrumbs, product, blog - social"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Lines color",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "color_review_empty",
+        "label": "Review empty color",
+        "default": "#d6d6d6"
+      },
+      {
+        "type": "color",
+        "id": "color_review",
+        "label": "Review color",
+        "default": "#ffb503"
+      },
+      {
+        "type": "paragraph",
+        "content": "Buttons"
+      },
+      {
+        "type": "color",
+        "id": "def_btn",
+        "label": "Button background",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "def_btntext",
+        "label": "Button text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "def_btnhover",
+        "label": "Button hover background",
+        "default": "#2267d8"
+      },
+      {
+        "type": "color",
+        "id": "def_btntexthover",
+        "label": "Button text hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "paragraph",
+        "content": "\"Buy Now\" button. Product page"
+      },
+      {
+        "type": "color",
+        "id": "bn_btn",
+        "label": "Button background",
+        "default": "#f8dc68"
+      },
+      {
+        "type": "color",
+        "id": "bn_btntext",
+        "label": "Button text color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "bn_btnhover",
+        "label": "Button hover background",
+        "default": "#dfc65d"
+      },
+      {
+        "type": "color",
+        "id": "bn_btntexthover",
+        "label": "Button text hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "header",
+        "content": "Back to top button"
+      },
+      {
+        "type": "color",
+        "id": "color_btt_bg",
+        "label": "Button base color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_btt_arr",
+        "label": "Arrow base color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_btt_bg_hover",
+        "label": "Button active color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_btt_arr_hover",
+        "label": "Arrow active color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "text",
+        "id": "color_btt_opacity",
+        "label": "Button opacity",
+        "default": "0.75",
+        "info": "Number. In percent. 1=100%"
+      }
+    ]
+  },
+  {
+    "name": "Header Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Information bar"
+      },
+      {
+        "type": "color",
+        "id": "color_inf_bar_bg",
+        "label": "Backround color",
+        "default": "#0f0f0f"
+      },
+      {
+        "type": "color",
+        "id": "color_inf_bar_text",
+        "label": "Text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_inf_bar_link",
+        "label": "Link color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_inf_bar_close",
+        "label": "Close color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_inf_bar_close_hover",
+        "label": "Close hover color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "header",
+        "content": "Top bar"
+      },
+      {
+        "type": "color",
+        "id": "color_top_bar_bg",
+        "label": "Backround color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_top_bar_text",
+        "label": "Text color",
+        "default": "#888888"
+      },
+      {
+        "type": "color",
+        "id": "color_top_bar_icons",
+        "label": "Icons color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_top_bar_social",
+        "label": "Social color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_top_bar_social_hover",
+        "label": "Social hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Header main colors: desktop and mobile"
+      },
+      {
+        "type": "color",
+        "id": "color_header_bg",
+        "label": "Backround color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_linemobile",
+        "label": "Mobile lines color",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "color_header_menu",
+        "label": "Menu color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_menu_hover",
+        "label": "Menu hover color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_header_dp",
+        "label": "Menu dropdown background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_dp_title",
+        "label": "Menu dropdown title",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_dp_text",
+        "label": "Menu dropdown text",
+        "default": "#777777"
+      },
+      {
+        "type": "paragraph",
+        "content": "Right icons"
+      },
+      {
+        "type": "color",
+        "id": "color_header_icons",
+        "label": "Icons color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_icons_hover",
+        "label": "Icons hover color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_header_icons_dp",
+        "label": "Icons dropdown background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_icons_dp_text",
+        "label": "Icons dropdown text",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_header_icons_dp_icons",
+        "label": "Icons dropdown icons",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_icons_dp_searchcart",
+        "label": "Icons dropdown search cart icon",
+        "default": "#cdcdcd"
+      },
+      {
+        "type": "paragraph",
+        "content": "Search"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_bg",
+        "label": "Search background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_btnclose",
+        "label": "Search close color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_btnsearch",
+        "label": "Search button color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_text",
+        "label": "Search text color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_addtext",
+        "label": "Search additional text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_line",
+        "label": "Search line color",
+        "default": "#eceaea"
+      },
+      {
+        "type": "paragraph",
+        "content": "Search for header type 2"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_bg2",
+        "label": "Search input color",
+        "default": "#f7f8fa"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_text2",
+        "label": "Search text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_border2",
+        "label": "Search input border",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_btn2",
+        "label": "Search button color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_btntext2",
+        "label": "Search button text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_btnhover2",
+        "label": "Search button hover color",
+        "default": "#2267d8"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_btntexthover2",
+        "label": "Search button text hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_search_icon2",
+        "label": "Search button search icon color",
+        "default": "#191919"
+      },
+      {
+        "type": "paragraph",
+        "content": "Categories Button. Header type 2"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_btn",
+        "label": "Button background",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_btntext",
+        "label": "Button text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_btnhover",
+        "label": "Button hover background",
+        "default": "#2267d8"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_btntexthover",
+        "label": "Button text hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "paragraph",
+        "content": "Categories Button dropdown. Desktop"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_drop_bg",
+        "label": "Categories dropdown background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_drop_icon",
+        "label": "Categories next level icon",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_drop_line",
+        "label": "Categories line",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_drop_text",
+        "label": "Categories text",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_drop_text_hover",
+        "label": "Categories text hover",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_drop_text_icon",
+        "label": "Categories text icon",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "cat_def_drop_text_icon_hover",
+        "label": "Categories text icon hover",
+        "default": "#191919"
+      },
+      {
+        "type": "paragraph",
+        "content": "Slogan. Header type 2"
+      },
+      {
+        "type": "color",
+        "id": "cat_slogan_text",
+        "label": "Slogan color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "cat_slogan_icon",
+        "label": "Slogan icon color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "header",
+        "content": "Sticky header"
+      },
+      {
+        "type": "color",
+        "id": "color_header_sticky_bg",
+        "label": "Sticky backround color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_sticky_menu",
+        "label": "Sticky menu color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_sticky_menu_hover",
+        "label": "Sticky menu hover color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_header_sticky_icons",
+        "label": "Sticky icons color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_sticky_icons_hover",
+        "label": "Sticky icons hover color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "header",
+        "content": "Mobile header dropdown"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_bg",
+        "label": "Dropdown background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_line",
+        "label": "Dropdown line color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_close_btn",
+        "label": "Dropdown close text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_link",
+        "label": "Dropdown links color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_cart_text",
+        "label": "Dropdown cart text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_cart_icon",
+        "label": "Dropdown cart icon color",
+        "default": "#cdcdcd"
+      },
+      {
+        "type": "paragraph",
+        "content": "Search"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_search_bg",
+        "label": "Mobile search background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_search_btnclose",
+        "label": "Mobile search close color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_search_btnsearch",
+        "label": "Mobile search button color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_header_mobile_search_text",
+        "label": "Mobile search text color",
+        "default": "#777777"
+      },
+      {
+        "type": "header",
+        "content": "Menu options \"menu with background\" colors"
+      },
+      {
+        "type": "color",
+        "id": "color_header_menu_bg",
+        "label": "Menu background",
+        "default": "#191919",
+        "info": "For all background options"
+      },
+      {
+        "type": "color",
+        "id": "color_header_menu_item_simple",
+        "label": "Menu text color",
+        "default": "#ffffff",
+        "info": "For all background options"
+      },
+      {
+        "type": "color",
+        "id": "color_header_menu_item_simple_hover",
+        "label": "Menu text hover color",
+        "default": "#2879FE",
+        "info": "Menu option: \"Menu with background\""
+      },
+      {
+        "type": "color",
+        "id": "color_header_menu_bg_item",
+        "label": "Menu background active item color",
+        "default": "#2879FE",
+        "info": "Menu option: \"Menu with background and item background\""
+      },
+      {
+        "type": "color",
+        "id": "color_header_menu_bg_item_text",
+        "label": "Menu background active item text color",
+        "default": "#ffffff",
+        "info": "Menu option: \"Menu with background and item background\""
+      }
+    ]
+  },
+  {
+    "name": "Header Type 3 Some Desktop Colors",
+    "settings": [
+      {
+        "type": "range",
+        "id": "menu_font_weight_1",
+        "min": 200,
+        "max": 900,
+        "step": 100,
+        "label": "The thickness texts",
+        "default": 300,
+        "info": "Slogan, Login, Register"
+      },
+      {
+        "type": "range",
+        "id": "menu_font_weight_2",
+        "min": 200,
+        "max": 900,
+        "step": 100,
+        "label": "The normal texts",
+        "default": 400,
+        "info": "User icons text"
+      },
+      {
+        "type": "range",
+        "id": "menu_font_weight_3",
+        "min": 200,
+        "max": 900,
+        "step": 100,
+        "label": "Categories menu thickness",
+        "default": 300
+      },
+      {
+        "type": "color",
+        "id": "head3_nav_line_c",
+        "label": "Navigation background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Login and currency string"
+      },
+      {
+        "type": "color",
+        "id": "head3_main_text_c",
+        "label": "Header text color",
+        "default": "#777777",
+        "info": "Text or in login string"
+      },
+      {
+        "type": "color",
+        "id": "head3_links_text_c",
+        "label": "Links color",
+        "default": "#191919",
+        "info": "Login, Currency"
+      },
+      {
+        "type": "color",
+        "id": "head3_links_text_c_hover",
+        "label": "Links active color",
+        "default": "#2879fe",
+        "info": "Login, Currency"
+      },
+      {
+        "type": "color",
+        "id": "head3_line_c",
+        "label": "Line color",
+        "default": "#E9E7E7"
+      },
+      {
+        "type": "header",
+        "content": "info text color"
+      },
+      {
+        "type": "color",
+        "id": "head3_info_c",
+        "label": "Info text color",
+        "default": "#191919"
+      },
+      {
+        "type": "header",
+        "content": "User icons color"
+      },
+      {
+        "type": "paragraph",
+        "content": "--- Compare"
+      },
+      {
+        "type": "color",
+        "id": "head3_co_i_c",
+        "label": "Icon color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "head3_co_t_c",
+        "label": "Text color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_co_i_c_hover",
+        "label": "Icon hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_co_t_c_hover",
+        "label": "Text hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_co_bc_c",
+        "label": "Badge background color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "head3_co_bt_c",
+        "label": "Badge text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "paragraph",
+        "content": "--- Wishlist"
+      },
+      {
+        "type": "color",
+        "id": "head3_wl_i_c",
+        "label": "Icon color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "head3_wl_t_c",
+        "label": "Text color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_wl_i_c_hover",
+        "label": "Icon hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_wl_t_c_hover",
+        "label": "Text hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_wl_bc_c",
+        "label": "Badge background color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "head3_wl_bt_c",
+        "label": "Badge text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "paragraph",
+        "content": "--- Cart"
+      },
+      {
+        "type": "color",
+        "id": "head3_ca_i_c",
+        "label": "Icon color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "head3_ca_t_c",
+        "label": "Text color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_ca_i_c_hover",
+        "label": "Icon hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_ca_t_c_hover",
+        "label": "Text hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "head3_ca_bc_c",
+        "label": "Badge background color",
+        "default": "#2879fe"
+      },
+      {
+        "type": "color",
+        "id": "head3_ca_bt_c",
+        "label": "Badge text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Categories menu in page content"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_bg",
+        "label": "Categories dropdown background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_icon",
+        "label": "Categories next level icon",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_line",
+        "label": "Categories line",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_line_b",
+        "label": "Categories border line",
+        "default": "#e9e7e7"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_text",
+        "label": "Categories text",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_text_hover",
+        "label": "Categories text hover",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_text_icon",
+        "label": "Categories text icon",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "page_cat_def_drop_text_icon_hover",
+        "label": "Categories text icon hover",
+        "default": "#191919"
+      }
+    ]
+  },
+  {
+    "name": "Footer Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Subscribe section. Desktop"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_bg",
+        "label": "Subscribe background color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_text",
+        "label": "Subscribe text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_social",
+        "label": "Subscribe social color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_socialhover",
+        "label": "Subscribe social hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "paragraph",
+        "content": "Form"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_form_bg",
+        "label": "Form background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_form_text",
+        "label": "Form text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_form_btn",
+        "label": "Subscribe button background color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_form_btntext",
+        "label": "Subscribe button text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_form_btnhover",
+        "label": "Subscribe button background hover color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_subscribe_form_btntexthover",
+        "label": "Subscribe button text hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Main section"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_bg",
+        "label": "Background color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_text",
+        "label": "Text color",
+        "default": "#888888"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_textselected",
+        "label": "Text selected color",
+        "default": "#ffffff",
+        "info": "Use text in <span>text<\/span>"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_textlink",
+        "label": "Text link color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_textlinkhover",
+        "label": "Text link hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_titles",
+        "label": "Titles color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_links",
+        "label": "Links color",
+        "default": "#888888"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_linkshover",
+        "label": "Links hover color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "paragraph",
+        "content": "Subscribe section"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_form_bg",
+        "label": "Form background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_form_text",
+        "label": "Form text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_social",
+        "label": "Social color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_socialhover",
+        "label": "Social hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_btn",
+        "label": "Subscribe background color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_btntext",
+        "label": "Subscribe text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_btnhover",
+        "label": "Subscribe background hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_main_btntexthover",
+        "label": "Subscribe text hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Mobile resolution"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_bg",
+        "label": "Mobile background color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_text",
+        "label": "Text color",
+        "default": "#888888"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_textselected",
+        "label": "Text selected color",
+        "default": "#ffffff",
+        "info": "Use text in <span>text<\/span>"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_textlink",
+        "label": "Text link color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_textlinkhover",
+        "label": "Text link hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_titles",
+        "label": "Titles color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_titlesicon",
+        "label": "Titles icon(plus) color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_titlesline",
+        "label": "Titles line color",
+        "default": "#363636"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_links",
+        "label": "Links color",
+        "default": "#888888"
+      },
+      {
+        "type": "paragraph",
+        "content": "Subscribe section"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_form_bg",
+        "label": "Form background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_form_text",
+        "label": "Form text color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_social",
+        "label": "Social color",
+        "default": "#777777"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_socialhover",
+        "label": "Social hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_btn",
+        "label": "Subscribe background color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_btntext",
+        "label": "Subscribe text color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_btnhover",
+        "label": "Subscribe background hover color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_mobile_btntexthover",
+        "label": "Subscribe text hover color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Copyright section"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_copyright_bg",
+        "label": "Copyright background color",
+        "default": "#0f0f0f"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_copyright_text",
+        "label": "Copyright text color",
+        "default": "#888888"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_copyright_textlogo",
+        "label": "Copyright text logo color",
+        "default": "#ffffff",
+        "info": "Work when logo image is empty"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_copyright_totop",
+        "label": "Back to top color",
+        "default": "#2879FE",
+        "info": "Mobile resolution"
+      }
+    ]
+  },
+  {
+    "name": "Product Thumbnails Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Countdown colors"
+      },
+      {
+        "type": "color",
+        "id": "def_product_countdown",
+        "label": "Countdown background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "text",
+        "id": "def_product_countdown_opacity",
+        "label": "Countdown background opacity",
+        "default": "90",
+        "info": "Range: 0-100 Percent"
+      },
+      {
+        "type": "color",
+        "id": "def_product_countdowntext",
+        "label": "Countdown text color",
+        "default": "#2879FE"
+      },
+      {
+        "type": "header",
+        "content": "Default product"
+      },
+      {
+        "type": "paragraph",
+        "content": "Same for mobile version with hidden options"
+      },
+      {
+        "type": "color",
+        "id": "def_product_vendor",
+        "label": "Info links color",
+        "default": "#999999",
+        "info": "Vendor, Type"
+      },
+      {
+        "type": "color",
+        "id": "def_product_name",
+        "label": "Product name color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "def_product_price",
+        "label": "Main price color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "def_product_pricenew",
+        "label": "New price color",
+        "default": "#f8353e"
+      },
+      {
+        "type": "color",
+        "id": "def_product_priceold",
+        "label": "Old price color",
+        "default": "#191919"
+      },
+      {
+        "type": "paragraph",
+        "content": "Add to cart button"
+      },
+      {
+        "type": "color",
+        "id": "def_product_btn",
+        "label": "Button background",
+        "default": "#2879FE",
+        "info": "Mobile button add to cart"
+      },
+      {
+        "type": "color",
+        "id": "def_product_btntext",
+        "label": "Button text color",
+        "default": "#ffffff",
+        "info": "Mobile button add to cart"
+      },
+      {
+        "type": "color",
+        "id": "def_product_btntext_icon",
+        "label": "Button text icon color",
+        "default": "#ffffff",
+        "info": "Mobile button add to cart"
+      },
+      {
+        "type": "color",
+        "id": "def_product_btnhover",
+        "label": "Button hover background",
+        "default": "#191919",
+        "info": "Mobile button add to cart"
+      },
+      {
+        "type": "color",
+        "id": "def_product_btntexthover",
+        "label": "Button text hover color",
+        "default": "#ffffff",
+        "info": "Mobile button add to cart"
+      },
+      {
+        "type": "color",
+        "id": "def_product_btntexthover_icon",
+        "label": "Button text icon hover color",
+        "default": "#ffffff",
+        "info": "Mobile button add to cart"
+      },
+      {
+        "type": "paragraph",
+        "content": "Quick view button"
+      },
+      {
+        "type": "color",
+        "id": "def_product_qvbg",
+        "label": "Quick view background",
+        "default": "#ffffff",
+        "info": "Color rgba. Main button"
+      },
+      {
+        "type": "text",
+        "id": "def_product_qvbg_opacity",
+        "label": "Quick view background opacity",
+        "default": "90",
+        "info": "Range: 0-100 Percent"
+      },
+      {
+        "type": "color",
+        "id": "def_product_qvtext",
+        "label": "Quick view text color",
+        "default": "#191919",
+        "info": "Main button"
+      },
+      {
+        "type": "color",
+        "id": "def_product_qvbghover",
+        "label": "Quick view hover background",
+        "default": "#2879FE",
+        "info": "Color rgba. Main button"
+      },
+      {
+        "type": "text",
+        "id": "def_product_qvbghover_opacity",
+        "label": "Quick view hover background opacity",
+        "default": "90",
+        "info": "Range: 0-100 Percent"
+      },
+      {
+        "type": "color",
+        "id": "def_product_qvtexthover",
+        "label": "Quick view text hover color",
+        "default": "#ffffff",
+        "info": "Main button"
+      },
+      {
+        "type": "color",
+        "id": "def_product_qv",
+        "label": "Quick view icon",
+        "default": "#191919",
+        "info": "Mobile button"
+      },
+      {
+        "type": "color",
+        "id": "def_product_qvhover",
+        "label": "Quick view icon hover",
+        "default": "#2879FE",
+        "info": "Mobile button"
+      },
+      {
+        "type": "header",
+        "content": "Hidden options product"
+      },
+      {
+        "type": "paragraph",
+        "content": "Default product colors = mobile colors"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_bg",
+        "label": "Background hover color",
+        "default": "#000000",
+        "info": "Opacity 80%"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_vendor",
+        "label": "Info links color",
+        "default": "#ffffff",
+        "info": "Vendor, Type"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_name",
+        "label": "Product name color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_price",
+        "label": "Main price color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_pricenew",
+        "label": "New price color",
+        "default": "#f8353e"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_priceold",
+        "label": "Old price color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_linkadd",
+        "label": "Buttons color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "hidden_product_active",
+        "label": "Buttons active color",
+        "default": "#000000"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "select",
+        "id": "header_design",
+        "label": "Select header design",
+        "options": [
+          {
+            "value": "header_type_1",
+            "label": "Default, with options"
+          },
+          {
+            "value": "header_type_2",
+            "label": "Type 2. Not work with Static Header. Without options"
+          },
+          {
+            "value": "header_type_3",
+            "label": "Type 3. Not work with Static Header. Without options"
+          },
+          {
+            "value": "header_type_4",
+            "label": "Custom Header created by Mathew"
+          }
+        ],
+        "default": "header_type_1"
+      },
+      {
+        "type": "header",
+        "content": "Static header settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_position",
+        "label": "Use Static Header in the \"Home Page\"",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "header_static_content_color",
+        "label": "Content Color",
+        "default": "#ffffff",
+        "info": "Work with static header"
+      },
+      {
+        "type": "color",
+        "id": "header_static_content_color_active",
+        "label": "Content Active Color",
+        "default": "#2879fe",
+        "info": "Work with static header"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_static_logo",
+        "label": "Show Static Logo",
+        "default": false
+      },
+      {
+        "type": "image",
+        "id": "staticlogo.png",
+        "label": "Static Logo",
+        "info": "Work only in desktop. Image must be \"png\""
+      }
+    ]
+  },
+  {
+    "name": "Product Item",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "In the demo we use the size of the image equal to 1600х2000px"
+      },
+      {
+        "type": "header",
+        "content": "Design"
+      },
+      {
+        "type": "select",
+        "id": "products_design",
+        "label": "Select product design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "hidden",
+            "label": "Hidden options"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "checkbox",
+        "id": "center_product_information",
+        "label": "Center product information",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_without_hover",
+        "label": "Show product without hover",
+        "default": false,
+        "info": "Work only for product design \"Default\""
+      },
+      {
+        "type": "header",
+        "content": "Scale Products"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_scale_product_image",
+        "label": "Use One Image Height",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "notsamewidth",
+        "label": "Use not same width",
+        "default": false,
+        "info": "All images will have same height"
+      },
+      {
+        "type": "text",
+        "id": "product_scale_height",
+        "label": "Image height. Value In pixel",
+        "info": "integer",
+        "default": "200"
+      },
+      {
+        "type": "text",
+        "id": "product_container_scale_height",
+        "label": "Product container image height. Value In pixel",
+        "info": "integer",
+        "default": "200"
+      },
+      {
+        "type": "header",
+        "content": "New Period"
+      },
+      {
+        "type": "text",
+        "id": "new_product_period",
+        "label": "New Icon Period",
+        "default": "3"
+      },
+      {
+        "type": "header",
+        "content": "Elements"
+      },
+      {
+        "type": "checkbox",
+        "id": "product_item_show_cart",
+        "label": "Show Cart Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_item_show_quickview",
+        "label": "Show Quickview Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_item_show_wishlist",
+        "label": "Show Wishlist Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_item_show_compare",
+        "label": "Show Compare Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "product_item_show_rating",
+        "label": "Show Rating",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_countdown",
+        "label": "Show Countdown",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_vendor",
+        "label": "Show Vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_type",
+        "label": "Show Type",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product Options"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_options",
+        "label": "Show Product Options",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "thumbnails_options_design",
+        "label": "Select options design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Default"
+          },
+          {
+            "value": "first_combobox",
+            "label": "First options is combobox"
+          }
+        ],
+        "default": "default"
+      }
+    ]
+  },
+  {
+    "name": "Product Quick View",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product Quick View"
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_sku",
+        "label": "Show SKU",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_availability",
+        "label": "Show Availability",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_rating",
+        "label": "Show Rating",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_vendor",
+        "label": "Show Vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_type",
+        "label": "Show Type",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_barcode",
+        "label": "Show Barcode",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Options Design"
+      },
+      {
+        "type": "select",
+        "id": "designoption1",
+        "label": "Select design for options 1",
+        "info": "After change click button save",
+        "options": [
+          {
+            "value": "getButtonHtml",
+            "label": "Buttons"
+          },
+          {
+            "value": "getSelectButtonHtml",
+            "label": "Combobox"
+          }
+        ],
+        "default": "getButtonHtml"
+      },
+      {
+        "type": "select",
+        "id": "designoption2",
+        "label": "Select design for options 2",
+        "info": "After change click button save",
+        "options": [
+          {
+            "value": "getButtonHtml",
+            "label": "Buttons"
+          },
+          {
+            "value": "getSelectButtonHtml",
+            "label": "Combobox"
+          }
+        ],
+        "default": "getButtonHtml"
+      },
+      {
+        "type": "select",
+        "id": "designoption3",
+        "label": "Select design for options 3",
+        "info": "After change click button save",
+        "options": [
+          {
+            "value": "getButtonHtml",
+            "label": "Buttons"
+          },
+          {
+            "value": "getSelectButtonHtml",
+            "label": "Combobox"
+          }
+        ],
+        "default": "getButtonHtml"
+      },
+      {
+        "type": "header",
+        "content": "Short Description"
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_desc_show",
+        "label": "Show Description",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "truncate_product_description",
+        "label": "Truncate Description. Show words",
+        "default": "30",
+        "info": "Integer. Work with original description. Also unique small description you can create in product metafields. See documentation."
+      },
+      {
+        "type": "text",
+        "id": "truncate_product_description_last_symbols",
+        "label": "Last Symbols",
+        "default": "..."
+      }
+    ]
+  },
+  {
+    "name": "Collection Page",
+    "settings": [
+      {
+        "type": "text",
+        "id": "pagination_limit",
+        "label": "Number of products per page",
+        "default": "8"
+      },
+      {
+        "type": "checkbox",
+        "id": "products_in_one_row",
+        "label": "Products in one row always",
+        "default": false,
+        "info": "Independent option"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_one_row_in_theme",
+        "label": "Show option One Row",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "products_in_column",
+        "label": "Products In Column",
+        "info": "Start screen width > 1024px",
+        "options": [
+          {
+            "value": "6",
+            "label": "2"
+          },
+          {
+            "value": "4",
+            "label": "3"
+          },
+          {
+            "value": "3",
+            "label": "4"
+          },
+          {
+            "value": "2",
+            "label": "6"
+          }
+        ],
+        "default": "4"
+      },
+      {
+        "type": "select",
+        "id": "enable_infinite_scroll",
+        "label": "Pagination",
+        "options": [
+          {
+            "value": "showmore",
+            "label": "\"Show More\" Button"
+          },
+          {
+            "value": "autoscroll",
+            "label": "Auto Scroll"
+          }
+        ],
+        "default": "showmore"
+      },
+      {
+        "type": "text",
+        "id": "no_products",
+        "label": "Infinity scroll. No Products Text",
+        "default": "No Products"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_perpage",
+        "label": "Show product per page count",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_title",
+        "label": "Show Collection Title",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_products_count",
+        "label": "Show Collection Product Count",
+        "default": true,
+        "info": "Work in title"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_description",
+        "label": "Show Collection Description",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Sidebar"
+      },
+      {
+        "type": "select",
+        "id": "sidebar",
+        "label": "Sidebar",
+        "options": [
+          {
+            "value": "leftColumn",
+            "label": "Left sidebar"
+          },
+          {
+            "value": "rightColumn",
+            "label": "Right sidebar"
+          },
+          {
+            "value": "hidden_closed_boxed",
+            "label": "Closed sidebar. Boxed page"
+          },
+          {
+            "value": "hidden_closed_wide",
+            "label": "Closed sidebar. Fullwidth page"
+          },
+          {
+            "value": "hidden_disable_boxed",
+            "label": "Disable sidebar. Boxed page"
+          },
+          {
+            "value": "hidden_disable_wide",
+            "label": "Disable sidebar. Fullwidth page"
+          },
+          {
+            "value": "hidden_closed_wide_metro",
+            "label": "Metro mode. Fullwidth page"
+          }
+        ],
+        "default": "leftColumn"
+      },
+      {
+        "type": "paragraph",
+        "content": "new Colors add in \"Product Colors and Textures\""
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_clear_section",
+        "label": "Show Tooltips in clear filters section",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 1"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup1",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup1",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup1",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup1",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup1",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup1",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 2"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup2",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup2",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup2",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup2",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup2",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup2",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 3"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup3",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup3",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup3",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup3",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup3",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup3",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 4"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup4",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup4",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup4",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup4",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup4",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup4",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 5"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup5",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup5",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup5",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup5",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup5",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup5",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 6"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup6",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup6",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup6",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup6",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup6",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup6",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 7"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup7",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup7",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup7",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup7",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup7",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup7",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 8"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup8",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup8",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup8",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup8",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup8",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup8",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 9"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup9",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup9",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup9",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup9",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup9",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup9",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Filter Group 10"
+      },
+      {
+        "type": "paragraph",
+        "content": "[Filter values correspond to the value \"Tags\" in the product.](https:\/\/docs.shopify.com\/manual\/your-store\/products\/edit-tags)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_filtergroup10",
+        "label": "Show Filter Group",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "tooltips_filtergroup10",
+        "label": "Show Tooltips",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_filtergroup10",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "design_filtergroup10",
+        "label": "Design",
+        "options": [
+          {
+            "value": "default",
+            "label": "Links"
+          },
+          {
+            "value": "inrow",
+            "label": "Links in row"
+          },
+          {
+            "value": "button",
+            "label": "Buttons"
+          },
+          {
+            "value": "color",
+            "label": "Color Group"
+          }
+        ],
+        "default": "default"
+      },
+      {
+        "type": "text",
+        "id": "title_filtergroup10",
+        "label": "Title",
+        "default": "Group"
+      },
+      {
+        "type": "textarea",
+        "id": "filtergroup10",
+        "label": "Unique Tags List",
+        "default": "dress,tops,shirts",
+        "info": "Example: dress,tops,shirts"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Collections Tab"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collectionstab",
+        "label": "Show Collections",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "open_collectionstab",
+        "label": "Open Tab By Default",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "collectionstab_title",
+        "label": "Title",
+        "default": "Collections"
+      },
+      {
+        "type": "link_list",
+        "id": "collectionstab_links",
+        "label": "Collections Link List"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar Banner"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collectionsbanner",
+        "label": "Show Banner",
+        "default": true
+      },
+      {
+        "type": "url",
+        "id": "collectionsbannerurl",
+        "label": "Banner link",
+        "info": "Optional"
+      },
+      {
+        "type": "image",
+        "id": "listing-banner.jpg",
+        "label": "Banner Image",
+        "info": "Work only in desktop. Image must be \"jpg\""
+      },
+      {
+        "type": "textarea",
+        "id": "collectionsbannertitle",
+        "label": "Banner Title",
+        "default": "MOBILE OPTIMIZED DESIGN"
+      },
+      {
+        "type": "textarea",
+        "id": "collectionsbannerdesc",
+        "label": "Banner Description",
+        "default": "Quick and easy to use is the most important thing for selling product on mobile."
+      }
+    ]
+  },
+  {
+    "name": "Product Colors and Textures",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product Colors"
+      },
+      {
+        "type": "textarea",
+        "id": "product_colors",
+        "label": "Product Color",
+        "default": "red: #ff0000,\r\nyellow: #ffff00,\r\nblack: #000000,\r\nblue: #0000FF,\r\ngreen: #00ff00,\r\npurple: #800080,\r\nsilver: #c0c0c0,\r\nwhite: #ffffff,\r\nbrown: #7B3F00,\r\nlight-brown: #feb035,\r\ndark-turquoise: #23cddc,\r\norange: #fe9001,\r\ntan: #eacea7,\r\nviolet: #EE82EE,\r\npink: #FFC0CB,\r\ngrey: #808080",
+        "info": "Items separate with comma. Write color name from product option and separate option with color HEX value. All texts in lowercase."
+      },
+      {
+        "type": "header",
+        "content": "Color With Border"
+      },
+      {
+        "type": "text",
+        "id": "shopby_color_filter_border",
+        "label": "Color With Border",
+        "default": "White",
+        "info": "When color = background color, color is hide. Write color name and this color has border."
+      },
+      {
+        "type": "header",
+        "content": "Associate Parameter with Image"
+      },
+      {
+        "type": "paragraph",
+        "content": "Paste product handle before parametr name and you will have unique image with same name parameter"
+      },
+      {
+        "type": "text",
+        "id": "filter_color1",
+        "label": "Parameter Name 1",
+        "info": "Enter parameter name and select image \"Image Color 1\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color1.png",
+        "label": "Image Color 1",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color2",
+        "label": "Parameter Name 2",
+        "info": "Enter parameter name and select image \"Image Color 2\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color2.png",
+        "label": "Image Color 2",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color3",
+        "label": "Parameter Name 3",
+        "info": "Enter parameter name and select image \"Image Color 3\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color3.png",
+        "label": "Image Color 3",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color4",
+        "label": "Parameter Name 4",
+        "info": "Enter parameter name and select image \"Image Color 4\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color4.png",
+        "label": "Image Color 4",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color5",
+        "label": "Parameter Name 5",
+        "info": "Enter parameter name and select image \"Image Color 5\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color5.png",
+        "label": "Image Color 5",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color6",
+        "label": "Parameter Name 6",
+        "info": "Enter parameter name and select image \"Image Color 6\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color6.png",
+        "label": "Image Color 6",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color7",
+        "label": "Parameter Name 7",
+        "info": "Enter parameter name and select image \"Image Color 7\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color7.png",
+        "label": "Image Color 7",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color8",
+        "label": "Parameter Name 8",
+        "info": "Enter parameter name and select image \"Image Color 8\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color8.png",
+        "label": "Image Color 8",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color9",
+        "label": "Parameter Name 9",
+        "info": "Enter parameter name and select image \"Image Color 9\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color9.png",
+        "label": "Image Color 9",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color10",
+        "label": "Parameter Name 10",
+        "info": "Enter parameter name and select image \"Image Color 10\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color10.png",
+        "label": "Image Color 10",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color11",
+        "label": "Parameter Name 11",
+        "info": "Enter parameter name and select image \"Image Color 11\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color11.png",
+        "label": "Image Color 11",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color12",
+        "label": "Parameter Name 12",
+        "info": "Enter parameter name and select image \"Image Color 12\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color12.png",
+        "label": "Image Color 12",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color13",
+        "label": "Parameter Name 13",
+        "info": "Enter parameter name and select image \"Image Color 13\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color13.png",
+        "label": "Image Color 13",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color14",
+        "label": "Parameter Name 14",
+        "info": "Enter parameter name and select image \"Image Color 14\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color14.png",
+        "label": "Image Color 14",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color15",
+        "label": "Parameter Name 15",
+        "info": "Enter parameter name and select image \"Image Color 15\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color15.png",
+        "label": "Image Color 15",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color16",
+        "label": "Parameter Name 16",
+        "info": "Enter parameter name and select image \"Image Color 16\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color16.png",
+        "label": "Image Color 16",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color17",
+        "label": "Parameter Name 17",
+        "info": "Enter parameter name and select image \"Image Color 17\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color17.png",
+        "label": "Image Color 17",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color18",
+        "label": "Parameter Name 18",
+        "info": "Enter parameter name and select image \"Image Color 118\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color18.png",
+        "label": "Image Color 18",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color19",
+        "label": "Parameter Name 19",
+        "info": "Enter parameter name and select image \"Image Color 19\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color19.png",
+        "label": "Image Color 19",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color20",
+        "label": "Parameter Name 20",
+        "info": "Enter parameter name and select image \"Image Color 20\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color20.png",
+        "label": "Image Color 20",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color21",
+        "label": "Parameter Name 21",
+        "info": "Enter parameter name and select image \"Image Color 21\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color21.png",
+        "label": "Image Color 21",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color22",
+        "label": "Parameter Name 22",
+        "info": "Enter parameter name and select image \"Image Color 22\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color22.png",
+        "label": "Image Color 22",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color23",
+        "label": "Parameter Name 23",
+        "info": "Enter parameter name and select image \"Image Color 23\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color23.png",
+        "label": "Image Color 23",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color24",
+        "label": "Parameter Name 24",
+        "info": "Enter parameter name and select image \"Image Color 24\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color24.png",
+        "label": "Image Color 24",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color25",
+        "label": "Parameter Name 25",
+        "info": "Enter parameter name and select image \"Image Color 25\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color25.png",
+        "label": "Image Color 25",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color26",
+        "label": "Parameter Name 26",
+        "info": "Enter parameter name and select image \"Image Color 26\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color26.png",
+        "label": "Image Color 26",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color27",
+        "label": "Parameter Name 27",
+        "info": "Enter parameter name and select image \"Image Color 27\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color27.png",
+        "label": "Image Color 27",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color28",
+        "label": "Parameter Name 28",
+        "info": "Enter parameter name and select image \"Image Color 28\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color28.png",
+        "label": "Image Color 28",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color29",
+        "label": "Parameter Name 29",
+        "info": "Enter parameter name and select image \"Image Color 29\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color29.png",
+        "label": "Image Color 29",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color30",
+        "label": "Parameter Name 30",
+        "info": "Enter parameter name and select image \"Image Color 30\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color30.png",
+        "label": "Image Color 30",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color31",
+        "label": "Parameter Name 31",
+        "info": "Enter parameter name and select image \"Image Color 31\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color31.png",
+        "label": "Image Color 31",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color32",
+        "label": "Parameter Name 32",
+        "info": "Enter parameter name and select image \"Image Color 32\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color32.png",
+        "label": "Image Color 32",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color33",
+        "label": "Parameter Name 33",
+        "info": "Enter parameter name and select image \"Image Color 33\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color33.png",
+        "label": "Image Color 33",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color34",
+        "label": "Parameter Name 34",
+        "info": "Enter parameter name and select image \"Image Color 34\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color34.png",
+        "label": "Image Color 34",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color35",
+        "label": "Parameter Name 35",
+        "info": "Enter parameter name and select image \"Image Color 35\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color35.png",
+        "label": "Image Color 35",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color36",
+        "label": "Parameter Name 36",
+        "info": "Enter parameter name and select image \"Image Color 36\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color36.png",
+        "label": "Image Color 36",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color37",
+        "label": "Parameter Name 37",
+        "info": "Enter parameter name and select image \"Image Color 37\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color37.png",
+        "label": "Image Color 37",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color38",
+        "label": "Parameter Name 38",
+        "info": "Enter parameter name and select image \"Image Color 38\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color38.png",
+        "label": "Image Color 38",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color39",
+        "label": "Parameter Name 39",
+        "info": "Enter parameter name and select image \"Image Color 39\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color39.png",
+        "label": "Image Color 39",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color40",
+        "label": "Parameter Name 40",
+        "info": "Enter parameter name and select image \"Image Color 40\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color40.png",
+        "label": "Image Color 40",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color41",
+        "label": "Parameter Name 41",
+        "info": "Enter parameter name and select image \"Image Color 41\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color41.png",
+        "label": "Image Color 41",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color42",
+        "label": "Parameter Name 42",
+        "info": "Enter parameter name and select image \"Image Color 42\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color42.png",
+        "label": "Image Color 42",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color43",
+        "label": "Parameter Name 43",
+        "info": "Enter parameter name and select image \"Image Color 43\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color43.png",
+        "label": "Image Color 43",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color44",
+        "label": "Parameter Name 44",
+        "info": "Enter parameter name and select image \"Image Color 44\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color44.png",
+        "label": "Image Color 44",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color45",
+        "label": "Parameter Name 45",
+        "info": "Enter parameter name and select image \"Image Color 45\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color45.png",
+        "label": "Image Color 45",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color46",
+        "label": "Parameter Name 46",
+        "info": "Enter parameter name and select image \"Image Color 46\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color46.png",
+        "label": "Image Color 46",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color47",
+        "label": "Parameter Name 47",
+        "info": "Enter parameter name and select image \"Image Color 47\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color47.png",
+        "label": "Image Color 47",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color48",
+        "label": "Parameter Name 48",
+        "info": "Enter parameter name and select image \"Image Color 48\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color48.png",
+        "label": "Image Color 48",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color49",
+        "label": "Parameter Name 49",
+        "info": "Enter parameter name and select image \"Image Color 49\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color49.png",
+        "label": "Image Color 49",
+        "info": "Image must be PNG, 60 x 60 Px"
+      },
+      {
+        "type": "text",
+        "id": "filter_color50",
+        "label": "Parameter Name 50",
+        "info": "Enter parameter name and select image \"Image Color 50\""
+      },
+      {
+        "type": "image",
+        "id": "filter_color50.png",
+        "label": "Image Color 50",
+        "info": "Image must be PNG, 60 x 60 Px"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Newsletter Widget"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_mailchimp_form",
+        "label": "Use MailChimp",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "mailchimp_form_action",
+        "label": "MailChimp form action URL",
+        "info": "[Where do I find my MailChimp form action URL?](https:\/\/help.shopify.com\/manual\/using-themes\/change-the-layout\/theme-newsletter#add-a-mailchimp-newsletter-form-to-your-store-non-sectioned-themes-specific)"
+      }
+    ]
+  },
+  {
+    "name": "Popup Newsletter",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "popup_newsletter_show",
+        "label": "Show Popup Newsletter",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Design schema"
+      },
+      {
+        "type": "color",
+        "id": "nws_modal_br_color",
+        "label": "Background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "text",
+        "id": "nws_modal_br_opacity",
+        "label": "Background opacity",
+        "default": "0.5",
+        "info": "Number. In percent. 1=100%"
+      },
+      {
+        "type": "color",
+        "id": "nws_modal_text_color",
+        "label": "Texts color",
+        "default": "#191919"
+      },
+      {
+        "type": "color",
+        "id": "nws_modal_notshowmsg_color",
+        "label": "Don't show text color",
+        "default": "#191919"
+      },
+      {
+        "type": "checkbox",
+        "id": "popup_newsletter_image_show",
+        "label": "Show image",
+        "default": true
+      },
+      {
+        "type": "image",
+        "id": "popup_newsletter_image.png",
+        "label": "Image",
+        "info": "Half size: 600x900px, Full width: 600x600px"
+      },
+      {
+        "type": "checkbox",
+        "id": "popup_newsletter_image_fullwidth",
+        "label": "Image full width",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "popup_newsletter_content_center",
+        "label": "Center content",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "paragraph",
+        "content": "After close popup next show will be after 1 minute. If set \"DON'T SHOW THIS POPUP AGAIN\" next show will be after 7 days."
+      },
+      {
+        "type": "textarea",
+        "id": "popup_newsletter_title",
+        "label": "Text 1",
+        "default": "Lucky You!"
+      },
+      {
+        "type": "textarea",
+        "id": "popup_newsletter_title_2",
+        "label": "Text 2",
+        "default": "Want an Instant"
+      },
+      {
+        "type": "textarea",
+        "id": "popup_newsletter_description",
+        "label": "Text 3",
+        "default": "10% OFF?"
+      },
+      {
+        "type": "text",
+        "id": "popup_newsletter_button",
+        "label": "Button",
+        "default": "SUBSCRIBE"
+      },
+      {
+        "type": "textarea",
+        "id": "popup_newsletter_question",
+        "label": "Question",
+        "default": "Don’t show this popup again"
+      },
+      {
+        "type": "textarea",
+        "id": "popup_newsletter_formmsg",
+        "label": "Form Message",
+        "default": "Enter please your e-mail"
+      },
+      {
+        "type": "paragraph",
+        "content": "\"MailChimp form action URL\" You can find in tab \"Newsletter\""
+      },
+      {
+        "type": "header",
+        "content": "Time Settings"
+      },
+      {
+        "type": "text",
+        "id": "popup_newsletter_delay_first",
+        "label": "Delay before current show",
+        "info": "Time in milliseconds. Integer",
+        "default": "2000"
+      },
+      {
+        "type": "text",
+        "id": "popup_newsletter_delay",
+        "label": "Delay before next show",
+        "info": "Time in minutes. Integer",
+        "default": "1"
+      }
+    ]
+  }
+]

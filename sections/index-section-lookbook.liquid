@@ -1,0 +1,367 @@
+{%- assign item = section.settings -%}
+
+{%- assign grid = item.toshow -%}
+{%- capture info_image_size -%}
+{%- case grid -%}
+{%- when '1' -%}{% if item.fullwidth %}1920x800px{% else %}1180x800px{% endif %}
+{%- when '2' -%}{% if item.fullwidth %}1200x750px{% else %}800x500px{% endif %}
+{%- when '3' -%}{% if item.fullwidth %}800x750px{% else %}400x500px{% endif %}
+{%- else -%}{% if item.fullwidth %}650x750px{% else %}300x500px{% endif %}
+{%- endcase -%}
+{%- endcapture -%}
+
+{%- assign img_size = info_image_size | split: 'x' | first | append: 'x' -%}
+
+<div class="{% if item.top_offset == 'none' %}nomargin {% elsif item.top_offset == 'small' %}tt-offset-small {% endif %}container-indent">
+  <div class="container{% if item.fullwidth %}-fluid-custom{% endif %}" data-sectionname="index_sectionlookbook"{% if item.fullwidthpaddings == false and item.fullwidth %} style="padding: 0 0 44px 0;"{% endif %}>
+    {% if item.show_title %}<div class="tt-block-title">
+      <h2 class="tt-title">{{ item.text1 }}</h2>
+      {% unless item.text2 == '' %}<div class="tt-description">{{ item.text2 }}</div>{% endunless %}
+      {% unless item.default_carousel %}{% unless item.text3 == '' %}<p>{{ item.text3 }}</p>{% endunless %}{% endunless %}
+    </div>{% endif %}
+    {%- if section.blocks.size > 0 -%}
+    <div class="tt-carousel-lookbook arrow-location-center row tt-dots-absolute slick-animated-show-js" data-slick='{"slidesToShow": {{ item.toshow }}, "slidesToScroll": {{ item.step }}, "autoplay": {{ item.module_autoplay }}, "autoplaySpeed": {{ item.delay_time }}}'>
+      {%- for block in section.blocks -%}{%- assign b_i = block.settings -%}
+      <div>
+        <div class="tt-lookbook">
+          {%- if b_i.image == blank -%}{%- include "get_svg" type:'image' size:info_image_size -%}
+          {%- else -%}<img src="{{ b_i.image | img_url: img_size }}" alt="{{ b_i.image.alt }}">
+          {%- endif -%}
+          
+          {%- for i in (1..5) -%}
+          {%- assign topi = 'positiontop_' | append: i -%}{%- assign topi = b_i[topi] -%}
+          {%- assign topl = 'positionleft_' | append: i -%}{%- assign topl = b_i[topl] -%}
+          {%- assign pri = 'product_' | append: i -%}{%- assign pri = b_i[pri] -%}
+          {%- unless pri == blank -%}
+          {%- assign pri = all_products[pri] -%}
+          {%- assign sale_on = false -%}
+          {%- if pri.selected_or_first_available_variant.compare_at_price > pri.selected_or_first_available_variant.price -%}
+          {%- assign sale_on = true -%}
+          {%- endif -%}
+          <div class="tt-hotspot" style="top: {{ topi }}%; left: {{ topl }}%;" data-top="{{ topi }}" data-left="{{ topl }}">
+            <div class="tt-btn"></div>
+            <div class="tt-content-parent">
+              <div class="tt-hotspot-content">
+                <a href="#" class="tt-btn-close"></a>
+                <div class="tt-img">
+                  <a href="{{ pri.url }}">
+                    <img src="{{ pri.featured_image.src | product_img_url: '150x' }}" alt="{{ pri.featured_image.alt }}">
+                  </a>
+                </div>
+                <div class="tt-description">
+                  <h2 class="tt-title">
+                    <a href="{{ pri.url }}">{{ pri.title }}</a>
+                  </h2>
+                  {%- if sale_on and pri.variants.size == 1 -%}
+                  <div class="tt-price"><span class="new-price">{{ pri.selected_or_first_available_variant.price | money }}</span><span class="old-price">{{ pri.selected_or_first_available_variant.compare_at_price | money }}</span></div>
+                  {%- else -%}
+                  <div class="tt-price"><span>{% if pri.price_min != pri.price_max %}{{ pri.price_min | money_without_trailing_zeros }} - {{ pri.price_max | money_without_trailing_zeros }}{% else %}{{ pri.selected_or_first_available_variant.price | money }}{% endif %}</span><span class="old-price hide"></span></div>
+                  {%- endif -%}
+                  {%- if pri.available -%}
+                  {%- if pri.variants.size == 1 and settings.product_item_show_cart -%}
+                  <form action="/cart/add" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ pri.selected_or_first_available_variant.id }}">
+                    <button class="btn{% if settings.ajax_addtocart %} addtocart-item-js{% endif %}" title='{{ 'products.general.add_to_cart' | t | capitalize }}'>{{ 'products.general.add_to_cart' | t }}</button>
+                  </form>
+                  {%- elsif settings.product_item_show_quickview -%}
+                  <a href="#" data-toggle="modal" data-target="#ModalquickView" class="btn" title="{{ 'products.general.view_all_variants' | t | capitalize }}" data-value="{{ pri.url }}" data-quantity="{% for variant in pri.variants %}{% if variant.inventory_policy == "continue" %}{{ variant.id }}-continue;{% else %}{{ variant.id }}-{{ variant.inventory_quantity }};{% endif %}{% endfor %}"{% if settings.first_variant_column_is_image and settings.use_in_the_small_products %} data-optionimages='{% include 'get_product_images_from_first_column' %}'{% endif %}>{{ 'products.general.view_all_variants' | t }}</a>
+                  {%- else -%}
+                  <a href="{{ pri.url }}" class="btn" title="Go to product">{{ 'products.general.view_all_variants' | t }}</a>
+                  {%- endif -%}
+                  {%- else -%}
+                  <a href="{{ pri.url }}" class="btn disable">{{ 'products.general.unavailable_html' | t }}</a>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+          {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- else -%}
+    <span style="display: flex; justify-content: center;">This section doesn’t currently include any content. Add content to this section using the sidebar.</span>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "class": "index-section",
+  "settings": [
+      {
+        "type": "select",
+        "id": "top_offset",
+        "label": "Top Offset",
+        "default": "normal",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Fullwidth size",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show Title Block",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "fullwidthpaddings",
+        "label": "Fullwidth paddings",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "text1",
+        "label": "Title",
+        "default": "DISPLAY YOUR LOOKBOOK"
+      },
+      {
+        "type": "textarea",
+        "id": "text2",
+        "label": "Small description",
+        "default": "AS GRID + SLIDER",
+        "info": "If you want delete text from the screen clear field"
+      },
+      {
+        "type": "textarea",
+        "id": "text3",
+        "label": "Big description",
+        "info": "If you want delete text from the screen clear field. Field not work with slider mode"
+      },
+      {
+        "type": "header",
+        "content": "Slider Settings"
+      },
+      {
+        "type": "select",
+        "id": "toshow",
+        "label": "Items in row",
+        "options": [
+		  { "value": "1", "label": "1" },
+		  { "value": "2", "label": "2" },
+          { "value": "3", "label": "3" },
+          { "value": "4", "label": "4" }
+        ],
+        "default": "3",
+        "info": "For screen size > 1024"
+      },
+      {
+        "type": "select",
+        "id": "step",
+        "label": "Slides To Scroll",
+        "default": "3",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "module_autoplay",
+        "label": "Auto-rotate slides",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "delay_time",
+        "label": "Change slides every",
+        "options": [
+          { "value": "5000", "label": "5 seconds" },
+          { "value": "6000", "label": "6 seconds" },
+          { "value": "7000", "label": "7 seconds" },
+          { "value": "8000", "label": "8 seconds" },
+          { "value": "9000", "label": "9 seconds" },
+          { "value": "10000", "label": "10 seconds" }
+        ],
+        "default": "7000"
+      }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Product 1"
+        },
+        {
+          "type": "text",
+          "id": "positiontop_1",
+          "label": "Position top",
+          "default": "9",
+		  "info": "In percent"
+        },
+        {
+          "type": "textarea",
+          "id": "positionleft_1",
+          "label": "Position left",
+          "default": "63",
+		  "info": "In percent"
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Select product"
+        },
+        {
+          "type": "header",
+          "content": "Product 2"
+        },
+        {
+          "type": "text",
+          "id": "positiontop_2",
+          "label": "Position top",
+          "default": "26",
+		  "info": "In percent"
+        },
+        {
+          "type": "textarea",
+          "id": "positionleft_2",
+          "label": "Position left",
+          "default": "50",
+		  "info": "In percent"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Select product"
+        },
+        {
+          "type": "header",
+          "content": "Product 3"
+        },
+        {
+          "type": "text",
+          "id": "positiontop_3",
+          "label": "Position top",
+          "default": "61",
+		  "info": "In percent"
+        },
+        {
+          "type": "textarea",
+          "id": "positionleft_3",
+          "label": "Position left",
+          "default": "48",
+		  "info": "In percent"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Select product"
+        },
+        {
+          "type": "header",
+          "content": "Product 4"
+        },
+        {
+          "type": "text",
+          "id": "positiontop_4",
+          "label": "Position top",
+          "default": "0",
+		  "info": "In percent"
+        },
+        {
+          "type": "textarea",
+          "id": "positionleft_4",
+          "label": "Position left",
+          "default": "0",
+		  "info": "In percent"
+        },
+        {
+          "type": "product",
+          "id": "product_4",
+          "label": "Select product"
+        },
+        {
+          "type": "header",
+          "content": "Product 5"
+        },
+        {
+          "type": "text",
+          "id": "positiontop_5",
+          "label": "Position top",
+          "default": "20",
+		  "info": "In percent"
+        },
+        {
+          "type": "textarea",
+          "id": "positionleft_5",
+          "label": "Position left",
+          "default": "0",
+		  "info": "In percent"
+        },
+        {
+          "type": "product",
+          "id": "product_5",
+          "label": "Select product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook",
+      "category": "Lookbook",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% stylesheet %}
+@media (min-width: 790px){
+  .tt-hotspot-content {
+	width: 300px;
+  }
+}
+{% endstylesheet %}

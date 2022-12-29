@@ -1,0 +1,155 @@
+{%- assign grid = section_block.grid -%}
+
+{%- case grid -%}
+{%- when '2' -%}
+{%- assign img_url = '200x' -%}
+{%- when '3' -%}
+{%- assign img_url = '300x' -%}
+{%- else -%}
+{%- assign img_url = '400x' -%}
+{%- endcase -%}
+
+{%- assign imgs = section_block.megamenu_images -%}
+{%- if imgs != "" -%}{%- assign imgs = imgs | split: ',' -%}{%- endif -%}
+
+{%- assign banners_grid = section_block.banners_grid -%}
+{%- assign banners_btn = section_block.banners_btn -%}
+{%- assign banners_btnname = section_block.banners_btnname -%}
+{%- assign banners_tit1 = section_block.banners_tit1 -%}
+{%- assign banners_tit2 = section_block.banners_tit2 -%}
+{%- assign banners_tit11 = section_block.banners_tit11 -%}
+{%- assign banners_tit21 = section_block.banners_tit21 -%}
+{%- capture banners_img1 -%}{%- if banners_grid == '12' -%}{{ section_block.bottombanners_img_1 | img_url: '1120x' }}{%- else -%}{{ section_block.bottombanners_img_1 | img_url: '560x' }}{%- endif -%}{%- endcapture -%}
+{%- assign banners_img1alt = section_block.bottombanners_img_1.alt -%}
+{%- assign banners_img2 = section_block.bottombanners_img_2 | img_url: '560x' -%}
+{%- assign banners_img2alt = section_block.bottombanners_img_2.alt -%}
+{%- assign color11 = section_block.color_11 -%}
+{%- assign color12 = section_block.color_12 -%}
+{%- assign color21 = section_block.color_21 -%}
+{%- assign color22 = section_block.color_21 -%}
+{%- assign html = section_block.html -%}
+
+{%- assign banner1_url = section_block.banner1_url -%}
+{%- assign banner2_url = section_block.banner2_url -%}
+
+<div class="dropdown-menu size-{% if section_block.megamenu_size %}lg{% else %}md{% endif %}">
+  <div class="dropdown-menu-wrapper">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row tt-col-list">
+        {%- for child_level_2 in level_2.links -%}
+        <div class="col-sm-{{ grid }}">
+          <a href="{{ child_level_2.url }}" class="tt-title-submenu">
+            {{ child_level_2.title }}
+            
+            {%- assign image = 'image' | append: forloop.index -%}
+            {%- if section_block[image] != blank -%}
+            <img class="lazyload"
+                 data-src="{{ section_block[image] | img_url: img_url }}"
+                 alt="{{ section_block[image].alt }}"/>
+            {%- endif -%}
+          </a>
+          
+          {%- capture return -%}{%- include "get_linklist_dropdown", link: child_level_2 -%}{%- endcapture -%}{%- assign return = return | split: "%%" -%}{%- assign has_drop_down = return | first | strip -%}{%- assign child_list_handle = return | last | strip -%}
+
+          {%- assign level_3 = linklists[child_list_handle] -%}
+          {%- if level_3.empty? -%}
+          {%- assign child_list_handle = child_level_2.title | handle -%}
+          {%- assign level_3 = linklists[child_list_handle] -%}
+          {%- endif -%}
+
+          {%- if level_3.links != blank -%}
+          <ul class="tt-megamenu-submenu">
+            {%- for child_level_3 in level_3.links -%}
+            <li>
+              <a href="{{ child_level_3.url }}"><span>{{ child_level_3.title }}</span></a>
+              
+              {%- capture return -%}{%- include "get_linklist_dropdown", link: child_level_3 -%}{%- endcapture -%}{%- assign return = return | split: "%%" -%}{%- assign has_drop_down = return | first | strip -%}{%- assign child_list_handle = return | last | strip -%}
+
+              {%- assign level_4 = linklists[child_list_handle] -%}
+              {%- if level_4.empty? -%}
+              {%- assign child_list_handle = child_level_3.title | handle -%}
+              {%- assign level_4 = linklists[child_list_handle] -%}
+              {%- endif -%}
+              
+              {%- if level_4.links != blank -%}
+              <ul>
+                {%- for child_level_4 in level_4.links -%}
+                <li>
+                  <a href="{{ child_level_4.url | downcase }}"><span>{{ child_level_4.title }}</span></a>
+                  
+                  {%- capture return -%}{%- include "get_linklist_dropdown", link: child_level_4 -%}{%- endcapture -%}{%- assign return = return | split: "%%" -%}{%- assign has_drop_down = return | first | strip -%}{%- assign child_list_handle = return | last | strip -%}
+
+                  {%- if has_drop_down == "true" -%}
+                  {%- assign level_5 = linklists[child_list_handle] -%}
+                  {%- unless level_5.empty? -%}
+                  <ul>
+                    {%- for child_level_5 in level_5.links -%}
+                    <li><a href="{{ child_level_5.url | downcase }}">{{ child_level_5.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                  {%- endunless -%}
+                  {%- endif -%}
+                </li>
+                {%- endfor -%}
+              </ul>
+              {%- endif -%}
+            </li>
+            {%- endfor -%}
+          </ul>
+          {%- endif -%}
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}Banners{%- endcomment -%}
+  {%- unless banners_grid == 'none' -%}
+  <div class="row">
+    {%- if banners_grid == 'customhtml' -%}
+    <div class="col-sm-12">{{ html }}</div>
+    {%- else -%}
+    <div class="col-sm-{{ banners_grid }}">
+      <a href="{{ banner1_url }}" class="tt-promo-02">
+        {%- if section_block.bottombanners_img_1 == blank -%}
+        {%- if banners_grid == '12' -%}{%- include "get_svg" type:'image' size:'1094x160px' -%}
+        {%- else -%}{%- include "get_svg" type:'image' size:'542x160px' -%}
+        {%- endif -%}
+        {%- else -%}
+        <img class="lazyload"
+             data-src="{{ banners_img1 }}"
+             alt="{{ banners_img1alt }}"/>
+        {%- endif -%}
+        <div class="tt-description tt-point-h-l">
+          <div class="tt-description-wrapper">
+            {%- if banners_tit1 -%}<div class="tt-title-small" style="color:{{ color11 }}">{{ banners_tit1 }}</div>{%- endif -%}
+            {%- if banners_tit11 -%}<div class="tt-title-large" style="color:{{ color12 }}">{{ banners_tit11 }}</div>{%- endif -%}
+          </div>
+        </div>
+      </a>
+    </div>
+    {%- unless banners_grid == '12' -%}
+    <div class="col-sm-{{ banners_grid }}">
+      <a href="{{ banner2_url }}" class="tt-promo-02">
+        {%- if section_block.bottombanners_img_2 == blank -%}
+        {%- include "get_svg" type:'image' size:'542x160px' -%}
+        {%- else -%}
+        <img class="lazyload"
+             data-src="{{ banners_img2 }}"
+             alt="{{ banners_img2alt }}"/>
+        {%- endif -%}
+        <div class="tt-description tt-point-h-l">
+          <div class="tt-description-wrapper">
+            {%- if banners_tit1 -%}<div class="tt-title-small" style="color:{{ color21 }}">{{ banners_tit2 }}</div>{%- endif -%}
+            {%- if banners_tit21 -%}<div class="tt-title-large" style="color:{{ color22 }}">{{ banners_tit21 }}</div>{%- endif -%}
+          </div>
+        </div>
+      </a>
+    </div>
+    {%- endunless -%}
+    {%- endif -%}
+  </div>
+  {%- endunless -%}
+</div>
+</div>

@@ -1,0 +1,456 @@
+{%- assign item = section.settings -%}
+
+{%- capture image_size -%}{{ item.logo_max_width }}x{%- endcapture -%}
+{%- capture image_size_retina -%}{{ item.logo_max_width | times: 2 }}x{%- endcapture -%}
+{%- capture footerlogo -%}{%- if item.logo != blank -%}{{ item.logo | img_url: image_size }}{%- else -%}title_{{ item.logo_text }}{%- endif -%}{%- endcapture -%}
+{%- capture footerlogoretina -%}{%- if item.logo != blank -%}{{ item.logo | img_url: image_size_retina }}{%- endif -%}{%- endcapture -%}
+{%- assign footerlogoalt = item.logo.alt -%}
+
+{%- assign pay_icons = '' -%}
+{%- assign subscribe_form = '' -%}
+{%- assign footer_links = '' -%}
+
+
+{%- for block in section.blocks -%}
+{%- if block.type == 'pay_icons' -%}{%- assign pay_icons = block -%}{%- endif -%}
+{%- if block.type == 'subscribe_form' -%}{%- assign subscribe_form = block -%}{%- endif -%}
+{%- if block.type == 'footer_links' -%}{%- assign footer_links = block -%}{%- endif -%}
+{%- endfor -%}
+
+<footer{% if item.top_offset == 'none' and template == 'index' %} class="nomargin"{% elsif item.top_offset == 'small' and template == 'index' %} class="tt-offset-small"{% endif %}>
+  
+  {%- include "footer_subscribe" -%}
+  {%- include "footer_links" -%}
+  {%- include "footer_copyright" -%}
+
+</footer>
+
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "select",
+        "id": "top_offset",
+        "label": "Top Offset. Only for index page",
+        "default": "normal",
+		"info": "Only for index page",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "normal",
+            "label": "Normal"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_logoblock",
+        "label": "Show logo",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo text",
+        "default": "Wokiee",
+		"info": "Work when logo image is empty."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo main",
+		"info": "95x19px"
+      },
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Logo main width (in pixels)",
+        "default": "95"
+      },
+      {
+        "type": "header",
+        "content": "Footer address field"
+	  },
+      {
+        "type": "textarea",
+        "id": "footer_address",
+        "label": "Copyright",
+		"default": "&copy; Wokiee 2018. All Rights Reserved"
+      }
+	],
+    "blocks": [
+      {
+        "type": "subscribe_form",
+        "name": "Subscribe Form",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "Show content",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "text1",
+            "label": "Title",
+            "default": "NEWSLETTER SIGNUP:"
+          },
+          {
+            "type": "text",
+            "id": "text3",
+            "label": "Button",
+            "default": "SUBSCRIBE"
+          },
+          {
+            "type": "textarea",
+            "id": "text4",
+            "label": "Form Message",
+            "default": "Enter your e-mail"
+          },
+          {
+            "type": "header",
+            "content": "Social Buttons"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_socials",
+            "label": "Show social buttons",
+            "default": true
+          },
+          {
+            "type": "url",
+            "id": "facebook_url",
+            "label": "Facebook",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "twitter_url",
+            "label": "Twitter",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "gmail_url",
+            "label": "Gmail",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "instagram_url",
+            "label": "Instagram",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "pinterest_url",
+            "label": "Pinterest",
+            "info": "If url is empty? Link will be hidden"
+          }
+        ]
+      },
+      {
+        "type": "pay_icons",
+        "name": "Payment Icons",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "Show Content",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "payments_icons_max_height",
+            "label": "Set payments icons height",
+            "default": "21",
+			"info": "In pixels"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_1",
+            "label": "Payment Icon 1",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_1",
+            "label": "Payment Link 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_2",
+            "label": "Payment Icon 2",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_2",
+            "label": "Payment Link 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_3",
+            "label": "Payment Icon 3",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_3",
+            "label": "Payment Link 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_4",
+            "label": "Payment Icon 4",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_4",
+            "label": "Payment Link 4"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_5",
+            "label": "Payment Icon 5",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_5",
+            "label": "Payment Link 5"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_6",
+            "label": "Payment Icon 6",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_6",
+            "label": "Payment Link 6"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_7",
+            "label": "Payment Icon 7",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_7",
+            "label": "Payment Link 7"
+          },
+          {
+            "type": "image_picker",
+            "id": "pay_icon_8",
+            "label": "Payment Icon 8",
+            "info": "32x21px"
+          },
+          {
+            "type": "url",
+            "id": "pay_url_8",
+            "label": "Payment Link 8"
+          }
+        ]
+      },
+      {
+        "type": "footer_links",
+        "name": "Footer Links",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_content",
+            "label": "Show Content",
+            "default": true
+          },
+          {
+            "type": "header",
+            "content": "Footer Links"
+          },
+          {
+            "type": "text",
+            "id": "linklist_t1",
+			"label": "Title 1",
+            "default": "Title 1"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist1",
+            "label": "Navigation Link List 1"
+          },
+          {
+            "type": "checkbox",
+            "id": "linklist_showhtml1",
+            "label": "Block 1 Custom Html",
+            "default": false
+          },
+          {
+            "type": "textarea",
+            "id": "linklist_html1",
+            "label": "Block 1 Custom Html"
+          },
+          {
+            "type": "text",
+            "id": "linklist_t2",
+			"label": "Title 2",
+            "default": "Title 2"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist2",
+            "label": "Navigation Link List 2"
+          },
+          {
+            "type": "checkbox",
+            "id": "linklist_showhtml2",
+            "label": "Block 2 Custom Html",
+            "default": false
+          },
+          {
+            "type": "textarea",
+            "id": "linklist_html2",
+            "label": "Block 2 Custom Html"
+          },
+          {
+            "type": "text",
+            "id": "linklist_t3",
+			"label": "Title 3",
+            "default": "Title 3"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist3",
+            "label": "Navigation Link List 3"
+          },
+          {
+            "type": "checkbox",
+            "id": "linklist_showhtml3",
+            "label": "Block 3 Custom Html",
+            "default": false
+          },
+          {
+            "type": "textarea",
+            "id": "linklist_html3",
+            "label": "Block 3 Custom Html"
+          },
+          {
+            "type": "text",
+            "id": "linklist_t4",
+			"label": "Title 4",
+            "default": "Title 4"
+          },
+          {
+            "type": "link_list",
+            "id": "linklist4",
+            "label": "Navigation Link List 4"
+          },
+          {
+            "type": "checkbox",
+            "id": "linklist_showhtml4",
+            "label": "Block 4 Custom Html",
+            "default": true
+          },
+          {
+            "type": "textarea",
+            "id": "linklist_html4",
+            "label": "Block 4 Custom Html",
+			"default": "<address>\n\t<p><span>Address:<\/span> 2548 Broaddus Maple Court Avenue, Madisonville KY 4783, United States of America<\/p>\n\t<p><span>Phone:<\/span> +777 2345 7885;  +777 2345 7886<\/p>\n\t<p><span>Hours:<\/span> 7 Days a week from 10 am to 6 pm<\/p>\n\t<p><span>E-mail:<\/span> <a href=\"mailto:info@mydomain.com\">info@mydomain.com<\/a><\/p>\n<\/address>"
+          },
+          {
+            "type": "header",
+            "content": "Subscribe form (Block 4 will be replace)"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_subsribe_form",
+            "label": "Show subscribe form",
+            "default": false
+          },
+          {
+            "type": "textarea",
+            "id": "text1",
+            "label": "Title",
+            "default": "NEWSLETTER SIGNUP"
+          },
+          {
+            "type": "textarea",
+            "id": "text2",
+            "label": "Description",
+            "default": "Sign up for our e-mail and be the first who know our special offers! Furthermore, we will give a 15% discount on the next order after you sign up."
+          },
+          {
+            "type": "text",
+            "id": "text3",
+            "label": "Button",
+            "default": "GET!"
+          },
+          {
+            "type": "textarea",
+            "id": "text4",
+            "label": "Form Message",
+            "default": "Enter your e-mail"
+          },
+          {
+            "type": "header",
+            "content": "Social Buttons"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_socials",
+            "label": "Show social buttons",
+            "default": true
+          },
+          {
+            "type": "url",
+            "id": "facebook_url",
+            "label": "Facebook",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "twitter_url",
+            "label": "Twitter",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "gmail_url",
+            "label": "Gmail",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "instagram_url",
+            "label": "Instagram",
+            "info": "If url is empty? Link will be hidden"
+          },
+          {
+            "type": "url",
+            "id": "pinterest_url",
+            "label": "Pinterest",
+            "info": "If url is empty? Link will be hidden"
+          }
+        ]
+      }
+	]
+  }
+{% endschema %}

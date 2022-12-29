@@ -1,0 +1,68 @@
+{%- assign item = settings -%}
+{%- assign item_sidebar = item.sidebar -%}
+{%- capture flip_sidebar -%}{%- if item_sidebar contains "rightColumn" -%} flex-sm-row-reverse{%- endif -%}{%- endcapture -%}
+{%- assign pagination_limit_const = settings.pagination_limit | times: 1 -%}
+
+<div class="container-indent">
+  <div class="container{% if item_sidebar contains "_wide" %}-fluid-custom container-fluid-custom-mobile-padding{% endif %}">
+    <div class="row{{ flip_sidebar }}">
+
+      {%- unless item_sidebar contains "_disable_" -%}{%- include "collection-page-sidebar" -%}{%- endunless -%}
+
+      <div class="{% if item_sidebar contains "hidden_" %}col-md-12{% else %}col-md-12 col-lg-9 col-xl-9{% endif %}">
+        {%- if collection.description != '' and settings.show_collection_description -%}
+        <div class="content-indent">
+          <div class="row tt-layout-promo-box">
+            {{ collection.description }}
+          </div>
+        </div>{%- endif -%}
+        
+        <div class="content-indent container-fluid-custom-mobile-padding-02">
+
+          {%- paginate collection.products by current_pagination_limit -%}
+
+          <div class="tt-filters-options{% if item_sidebar contains "hidden_closed" %} desctop-no-sidebar{% endif %}">
+
+            {%- include "collection-page-toolbar" -%}
+
+          </div>
+
+          <div class="tt-product-listing row{% if collection.products.size == 0 %} flex-center-message{% endif %}{% if settings.products_in_one_row %} tt-col-one only-row{% endif %}" data-onerow="{{ settings.use_one_row_in_theme }}">
+            {%- if collection.products.size > 0 -%}
+            {%- for product in collection.products -%}
+            <div class="col-6 col-md-{{ item.products_in_column }} tt-col-item">
+              {%- include "product-grid-item" -%}
+            </div>
+            {%- endfor -%}
+            {%- else -%}
+            <div class="tt-empty-search">
+              <span class="tt-icon icon-g-84"></span>
+              <h2 class="tt-title">{{ 'collections.general.empty' | t }}</h2>
+              <p>{{ 'collections.general.sort_result' | t }}</p>
+            </div>
+            {%- endif -%}
+          </div>
+
+          <div class="text-center tt_product_showmore infinitybutton{% if settings.enable_infinite_scroll == 'autoscroll' %} autoscroll_yes{% endif %}{% if paginate.next == empty? and paginate.previous == empty? %} hide{% endif %}">
+            
+            {%- if paginate.next -%}
+            <div class="show-more">
+              <a href="{{ paginate.next.url }}" class="btn btn-border{% if settings.enable_infinite_scroll == 'autoscroll' %} autoscroll hide{% endif %}">{{ 'collections.toolbar.button_show_more' | t }}</a>
+            </div>
+            {%- else -%}
+            {%- if paginate.previous -%}
+            <div class="show-more tt_item_all_js" >
+              <a href="#" class="btn btn-border01 disable">{{ 'collections.toolbar.button_show_more_disabled' | t }}</a>
+            </div>
+            {%- endif -%}
+            {%- endif -%}
+
+          </div>
+          
+          {%- endpaginate -%}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

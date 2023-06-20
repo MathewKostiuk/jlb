@@ -997,11 +997,46 @@
       "1530224149715": {
         "type": "index-section-revolution",
         "blocks": {
+          "1559150207162": {
+            "type": "slider_list",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/DSC03767.jpg",
+              "banner_link": "shopify:\/\/products\/pre-order-duke-roper-boots-horween-leather-cxl-natural-roughout",
+              "position": "center",
+              "show_video": "no",
+              "video_url": "",
+              "show_infoblock": "no",
+              "show_item_button": "no",
+              "infoposition": "value",
+              "textaligment": "value",
+              "info_point": "100",
+              "text1": "<p style=\"font-size:30px; letter-spacing:2px;line-height:50px; text: 0 0 15px #000\">DONKEY PUNCHER BOOTS <\/p>",
+              "text2": "<p style=\"font-size:25px; letter-spacing:1px;line-height:45px; text-shadow: 0 0 15px #000\">HORWEEN CXL DARK OLIVE<\/p>",
+              "text3": "",
+              "button_title": "SHOP NOW!",
+              "button2": false,
+              "banner_link2": "",
+              "button_title2": "SHOP NOW!",
+              "color_text1": "#ffffff",
+              "color_text2": "#ffffff",
+              "color_text3": "#ffffff",
+              "color_textbase": "#ffffff",
+              "color_bgbase": "#2879fe",
+              "color_textactive": "#ffffff",
+              "color_bgactive": "#2267d8",
+              "color_textbase2": "#ffffff",
+              "color_bgbase2": "#2879fe",
+              "color_textactive2": "#ffffff",
+              "color_bgactive2": "#2267d8",
+              "show_customhtml": "no",
+              "code": ""
+            }
+          },
           "1559148697593": {
             "type": "slider_list",
             "settings": {
-              "image": "shopify:\/\/shop_images\/202.jpg",
-              "banner_link": "shopify:\/\/products\/pre-order-lk-004-cognac",
+              "image": "shopify:\/\/shop_images\/DSC03842.jpg",
+              "banner_link": "shopify:\/\/collections\/monkey-boots",
               "position": "left",
               "show_video": "no",
               "video_url": "",
@@ -1024,6 +1059,41 @@
               "color_bgbase": "#2879fe",
               "color_textactive": "#ffffff",
               "color_bgactive": "#2267d8",
+              "color_textbase2": "#ffffff",
+              "color_bgbase2": "#2879fe",
+              "color_textactive2": "#ffffff",
+              "color_bgactive2": "#2267d8",
+              "show_customhtml": "no",
+              "code": ""
+            }
+          },
+          "1553636616728": {
+            "type": "slider_list",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/20201028_94.jpg",
+              "banner_link": "shopify:\/\/products\/pre-order-2024-m-43-service-shoes-horween-leather-cxl-natural",
+              "position": "left",
+              "show_video": "no",
+              "video_url": "",
+              "show_infoblock": "no",
+              "show_item_button": "no",
+              "infoposition": "value",
+              "textaligment": "value",
+              "info_point": "100",
+              "text1": "<p style=\"font-size:45px; letter-spacing:2px;line-height:50px; text-shadow: 0 0 15px #000\">M-43 SERVICE SHOES<\/p>",
+              "text2": "<p style=\"font-size:25px; letter-spacing:1px;line-height:45px; text-shadow: 0 0 15px #000\">ENGINEER BOOTS<\/p>",
+              "text3": "",
+              "button_title": "SHOP NOW!",
+              "button2": false,
+              "banner_link2": "",
+              "button_title2": "SHOP NOW!",
+              "color_text1": "#ffffff",
+              "color_text2": "#ffffff",
+              "color_text3": "#ffffff",
+              "color_textbase": "#ffffff",
+              "color_bgbase": "#ffffff",
+              "color_textactive": "#ffffff",
+              "color_bgactive": "#ffffff",
               "color_textbase2": "#ffffff",
               "color_bgbase2": "#2879fe",
               "color_textactive2": "#ffffff",
@@ -1066,83 +1136,13 @@
               "show_customhtml": "no",
               "code": "<img src=\"\/\/cdn.shopify.com\/s\/files\/1\/0130\/5041\/3114\/files\/home1_01.png?v=1530224249\" alt=\"slide1\" data-bgposition=\"center center\" data-bgfit=\"cover\" data-bgrepeat=\"no-repeat\"><div class=\"tp-caption tp-caption1 lfb stb text-center\" data-x=\"center\" data-y=\"center\" data-hoffset=\"0\" data-voffset=\"-20\" data-speed=\"600\" data-start=\"900\" data-easing=\"Power4.easeOut\" data-endeasing=\"Power4.easeIn\">\n<div class=\"tp-caption1-wd-1\">Multipurpose<\/div>\n<div class=\"tp-caption1-wd-2\">Premium<br>Shopify Theme<\/div>\n<div class=\"tp-caption1-wd-3\">30 skins, powerful features, great support, exclusive offer<\/div>\n<div class=\"tp-caption1-wd-4\"><a href=\"#\" class=\"btn btn-xl\" data-text=\"SHOP NOW!\">SHOP NOW!<\/a><\/div>\n<\/div>"
             }
-          },
-          "1559150207162": {
-            "type": "slider_list",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/118.jpg",
-              "banner_link": "shopify:\/\/collections\/champion-sneakers",
-              "position": "center",
-              "show_video": "no",
-              "video_url": "",
-              "show_infoblock": "no",
-              "show_item_button": "no",
-              "infoposition": "value",
-              "textaligment": "value",
-              "info_point": "100",
-              "text1": "<p style=\"font-size:30px; letter-spacing:2px;line-height:50px; text: 0 0 15px #000\">DONKEY PUNCHER BOOTS <\/p>",
-              "text2": "<p style=\"font-size:25px; letter-spacing:1px;line-height:45px; text-shadow: 0 0 15px #000\">HORWEEN CXL DARK OLIVE<\/p>",
-              "text3": "",
-              "button_title": "SHOP NOW!",
-              "button2": false,
-              "banner_link2": "",
-              "button_title2": "SHOP NOW!",
-              "color_text1": "#ffffff",
-              "color_text2": "#ffffff",
-              "color_text3": "#ffffff",
-              "color_textbase": "#ffffff",
-              "color_bgbase": "#2879fe",
-              "color_textactive": "#ffffff",
-              "color_bgactive": "#2267d8",
-              "color_textbase2": "#ffffff",
-              "color_bgbase2": "#2879fe",
-              "color_textactive2": "#ffffff",
-              "color_bgactive2": "#2267d8",
-              "show_customhtml": "no",
-              "code": ""
-            }
-          },
-          "1553636616728": {
-            "type": "slider_list",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/20201028_94.jpg",
-              "banner_link": "shopify:\/\/products\/pre-order-lk-017-natural",
-              "position": "left",
-              "show_video": "no",
-              "video_url": "",
-              "show_infoblock": "no",
-              "show_item_button": "no",
-              "infoposition": "value",
-              "textaligment": "value",
-              "info_point": "100",
-              "text1": "<p style=\"font-size:45px; letter-spacing:2px;line-height:50px; text-shadow: 0 0 15px #000\">M-43 SERVICE SHOES<\/p>",
-              "text2": "<p style=\"font-size:25px; letter-spacing:1px;line-height:45px; text-shadow: 0 0 15px #000\">ENGINEER BOOTS<\/p>",
-              "text3": "",
-              "button_title": "SHOP NOW!",
-              "button2": false,
-              "banner_link2": "",
-              "button_title2": "SHOP NOW!",
-              "color_text1": "#ffffff",
-              "color_text2": "#ffffff",
-              "color_text3": "#ffffff",
-              "color_textbase": "#ffffff",
-              "color_bgbase": "#ffffff",
-              "color_textactive": "#ffffff",
-              "color_bgactive": "#ffffff",
-              "color_textbase2": "#ffffff",
-              "color_bgbase2": "#2879fe",
-              "color_textactive2": "#ffffff",
-              "color_bgactive2": "#2267d8",
-              "show_customhtml": "no",
-              "code": ""
-            }
           }
         },
         "block_order": [
-          "1559148697593",
-          "1591353387609",
           "1559150207162",
-          "1553636616728"
+          "1559148697593",
+          "1553636616728",
+          "1591353387609"
         ],
         "settings": {
           "top_offset": "none",
@@ -1206,9 +1206,9 @@
           "69698506-8c2f-48bd-b86d-f1165ef02a8c": {
             "type": "item",
             "settings": {
-              "image": "shopify:\/\/shop_images\/JLB.png",
+              "image": "shopify:\/\/shop_images\/1_44923302-5380-43b0-bd61-11a515c56c6a.png",
               "use_link": true,
-              "link": "shopify:\/\/products\/lk-004-bear",
+              "link": "shopify:\/\/collections\/1-engineer-boots",
               "text_to_left": false,
               "description_size": "use_main_size",
               "animation": "simple",
@@ -1254,9 +1254,9 @@
           "1553637066715": {
             "type": "item",
             "settings": {
-              "image": "shopify:\/\/shop_images\/3_6af210e9-8bb9-47c1-99cc-bab970012e27.png",
+              "image": "shopify:\/\/shop_images\/4_f83a8218-0af3-479e-81f1-5aa6c40d14fc.png",
               "use_link": true,
-              "link": "shopify:\/\/products\/pre-order-lk-003butt-darkbrown",
+              "link": "shopify:\/\/products\/pre-order-duke-roper-boots-horween-leather-cxl-natural-roughout",
               "text_to_left": false,
               "description_size": "use_main_size",
               "animation": "use_main_animation",
@@ -1302,9 +1302,9 @@
           "1553636987490": {
             "type": "item",
             "settings": {
-              "image": "shopify:\/\/shop_images\/2_6762741b-8a45-419c-97c5-0fc85a5bd57e.png",
+              "image": "shopify:\/\/shop_images\/JLB_190ab1e0-9a50-4b1d-ae2c-2d03307633cb.png",
               "use_link": true,
-              "link": "shopify:\/\/collections\/champion-sneakers",
+              "link": "shopify:\/\/products\/pre-order-monkey-boots-shinki-hikaku-horsebutt-black",
               "text_to_left": false,
               "description_size": "big",
               "animation": "use_main_animation",
@@ -1350,9 +1350,9 @@
           "1553637043249": {
             "type": "item",
             "settings": {
-              "image": "shopify:\/\/shop_images\/6_4e9fbd91-6f96-48dc-9f64-b2e010e3f943.png",
+              "image": "shopify:\/\/shop_images\/3_a999c633-f941-41c9-8be6-4c993400228f.png",
               "use_link": true,
-              "link": "shopify:\/\/collections\/all",
+              "link": "shopify:\/\/products\/lk-003-cognac",
               "text_to_left": false,
               "description_size": "big",
               "animation": "use_main_animation",
@@ -1539,7 +1539,7 @@
           "subheading": "",
           "button_text": "",
           "button_link": "",
-          "layout": "grid",
+          "layout": "collage",
           "image_size": "small",
           "full_width": true,
           "add_spacing": true,
@@ -1563,7 +1563,7 @@
           "top_offset": "normal",
           "fullwidth": false,
           "show_title": true,
-          "text1": "JLB DONKEY PUNCHER BOOTS",
+          "text1": "DONKEY PUNCHER BOOTS",
           "text2": "",
           "text3": "",
           "use_title_as_link": true,
@@ -1582,17 +1582,18 @@
       },
       "16116594808c231972": {
         "type": "index-section-products",
+        "disabled": true,
         "settings": {
           "top_offset": "normal",
           "fullwidth": false,
-          "show_title": true,
-          "text1": "JLB 2023 SPRING & SUMMER NEW COLLECTION",
+          "show_title": false,
+          "text1": "",
           "text2": "",
           "text3": "",
           "use_title_as_link": true,
           "show_button": false,
           "button_text": "SHOW ALL",
-          "collection": "2023-spring-summer-collections",
+          "collection": "all",
           "items_always_in_center": false,
           "limit": "20",
           "items": "6",
@@ -1609,18 +1610,18 @@
           "4a220894-835c-49f9-987d-e455304cfe1c": {
             "type": "item",
             "settings": {
-              "collection": "donkey-puncher-boots-badalassi",
-              "image": "shopify:\/\/shop_images\/5_e741e238-e5eb-43f0-895e-dcd3dd1da04a.png",
-              "custom_name": "DONKEY PUNCHER BADALASSI",
+              "collection": "all",
+              "image": "shopify:\/\/shop_images\/12_4c8a082d-bb63-46a0-be39-f8d5a3571855.png",
+              "custom_name": "SHOP NOW",
               "linklist": ""
             }
           },
           "16151140611123052f-2": {
             "type": "item",
             "settings": {
-              "collection": "donkey-puncher-boots-horween",
-              "image": "shopify:\/\/shop_images\/1_fad0ece5-5c28-4249-891a-6d2c5195a7a8.png",
-              "custom_name": "DONKEY PUNCHER HORWEEN",
+              "collection": "2023aw-2024ss-new-collections",
+              "image": "shopify:\/\/shop_images\/11_c86ff725-efd8-47d8-9858-593632921d1e.png",
+              "custom_name": "NEW COLLECTION",
               "linklist": ""
             }
           },
@@ -1628,8 +1629,8 @@
             "type": "item",
             "settings": {
               "collection": "champion-sneakers",
-              "image": "shopify:\/\/shop_images\/3_8ec2b4b3-05d2-4143-9214-8dff0d836348.png",
-              "custom_name": "JLB CHAMPION SNEAKERS",
+              "image": "shopify:\/\/shop_images\/SW___Grid.png",
+              "custom_name": "CHAMPION SNEAKERS",
               "linklist": ""
             }
           },
@@ -1645,18 +1646,18 @@
           "820760df-8391-4eb7-bc66-ad00548140a9": {
             "type": "item",
             "settings": {
-              "collection": "mohawk-moccasin-boots",
-              "image": "shopify:\/\/shop_images\/4_635be37b-e5de-41e2-a847-549328a93ca9.png",
-              "custom_name": "MOHAWK MOCCASIN",
+              "collection": "medallion-brogue-chelsea-boots",
+              "image": "shopify:\/\/shop_images\/13_934c24b9-6631-4d9c-9768-3339cb62da4d.png",
+              "custom_name": "MEDALLION BROGUE CHELSEA BOOTS",
               "linklist": ""
             }
           },
           "16151140611123052f-0": {
             "type": "item",
             "settings": {
-              "collection": "ludlow-boots",
-              "image": "shopify:\/\/shop_images\/4_1ee30b0d-a6ed-441c-a0cc-984dd55b480d.png",
-              "custom_name": "LUDLOW BOOTS",
+              "collection": "shinki-hikaku-shell-cordovan",
+              "image": "shopify:\/\/shop_images\/15_e51d40fc-6454-4420-9b05-44e477e1e7e7.png",
+              "custom_name": "SHINKI HIKAKU SHELL CORDOVAN",
               "linklist": ""
             }
           }
@@ -1679,10 +1680,10 @@
     },
     "content_for_index": [
       "1530224149715",
-      "1553636932097",
       "16116594808c231972",
-      "1615114061c3db9205",
+      "1553636932097",
       "16078357527d115daa",
+      "1615114061c3db9205",
       "1586697554761",
       "1554761515289"
     ]

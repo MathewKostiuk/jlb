@@ -69,13 +69,13 @@
   {% assign collection_url = collection.url %}
 {% endif %}
 
-{% if template.name == 'product' 
-    or template.name == 'list-collections' 
-    or template.name == 'collection' 
-    or template.name == 'blog' 
-    or template.name == 'article' 
-    or template.name == 'search' 
-    or template.name == 'cart' 
+{% if template.name == 'product'
+    or template.name == 'list-collections'
+    or template.name == 'collection'
+    or template.name == 'blog'
+    or template.name == 'article'
+    or template.name == 'search'
+    or template.name == 'cart'
     or template.name == 'page'
 %}
 
@@ -410,4 +410,26 @@
     "name": "{{ shop.name }}",
     "url": "{{ shop.url }}"
   }
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Aoba-ku, Ichibancho 1-11-20 Oumi Bld 4F",
+    "addressLocality": "Sendai",
+    "addressRegion": "Miyagi",
+    "postalCode": "980-0811",
+    "addressCountry": "Japan"
+  },
+  "name": "John Lofgren Bootmaker",
+  "description": "{{ shop.description }}",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "38.25665092793309",
+    "longitude": "140.87352378522792"
+  }
+}
 </script>

@@ -377,3 +377,44 @@
 .mto-product .tt-swatches-container {
   display: none;
 }
+
+localization-form {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+localization-form button {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 0.1rem 1rem;
+  font-size: 13px;
+}
+
+localization-form button.disclosure__button--hidden {
+  opacity: 0 !important;
+}
+
+localization-form li {
+  list-style: none;
+  width: 100%;
+}
+
+localization-form .disclosure__list--hidden {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+localization-form .disclosure__list {
+  display: block;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  min-width: 250px;
+  margin: 0;
+  overflow: scroll;
+  max-height: 100vh;
+  border: 1px solid #e0e0e0;
+}

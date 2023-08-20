@@ -307,7 +307,7 @@
         return li.dataset.availability !== "false";
       });
       if (filteredByAvailability.length === 0) {
-        return; 
+        return;
       }
       if (!filteredByAvailability[0].classList.contains('active')) {
         filteredByAvailability[0].querySelector('a').click();
@@ -411,11 +411,16 @@ function reOrderSizes() {
   if (!regex.test(array[0].innerText)) {
     return;
   }
+
   var sorted = array.sort(function(a, b) {
-    return Number(a.innerText) > Number(b.innerText) ? 1 : -1;
+    var numA = parseFloat(a.innerText.replace(/[^\d\.]/g, '')); // Extract only the number part and parse it as a float
+    var numB = parseFloat(b.innerText.replace(/[^\d\.]/g, ''));
+    return numA - numB;
   });
+
   for (var i = 0; i < sorted.length; i++) {
     list.appendChild(sorted[i]);
   }
 }
+
 </script>

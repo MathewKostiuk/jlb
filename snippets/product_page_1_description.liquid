@@ -124,10 +124,12 @@
   </div>
   {%- endif -%}
   {% unless product.handle == 'mto-wabash-engineer-boots-horween-leather-cxl-brown' %}
-  {%
-    include 'product-in-stock-notification-form',
-    product: product,
-  %}
+    {% comment %}
+      {%
+        include 'product-in-stock-notification-form',
+        product: product,
+      %}
+    {% endcomment %}
   {% endunless %}
   {%- unless settings.catalogue_mode -%}
   {%- if product.available -%}

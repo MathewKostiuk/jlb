@@ -61,7 +61,7 @@
 {%- else -%}tt-obj-options obj-move-right tt-position-absolute
 {%- endcase -%}{%- endcapture -%}
 
-{%- include "main-menu-mobile" mm: item.main_menu_selected -%}
+{%- include "main-menu-mobile" mm: item.main_menu_selected_mobile -%}
 <header class="desctop-menu-large{% if item.small_header_height %} small-header{% endif %}">
   {%- include "header_infobar" -%}
   
@@ -173,6 +173,12 @@
         "type": "link_list",
         "id": "main_menu_selected",
         "label": "Menu Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "link_list",
+        "id": "main_menu_selected_mobile",
+        "label": "Mobile Menu Menu",
         "default": "main-menu"
       },
       {

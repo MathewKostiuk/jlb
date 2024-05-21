@@ -367,6 +367,14 @@
       _parent.find('.compare-js').attr('data-compareid', variant.id);
       $(window).trigger("compareevent");
     }
+
+    const currentURL = new URL(window.location.href);
+    const variantID = variant.id;
+    const newURL = new URL(window.location.href);
+    newURL.searchParams.set('variant', variantID);
+    if (currentURL.search !== newURL.search) {
+      window.history.pushState({}, '', newURL);
+    }
   }
   function setDefaultSlider(variant, num, $container, target) {
     if (num && $container.length) {

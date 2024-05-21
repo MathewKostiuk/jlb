@@ -1908,6 +1908,14 @@
       "1615114061c3db9205",
       "1586697554761",
       "1554761515289"
-    ]
+    ],
+    "blocks": {
+      "16187601983559181590": {
+        "type": "shopify:\/\/apps\/swym-back-in-stock-alerts\/blocks\/sbisa-embed-init\/7ab62acf-4bd3-4b2d-a616-684b2d8d8985",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    }
   }
 }

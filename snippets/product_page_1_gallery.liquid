@@ -61,7 +61,7 @@
 </div>
 
 {%- when 'mobile' -%}
-<div class="tt-mobile-product-slider visible-xs arrow-location-center slick-animated-show-js{% if op_group != false %} withfiltres{% endif %}" data-test>
+<div class="tt-mobile-product-slider visible-xs arrow-location-center slick-animated-show-js{% if op_group != false %} withfiltres{% endif %}">
   {%- assign vfilter = '' -%}
   {%- for image in product.images %}
   	{%- if op_group != false -%}{%- assign _v = 'filter' | append: op_group[forloop.index0] | replace: ' ', '_' -%}{%- endif -%}
@@ -83,13 +83,7 @@
     </div>
   	{%- if op_group != false -%}{%- assign vfilter = vfilter | replace: _v, ' ' | append: _v | append: ' ' -%}{%- endif -%}
   {%- endfor -%}
-</div>
-<div class="tt-mobile-product-slider__nav visible-xs">
-  {% for image in product.images %}
-    <div>
-      {{ image | image_url: width: 200 | image_tag }}
-    </div>
-  {% endfor %}
+
 </div>
 {%- else -%}
 <div class="col-6 hidden-xs">

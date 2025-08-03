@@ -1,7 +1,12 @@
+{%- comment %}<locksmith:cbec>{% endcomment -%}
+  {%- include 'locksmith' -%}
+{%- comment %}</locksmith:cbec>{% endcomment -%}
+
 <!doctype html>
 <!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html{% if settings.use_boxed %} id="tt-boxed"{% endif %} class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
 <head>
+  {{ locksmith_initializations }}
   <!-- v1.1.0 Wokiee -->
   <!-- Basic page needs ================================================== -->
   <meta charset="utf-8">
@@ -33,7 +38,10 @@
   <title>{{ seo_title }}</title>
 
   {%- if page_description -%}
-  <meta name="description" content="{{ page_description | escape }}">
+  {%- comment %}<locksmith:9bc9>{% endcomment -%}
+    {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ page_description | escape }}">{% endif -%}
+    {%- comment %}original: <meta name="description" content="{{ page_description | escape }}">{%- endcomment %}
+  {%- comment %}</locksmith:9bc9>{% endcomment -%}
   {%- endif -%}
 
   {%- if settings.use_countdown_timezone -%}<meta name="timezone" content="{{ settings.countdown_timezone }}">{%- endif -%}

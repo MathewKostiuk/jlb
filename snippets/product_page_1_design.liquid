@@ -8,9 +8,23 @@
       	{% include "product_page_1_description" %}
       </div>
     </div>
+    {% if product.metafields.custom.youtube_video != blank %}
+      <div class="row">
+        <div class="col-12">
+          <iframe class="product-page__youtube-video" src="{{ product.metafields.custom.youtube_video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    {% endif %}
+    {% if product.metafields.custom.video != blank %}
+      <div class="row">
+        <div class="col-12">
+          {{ product.metafields.custom.video.value | video_tag: autoplay: true, loop: true, muted: true, controls: true, class: "product-video" }}
+        </div>
+      </div>
+    {% endif %}
     <div class="row">
       <div class="col-12">
-      {{ product_description[1] }}     
+      {{ product_description[1] }}
       </div>
     </div>
   </div>
